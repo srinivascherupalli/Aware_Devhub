@@ -63,7 +63,7 @@ export default class OrderGrid extends LightningElement {
         { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action0, menuAlignment: 'right' } },        
         { label: 'Default Order', fieldName: 'Avg_Of_Orders__c', type:'number', hideDefaultActions:true, initialWidth :80, wrapText:true,actions: [
             { label: 'Select', checked: false, name:'Select' },
-            ] },
+            ] }, 
         { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action1, menuAlignment: 'right' } },
         { label: this.labelOrder1, fieldName: 'Order1__c' ,initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },

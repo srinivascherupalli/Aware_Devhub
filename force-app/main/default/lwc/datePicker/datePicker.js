@@ -29,7 +29,7 @@ export default class OrderGrid extends LightningElement {
     //data grid columns
     columns = [
         { label: 'Code', fieldName: 'Code__c',initialWidth :70, hideDefaultActions:true },
-        { label: 'Product Name', fieldName: 'Product_Name__c', initialWidth :180, hideDefaultActions:true, wrapText:true},
+        { label: 'Product Name', fieldName: 'Product_Name__c', initialWidth :150, hideDefaultActions:true, wrapText:true},
         { label: 'Price', fieldName: 'Price__c',initialWidth :80, type: 'currency', hideDefaultActions:true },
         { label: 'Pack Size', fieldName: 'Pack_Size__c',initialWidth :100, hideDefaultActions:true, cellAttributes: { alignment: 'center' }},
         {label: 'Default', type: 'button', fieldName: 'Avg_Of_Orders__c', cellAttributes: { alignment: 'center' },
@@ -38,29 +38,29 @@ export default class OrderGrid extends LightningElement {
         },
         {label: 'Order_1', type: 'button', fieldName: 'Order1__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],  
-            typeAttributes:{ label: { fieldName: 'Order1__c'}, name: '1', ref:'Order1__c'}
+            typeAttributes:{ label: { fieldName: 'Order1__c'}, name: '1', ref:'Order1__c'}, initialWidth :80
         },
         {label: 'Order_2', type: 'button', fieldName: 'Order2__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
-            typeAttributes:{ label: { fieldName: 'Order2__c'}, name: '2', ref:'Order2__c'}
+            typeAttributes:{ label: { fieldName: 'Order2__c'}, name: '2', ref:'Order2__c'}, initialWidth :80
         },
         {label: 'Order_3', type: 'button', fieldName: 'Order3__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
-            typeAttributes:{ label: { fieldName: 'Order3__c'}, name: '3', ref:'Order3__c'}
+            typeAttributes:{ label: { fieldName: 'Order3__c'}, name: '3', ref:'Order3__c'}, initialWidth :80
         },
         {label: 'Order_4', type: 'button', fieldName: 'Order4__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
-            typeAttributes:{ label: { fieldName: 'Order4__c'}, name: '4', ref:'Order4__c'}
+            typeAttributes:{ label: { fieldName: 'Order4__c'}, name: '4', ref:'Order4__c'}, initialWidth :80
         },
         {label: 'Order_5', type: 'button', fieldName: 'Order5__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
-            typeAttributes:{ label: { fieldName: 'Order5__c'}, name: '5', ref:'Order5__c'}
+            typeAttributes:{ label: { fieldName: 'Order5__c'}, name: '5', ref:'Order5__c'}, initialWidth :80
         },
         {label: 'Order_6', type: 'button', fieldName: 'Order6__c', cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
-            typeAttributes:{ label: { fieldName: 'Order6__c'}, name: '6', ref:'Order6__c'}
+            typeAttributes:{ label: { fieldName: 'Order6__c'}, name: '6', ref:'Order6__c'}, initialWidth :80
         },
-        { label: 'Required', fieldName: 'Order_Required__c',initialWidth :90, hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'center' }  },
+        { label: 'Required', fieldName: 'Order_Required__c',initialWidth :80, hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'center' }  },
         { label: 'Price', fieldName: 'Total_Price_Formula__c',initialWidth :80, hideDefaultActions:true, type: 'currency'},
         { label: 'Weight', fieldName: 'Total_Weight_Formula__c',initialWidth :80, hideDefaultActions:true, cellAttributes: { alignment: 'center' } },
     ];

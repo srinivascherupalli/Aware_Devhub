@@ -9,9 +9,9 @@ public with sharing class OrderGridControler {
         Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
         ID accountid = contactuser.accountid;
         system.debug('The Account id is:'+accountId);
-        return [SELECT Id, Code__c, Order1_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
+        return [SELECT Id, Code__c, Order1_Date__c, Order2_Date__c,Order3_Date__c,Order4_Date__c,Order5_Date__c,Order6_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
                         Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Avg_Of_Orders__c, Total_Price__c, 
-                        Total_Weight__c FROM Order_Grid__c where Account_Name__c =: accountId LIMIT 10];
+                        Total_Weight__c FROM Order_Grid__c where Account_Name__c =: accountId];
     }
 
     @AuraEnabled
@@ -167,13 +167,13 @@ public with sharing class OrderGridControler {
                 orderGridObj.Total_Weight__c = orderGridObj.Pack_Size__c * orderQuantity;
                 }
             }
-            if(column.equals('Default_Order__c')){
-                if(orderGridObj.Default_Order__c == null){
+            if(column.equals('Avg_Of_Orders__c')){
+                if(orderGridObj.Avg_Of_Orders__c == null){
                     orderQuantity = 0.0;
                 }else {
-                    orderQuantity = orderGridObj.Default_Order__c;
+                    orderQuantity = orderGridObj.Avg_Of_Orders__c;
                 }
-                orderGridObj.Order_Required__c = orderGridObj.Default_Order__c;
+                orderGridObj.Order_Required__c = orderGridObj.Avg_Of_Orders__c;
                 if(orderGridObj.Price__c!= null ){
                 orderGridObj.Total_Price__c = orderGridObj.Price__c * orderQuantity;
                 orderGridObj.Total_Weight__c = orderGridObj.Pack_Size__c * orderQuantity;
@@ -221,7 +221,7 @@ public with sharing class OrderGridControler {
             //Check is the Cat already exists.
             WebCart cart = new WebCart();
             CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
-            cart = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = '005O0000007L3WmIAK' and status = 'Active' Limit 1];
+            cart = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = '005O0000007L3WmIAK' and status = 'Active' and accountid=:accountid Limit 1];
             
             //If cart does not exist then create a new Cart. 
             if(cart == null){            
