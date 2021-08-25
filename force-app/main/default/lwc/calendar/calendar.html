@@ -1,0 +1,60 @@
+<template>
+    <lightning-card class="slds-card_boundary">
+        <div aria-hidden="false" class="slds-datepicker" role="dialog" data-id="grid">
+            <div class="slds-datepicker__filter  slds-grid ">
+                <div class="slds-datepicker__filter_month slds-grid slds-grid_align-spread slds-grow">
+                    <div class="slds-align-middle">
+                        <lightning-button-icon icon-name="utility:left" variant="bare" alternative-text="Previous Month"
+                            size="medium" onclick={goToPreviousMonth} class="no-focus" icon-class="no-focus">
+                        </lightning-button-icon>
+                    </div>
+                    <h2 id="month" class="slds-align-middle" aria-live="assertive" aria-atomic="true">{monthName}</h2>
+                    <div class="slds-align-middle">
+                        <lightning-button-icon icon-name="utility:right" variant="bare" alternative-text="Next Month"
+                            size="medium" onclick={goToNextMonth} class="no-focus" icon-class="no-focus">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+                <div class="slds-shrink-none">
+                    <select class="slds-select" onchange={handleYearChange} data-id="yearId">
+                        <template iterator:it={options}>
+                            <option key={it.value.value} value={it.value.value} selected={it.value.selected}>
+                                {it.value.label}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <table data-id="maintable" aria-labelledby="month" aria-multiselectable="true"
+                class="slds-datepicker__month" role="grid">
+                <thead>
+                    <tr id="weekdays">
+                        <template iterator:it={weekNameArray}>
+                            <th scope="col" class="dayOfWeek" key={it.value}>
+                                <abbr title={it.value}>{it.value}</abbr>
+                            </th>
+                        </template>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <template iterator:it={dAW}>
+                        <tr data-id={it.value.name} key={it.value.name} class={it.value.trClass}>
+                            <template iterator:it1={it.value.days}>
+                                <td class={it1.value.tdClass} aria-disabled={it1.value.ariaDisabled}
+                                    key={it1.value.key} role="gridcell"
+                                    onclick={handleCellClick}>
+                                    <span data-id={it1.value.key} data-value={it1.value.value}
+                                        data-disabled={it1.value.ariaDisabled} class="slds-day">{it1.value.label}</span>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+            <lightning-button class="slds-align_absolute-center" variant="base" label="Today" title="Today"
+                onclick={goToToday}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

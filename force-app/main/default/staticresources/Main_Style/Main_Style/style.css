@@ -1,0 +1,58 @@
+body {
+    font-size: 1rem;
+}
+
+/*Data table */
+.dataTable .slds-cell-fixed,.dataTable .slds-th__action:focus,.dataTable .slds-th__action:hover, 
+.dataTable .slds-has-button-menu .slds-th__action {
+    background-color: #16325c !important;
+    color: #fff !important;
+    font-size: 1rem;
+    cursor:pointer;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.dataTable .slds-table {
+    border: solid 1px #ccc;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 1rem;
+}
+
+.dataTable .slds-th__action{
+    justify-content: center !important;
+}
+
+.dataTable .slds-th__action .slds-dropdown__list svg{
+    display: none !important;
+}
+
+.dataTable .slds-th__action .slds-dropdown__list a {
+    font-size: 1rem !important;
+}
+
+.dataTable td button {
+    border: none !important;
+    background: transparent !important;
+}
+
+.dataTable td button svg{
+    fill: #fff !important;
+}
+
+.dataTable .slds-button:focus {
+    box-shadow: none !important;
+}
+.dataTable .slds-table {
+    margin-top:13px;
+}
+
+.dataTable td {
+    padding: 0.25rem;
+}
+
+.dataTable .slds-table_header-fixed_container {
+    overflow: hidden !important;
+}

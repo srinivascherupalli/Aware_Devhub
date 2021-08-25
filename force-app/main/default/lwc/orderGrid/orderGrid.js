@@ -1,17 +1,46 @@
 import { LightningElement, track, wire } from 'lwc';
 import Id from '@salesforce/user/Id';
+import getCustomerDeleiveryDates from "@salesforce/apex/DateController.getDeliveryDaysByUser";
 import getOrderList from '@salesforce/apex/OrderGridControler.getOrderList';
 import setRequiredOrder from '@salesforce/apex/OrderGridControler.setRequiredOrder';
 import updateOrderGrid from '@salesforce/apex/OrderGridControler.updateOrderGrid';
 import getOrde1Date from '@salesforce/apex/OrderGridControler.getOrde1Date';
 import createOrder from '@salesforce/apex/OrderGridControler.createOrder';
+import saveOrderLineItem from '@salesforce/apex/OrderGridControler.saveOrderLineItem';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 
+
+const    action0 = [
+    { label: 'Select Order', name: 'save_default' }
+    ];
+const    action1 = [
+    { label: 'Select Order', name: 'save_order1' }
+    ];
+const    action2 = [
+        { label: 'Select Order', name: 'save_order2' }
+        ];
+const    action3 = [
+        { label: 'Select Order', name: 'save_order3' }
+        ];
+const    action4 = [
+        { label: 'Select Order', name: 'save_order4' }
+        ];
+const    action5 = [
+        { label: 'Select Order', name: 'save_order5' }
+        ];
+const    action6 = [
+        { label: 'Select Order', name: 'save_order6' }
+        ];    
 export default class OrderGrid extends LightningElement {
 
     userId = Id;
+
+    //Date Picker  variables.
+    @track pickedDate;
+    @track isModalOpen;
+    @track daysOfWeek = [];
 
     @wire(getOrderList, {cuserId: '$userId'})
     orders;
@@ -22,39 +51,50 @@ export default class OrderGrid extends LightningElement {
    labelOrder4 = 'O4';
    labelOrder5 = 'O5';
    labelOrder6 = 'O6';
+
+   //this for Column Actions
+
     
     columns = [
         { label: 'Code', fieldName: 'Code__c',initialWidth :30, hideDefaultActions:true },
-        { label: 'Product Name', fieldName: 'Product_Name__c',  initialWidth :200 ,hideDefaultActions:true},
+        { label: 'Product Name', fieldName: 'Product_Name__c',  initialWidth :100 ,hideDefaultActions:true, wrapText:true},
         { label: 'Price', fieldName: 'Price__c', initialWidth :70,type: 'currency', hideDefaultActions:true },
         { label: 'Pack Size', fieldName: 'Pack_Size__c', hideDefaultActions:true, initialWidth :60 },
-        { label: 'Default Order', fieldName: 'Default_Order__c', type: 'number', initialWidth :80 , hideDefaultActions:true ,actions: [
+        { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action0, menuAlignment: 'right' } },        
+        { label: 'Default Order', fieldName: 'Avg_Of_Orders__c', type:'number', hideDefaultActions:true, initialWidth :80, wrapText:true,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
-        { label: this.labelOrder1, fieldName: 'Order1__c', initialWidth :75 , hideDefaultActions:true ,actions: [
+        { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action1, menuAlignment: 'right' } },
+        { label: this.labelOrder1, fieldName: 'Order1__c' ,initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
-            ] },
+            ] }, 
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action2, menuAlignment: 'right' } },       
         { label: this.labelOrder2, fieldName: 'Order2__c', initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action3, menuAlignment: 'right' } },
         { label: this.labelOrder3, fieldName: 'Order3__c', initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action4, menuAlignment: 'right' } },
         { label: this.labelOrder4, fieldName: 'Order4__c',initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action5, menuAlignment: 'right' } },
         { label: this.labelOrder5, fieldName: 'Order5__c', initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action6, menuAlignment: 'right' } },
         { label: this.labelOrder6, fieldName: 'Order6__c', initialWidth :75 , hideDefaultActions:true ,actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
+            { label: '  ', fieldName: '--', type: 'action', initialWidth :50 ,typeAttributes: { rowActions: action1, menuAlignment: 'right' } },
         { label: 'Pending', fieldName: 'OrderPending__c', initialWidth :75 , hideDefaultActions:true, actions: [
             { label: 'Select', checked: false, name:'Select' },
             ] },
-        { label: 'Order Required', fieldName: 'Order_Required__c', hideDefaultActions:true, initialWidth :100, editable: true  },
-        { label: 'Price', fieldName: 'Total_Price_Formula__c', hideDefaultActions:true, type: 'currency',initialWidth :70 },
-        { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true },
+        { label: 'Order Required', fieldName: 'Order_Required__c', hideDefaultActions:true, initialWidth :80, editable: true  },
+        { label: 'Price', fieldName: 'Total_Price_Formula__c', hideDefaultActions:true, type: 'currency',initialWidth :60 },
+        { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true,initialWidth :60  },
     ];
     newLabel = '';
     async connectedCallback() {
@@ -133,8 +173,45 @@ export default class OrderGrid extends LightningElement {
         .catch((error) => {
             console.log('In the Error Function section'+this.error);
         });
+
+        //Date Picker call.
+        
+        getCustomerDeleiveryDates({
+
+        }).then((result) =>{
+            let daysInAWeek = ['Sunday', 'Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            let daysOfWeek = [];
+            let daysOfWeekSplit = (result[0].data).split(',');
+
+
+            for(var i=0; i<daysOfWeekSplit.length; i++) {
+                if(daysOfWeekSplit[i]!= '') {
+                    let index = daysInAWeek.indexOf(daysOfWeekSplit[i]);
+                    console.log(index.toString());
+                    daysOfWeek.push(index.toString());
+                }
+            }
+
+            this.daysOfWeek = daysOfWeek;
+        }).catch((error) => {
+            console.log(error);
+        })
        
      }
+
+     
+    handleKeyValueChange(event) {
+        this.isModalOpen = false;
+        this.pickedDate = event.detail;
+    }
+
+    handleDateInputClick () {
+        this.isModalOpen = true;
+    }
+
+    closeModal() {
+        this.isModalOpen = false;
+    }
 
     selectedOrder = '';
     @track hide;
@@ -146,6 +223,10 @@ export default class OrderGrid extends LightningElement {
         const colDef = event.detail.columnDefinition;
         console.log('The value of colDef log is:'+colDef.fieldName);
         this.selectedOrder = colDef.fieldName;
+
+        console.log(event.detail);
+        console.log(colDef);
+        console.log(this.selectedOrder);
         setRequiredOrder({ selectedColumn: this.selectedOrder, cuserId: this.userId })
             .then((result) => {
                 console.log('In the success Function section');
@@ -187,7 +268,7 @@ export default class OrderGrid extends LightningElement {
                this.columns = [...this.columns]; 
                 this.hide = true;
             });
-       } catch(error) {
+        } catch(error) {
 
         };
     }
@@ -197,7 +278,7 @@ export default class OrderGrid extends LightningElement {
     }
 
     handleNextClick(){
-        //TODO: Create the Order Object.
+        //Populate the Cart Object.
         createOrder({cuserId: this.userId})
         .then((result) => {
             console.log('In the create order Function Success: ');
@@ -214,9 +295,115 @@ export default class OrderGrid extends LightningElement {
             console.log('In the create order Function Error: '+error);
 
         });
-        //TODO: Populate the Shopping Cart
+    }
 
+    //Get selected cell and populate Required Order Cell. 
+    getSelectedOrder(event) {
+        const action = event.detail.action;
+            const row = event.detail.row;
+        
+            switch (action.name) {
+                case 'save_default':
+                    console.log('The value of Order1 is: '+row.Id);
+                    console.log('The value of Avg_Of_Orders__c is: '+row.Avg_Of_Orders__c);
+                   //save Order item. 
+                    saveOrderLineItem({objId: row.Id, value: row.Avg_Of_Orders__c })
+                    .then((result) => {
+                        refreshApex(this.orders);
+                        console.log('In the create order Function Success: ');
+                    })
+                    .catch((error) => {
+                        console.log('In the create order Function Error: '+error);            
+                    });
+                    break;
+                case 'save_order1':
+                    console.log('The value of Order1 is: '+row.Id);
+                   //save Order item. 
+                    saveOrderLineItem({objId: row.Id, value: row.Order1__c })
+                    .then((result) => {
+                        refreshApex(this.orders);
+                        console.log('In the create order Function Success: ');
+                    })
+                    .catch((error) => {
+                        console.log('In the create order Function Error: '+error);            
+                    });
+                    break;
+                case 'save_order2':
+                    console.log('The value of Order1 is: '+row.Id);
+                   //save Order item. 
+                    saveOrderLineItem({objId: row.Id, value: row.Order2__c })
+                    .then((result) => {
+                        refreshApex(this.orders);
+                        console.log('In the create order Function Success: ');
+                    })
+                    .catch((error) => {
+                        console.log('In the create order Function Error: '+error);            
+                    });
+                    break;
+                    case 'save_order3':
+                        console.log('The value of Order1 is: '+row.Id);
+                       //save Order item. 
+                        saveOrderLineItem({objId: row.Id, value: row.Order3__c })
+                        .then((result) => {
+                            refreshApex(this.orders);
+                            console.log('In the create order Function Success: ');
+                        })
+                        .catch((error) => {
+                            console.log('In the create order Function Error: '+error);            
+                        });
+                        break;
+                        case 'save_order4':
+                            console.log('The value of Order1 is: '+row.Id);
+                           //save Order item. 
+                            saveOrderLineItem({objId: row.Id, value: row.Order4__c })
+                            .then((result) => {
+                                refreshApex(this.orders);
+                                console.log('In the create order Function Success: ');
+                            })
+                            .catch((error) => {
+                                console.log('In the create order Function Error: '+error);            
+                            });
+                            break;
+                            case 'save_order5':
+                                console.log('The value of Order1 is: '+row.Id);
+                               //save Order item. 
+                                saveOrderLineItem({objId: row.Id, value: row.Order5__c })
+                                .then((result) => {
+                                    refreshApex(this.orders);
+                                    console.log('In the create order Function Success: ');
+                                })
+                                .catch((error) => {
+                                    console.log('In the create order Function Error: '+error);            
+                                });
+                                break;
+                                case 'save_order6':
+                                    console.log('The value of Order1 is: '+row.Id);
+                                   //save Order item. 
+                                    saveOrderLineItem({objId: row.Id, value: row.Order6__c })
+                                    .then((result) => {
+                                        refreshApex(this.orders);
+                                        console.log('In the create order Function Success: ');
+                                    })
+                                    .catch((error) => {
+                                        console.log('In the create order Function Error: '+error);            
+                                    });
+                                    break;
+            }
+    }
 
-        //TODO: Populate EndDate in the Order Object. 
+    //Handle cell click
+    handleCellClick(event) {
+        console.log(event);
+        console.log(event.detail);
+        console.log(event.detail.value);
+        console.log(event.target);
+        console.log('hello');
+        const rowNode = event.toElement.closest('tr');
+        console.log(rowNode);
+        // Row index (-1 to account for header row)
+        console.log(rowNode.rowIndex - 1);
+
+        // Row Id
+        console.log(rowNode.dataset.rowKeyValue);
     }
 }

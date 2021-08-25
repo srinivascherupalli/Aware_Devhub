@@ -10,7 +10,7 @@ public with sharing class OrderGridControler {
         ID accountid = contactuser.accountid;
         system.debug('The Account id is:'+accountId);
         return [SELECT Id, Code__c, Order1_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
-                        Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Total_Price__c, 
+                        Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Avg_Of_Orders__c, Total_Price__c, 
                         Total_Weight__c FROM Order_Grid__c where Account_Name__c =: accountId LIMIT 10];
     }
 
@@ -78,7 +78,7 @@ public with sharing class OrderGridControler {
         Double orderQuantity = 0.0;
 
         List<Order_Grid__c> orderGridList =  [SELECT Id, Code__c,Price__c, Pack_Size__c, Default_Order__c,OrderPending__c, Order1__c, 
-                                                Order2__c, Order3__c, Order4__c, Order5__c, Order6__c , Product_Name__c, Order_Required__c, 
+                                                Order2__c, Order3__c, Order4__c, Order5__c, Order6__c , Avg_Of_Orders__c, Product_Name__c, Order_Required__c, 
                                                 Total_Price__c, Total_Weight__c FROM Order_Grid__c where Account_Name__c =: accountId];
 
         List<Order_Grid__c> updateOrderGridList = new List<Order_Grid__c>();
@@ -268,6 +268,19 @@ public with sharing class OrderGridControler {
             return 'Success: contacts updated successfully';
         }
         catch (Exception e) {
+            return 'The following exception has occurred: ' + e.getMessage();
+        }
+    }
+    @AuraEnabled
+    public static string saveOrderLineItem(String objId, String value){
+
+        try{
+        ID orderGridid = ID.valueOf(objId);
+        Order_Grid__c orderGridObj = [Select id , order1__c, Order_Required__c from Order_Grid__c where id =:orderGridid Limit 1];
+        orderGridObj.Order_Required__c = Integer.valueOf(value);
+        update orderGridObj;
+        return 'Success: contacts updated successfully';
+        }catch (Exception e) {
             return 'The following exception has occurred: ' + e.getMessage();
         }
     }
