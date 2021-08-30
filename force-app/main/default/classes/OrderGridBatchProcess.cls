@@ -3,8 +3,8 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
 		String query = 'SELECT Id, Name,' + 
                         '(Select Id, Accountid, OrderedDate '+
                         'FROM Orders '+
-                        'WHERE Order.status = "Completed" '+
-                        'ORDER BY OrderedDate Asc LIMIT 6)'+
+                        'WHERE Order.status = \'Completed\' '+
+                        'Order by OrderedDate Asc limit 6)'+
 						'FROM Account';
 		return Database.getQueryLocator(query);
 	}
@@ -21,12 +21,17 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
 		try{
              
             Set<Id> orderIdSet = new Set<Id>();
+            List<id> orderGridDatatoDelete = new List<id>(); 
             for (Account acc : accountWithOrdersList){
+                orderGridDatatoDelete.add(acc.id);
                 for (Order o : acc.Orders){
                     orderIdSet.add(o.Id);
                 }
             }
-            
+            List<Order_Grid__c> orderGridItemstoDelete = new List<Order_Grid__c>();
+            orderGridItemstoDelete = [Select id from Order_Grid__c where Account_Name__c in:orderGridDatatoDelete ];
+            delete orderGridItemstoDelete;
+
             List<OrderItem> orderItemList = [
                 SELECT Id, Order.Id,ListPrice, Weight_kg__c, Product_Name__c, Product_Code__c, Quantity, TotalPrice, Order.OrderedDate, Product2Id, Order.Accountid
                 FROM OrderItem
@@ -46,18 +51,27 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
             
             List<Order_Grid__c> orderGridList = new List<Order_Grid__c>();
             Order_Grid__c orderGridItem = new Order_Grid__c();
+
+            Integer counter = 0;
+            Boolean isOldEntry = false;
             
             for (OrderItem orderItemObj : orderItemList){
+                String uniqueRecord = String.valueOf(orderItemObj.Product2Id);
+                isOldEntry = false;
+                if(productOrderGridItemMap.containsKey(uniqueRecord)) {
+                    orderGridItem = orderGridList[productOrderGridItemMap.get(uniqueRecord)];
+                    isOldEntry = true;
+                } else {
+                    orderGridItem = new Order_Grid__c();
+                }
                 
-                orderGridItem = new Order_Grid__c();
-                String sortOrder = orderDateAndSortOrderMap.get(orderItemObj.Order.AccountId+'#'+orderItemObj.OrderId+'#'+orderItemObj.Order.OrderedDate);
+                String sortOrder = orderItemObj.Order.AccountId+'#'+orderItemObj.OrderId+'#'+orderItemObj.Order.OrderedDate;
                 orderGridItem.Product_Name__c = orderItemObj.Product_Name__c;
                 orderGridItem.Price__c = orderItemObj.ListPrice;
                 orderGridItem.Code__c = orderItemObj.Product_Code__c;
                 orderGridItem.Account_Name__c = orderItemObj.Order.Accountid;
                 orderGridItem.Pack_Size__c = orderItemObj.Weight_kg__c == null ? 0 : orderItemObj.Weight_kg__c;
                 orderGridItem.Product__c =orderItemObj.Product2Id;
-
                 
                 switch on orderDateAndSortOrderMap.get(sortOrder) {
                     when 0 {
@@ -90,12 +104,18 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
                         orderGridItem.Order6_Date__c = orderItemObj.Order.OrderedDate.date();
                     }
                 }
-                orderGridList.add(orderGridItem);
+                if(isOldEntry == false) {
+                    orderGridList.add(orderGridItem);
+                    productOrderGridItemMap.put(uniqueRecord, counter);
+                    counter++;
+                } else {
+                    orderGridList[productOrderGridItemMap.get(orderGridItem.Product__c)] = orderGridItem;
+                }
             }
             upsert orderGridList;
         }
         catch(Exception e) {
-            
+            System.debug(e.getMessage()+'<br/>'+e.getStackTraceString());
         }
 	}
 }

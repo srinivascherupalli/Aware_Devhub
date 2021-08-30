@@ -315,9 +315,8 @@ export default class Calendar extends LightningElement {
                         dAW[j].days[k].ariaDisabled = true;
                         tdClass = "slds-disabled-text";
                     }
-
                     if(d<today) {
-                        dAW[j].days[k].ariaDisabled = true;
+                        //dAW[j].days[k].ariaDisabled = true;
                         tdClass = "slds-disabled-text";
                     }
                     if (d.getMonth() === month - 1 || d.getFullYear() === year - 1) {
@@ -431,40 +430,34 @@ export default class Calendar extends LightningElement {
             : l10n.daysInMonth[currentMonth];
     }
     handleCellClick(event) {
-        debugger;
-        console.log('inside handle click');
-        console.log(event);
         var theTarget;
         var key;
         var dateValue;
         var disabledFlag;
+        var today = new Date();
         try {
-            console.log('inside handle click try block');
-            console.log(event);
             theTarget = event.target;
-            console.log('srini');
-            console.log(theTarget);
             key = theTarget.getAttribute("data-id");
             dateValue = theTarget.getAttribute("data-value");
+            
             disabledFlag = theTarget.getAttribute("data-disabled");
             if (disabledFlag ? disabledFlag === "true" : false) {
                 // do Nothing Just Return
                 return;
             }
-            console.log(key);
-            console.log(dateValue);
-
-            if (key && dateValue) {
+            let yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+            var formatedSelectedDate = new Date(dateValue);
+            if (key && dateValue && (formatedSelectedDate>yesterday)) {
                 this.handleSelect(dateValue);
             }
         } catch (Err) {
-            console.log('error');
+            console.log(Err);
             this.showToast('Error in JS', "Error in handleCellClick Method :" + Err, 'error', '');
         }
     }
 
     handleSelect(dateValue) {
-        console.log('inside handle click select');
         var keyValue;
         var strArry = [];
         try {

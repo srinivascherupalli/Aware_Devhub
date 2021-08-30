@@ -2,23 +2,31 @@ body {
     font-size: 1rem;
 }
 
+
+.dataTable {
+    font-size: 0.9rem !important;
+}
 /*Data table */
 .dataTable .slds-cell-fixed,.dataTable .slds-th__action:focus,.dataTable .slds-th__action:hover, 
 .dataTable .slds-has-button-menu .slds-th__action {
     background-color: #16325c !important;
     color: #fff !important;
-    font-size: 1rem;
     cursor:pointer;
     text-align: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0rem !important;
 }
 
-.dataTable .slds-table {
+.dataTable .slds-has-button-menu .slds-th__action button lightning-primitive-icon {
+    right: -11px !important;
+    position: absolute !important;
+}
+
+.dataTable .slds-table_header-fixed_container {
     border: solid 1px #ccc;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    font-size: 1rem;
+}
+
+.dataTable .slds-table_header-fixed_container .slds-table, .dataTable .slds-table_header-fixed_container .slds-scrollable_y {
+    width:100% !important;
 }
 
 .dataTable .slds-th__action{
@@ -31,6 +39,8 @@ body {
 
 .dataTable .slds-th__action .slds-dropdown__list a {
     font-size: 1rem !important;
+    color:#002855 !important;
+    width:100px;
 }
 
 .dataTable td button {
@@ -38,21 +48,70 @@ body {
     background: transparent !important;
 }
 
-.dataTable td button svg{
-    fill: #fff !important;
-}
-
 .dataTable .slds-button:focus {
     box-shadow: none !important;
 }
 .dataTable .slds-table {
-    margin-top:13px;
+    margin-top:15px;
 }
 
-.dataTable td {
-    padding: 0.25rem;
+
+c-order-grid lightning-input label, c-order-grid input {
+    font-size: 1rem !important;
+    font-weight: bold !important;
 }
 
-/*.dataTable .slds-table_header-fixed_container {
-    overflow: hidden !important;
-}*/
+
+div[community_user-userprofilemenu_userprofilemenu], div[community_user-userprofilemenu_userprofilemenu] svg {
+    color:#fff !important;
+}
+
+.dataTable .header-top {
+    background: #002855;
+    color: #fff;
+    margin-top:15px;
+    display: none;
+}
+
+.dataTable .header-top tr td {
+    padding: 1rem 0rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 860px) {
+    .dataTable .header-top {
+        display:inline-table;
+    } 
+
+    .dataTable .dt-outer-container {
+        margin-top: -22px;
+    }
+}
+
+.navBarContainer {
+    background-color: #ddd !important;
+}
+
+.navBarContainer ul li a {
+    color:#002855 !important;
+    font-size: 1rem !important;
+}
+
+ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[community_navigation-multiLevelNavigation_multiLevelNavigation] {
+    background-color: #002855 !important;
+}
+
+ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[community_navigation-multiLevelNavigation_multiLevelNavigation] a{
+    color:#fff !important;
+}
+
+svg[b2b_buyer_cart-badge_badge] {
+    fill: #fff !important;
+}
+
+.dataTable svg {
+    fill: #fff !important;
+    font-size: 1rem !important;
+}

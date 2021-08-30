@@ -11,7 +11,7 @@ public with sharing class OrderGridControler {
         system.debug('The Account id is:'+accountId);
         return [SELECT Id, Code__c, Order1_Date__c, Order2_Date__c,Order3_Date__c,Order4_Date__c,Order5_Date__c,Order6_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
                         Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Avg_Of_Orders__c, Total_Price__c, 
-                        Total_Weight__c FROM Order_Grid__c where Account_Name__c =: accountId];
+                        Total_Weight__c, OrderPending__c FROM Order_Grid__c where Account_Name__c =: accountId];
     }
 
     @AuraEnabled
@@ -209,7 +209,8 @@ public with sharing class OrderGridControler {
 
     //TODO: Create Required Order from the required quantity field in the Order Grid custom object. 
     @AuraEnabled
-    public static string createOrder(String cuserId) {
+    public static string createOrder(String cuserId, String deliveryDate) {
+        system.debug('The user id is:'+deliveryDate);
         
         Id customerUserId = ID.valueof(cuserId);
         system.debug('The user id is:'+customerUserId);
@@ -234,6 +235,7 @@ public with sharing class OrderGridControler {
                 deliveryGroup.name = 'WYDG';
                 deliveryGroup.cartid = cart.id;
                 deliveryGroup.DeliverToName = 'WY';
+                deliveryGroup.DesiredDeliveryDate = Date.valueOf(deliveryDate);
                 insert deliveryGroup;
             }else{
                 ID cartId = cart.id;
@@ -256,7 +258,7 @@ public with sharing class OrderGridControler {
                 newCartItem.CartDeliveryGroupid = deliveryGroup.id;
                 newCartItem.CartId = cart.id;
                 newCartItem.Product2Id = orderGridObj.product__c;
-                newCartItem.Quantity = orderGridObj.Order_Required__c; //get from Order Grid
+                newCartItem.Quantity = Integer.valueOf(orderGridObj.Order_Required__c); //get from Order Grid
                 newCartItem.TotalLineAmount = orderGridObj.Price__c; //get from Order Grid
                 newCartItem.TotalPrice = orderGridObj.Price__c; //get from Order Grid
 
@@ -264,8 +266,7 @@ public with sharing class OrderGridControler {
             }
 
             insert newCartItemsList;
-
-            return 'Success: contacts updated successfully';
+            return cart.Id;
         }
         catch (Exception e) {
             return 'The following exception has occurred: ' + e.getMessage();
