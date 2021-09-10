@@ -1,6 +1,11 @@
 <template>
     <div class="c-container">
-
+        <lightning-checkbox-group name="Paying by Credit Card"
+            label="Paying by Credit Card"
+            options={options}
+            value={value}
+            onchange={handleCreditCard}>
+        </lightning-checkbox-group>
 
         <!--This is Date Picker section-->
         <template if:true={isModalOpen}>
@@ -21,7 +26,7 @@
                     </header>
                     <!-- Modal/Popup Box LWC body starts here -->
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                        <c-calendar days-input={daysOfWeek} onkeyvaluechange={handleKeyValueChange}></c-calendar>
+                        <c-calendar days-input={daysOfWeek} public-holidays={publicHolidays} onkeyvaluechange={handleKeyValueChange}></c-calendar>
                     </div>
                     <!-- Modal/Popup Box LWC footer starts here -->
                     <footer class="slds-modal__footer">
@@ -33,8 +38,8 @@
             <div class="slds-backdrop slds-backdrop_open"></div>
         </template>
         <div class="slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_3-of-12">
-            <lightning-input type="text" autocomplete="off" label="Select the Order Date:"
-                onclick={handleDateInputClick} value={pickedDate}></lightning-input>
+            <lightning-input type="text" class="delivery-date" autocomplete="off" label="Delivery Date:"
+                onclick={handleDateInputClick} value={pickedDate} required=""></lightning-input>
         </div>
 
 
@@ -49,7 +54,6 @@
                     </tr>
                 </tbody>
             </table>
-            {orders.data}
             <template if:true={orders.data} >
                 <lightning-layout-item padding="around-small">
                     <lightning-datatable key-field="Id" data={orders.data} columns={columns} hide-checkbox-column
@@ -64,11 +68,13 @@
                 No data exists. Please contact the administrator
             </template>
         </div>
-        <lightning-layout>
-            <lightning-layout-item padding="around-small">
-                <lightning-button variant="brand" label="Next" title="Primary action" onclick={handleNextClick}
-                    class="slds-m-left_x-small"></lightning-button>
-            </lightning-layout-item>
-        </lightning-layout>
+        <template if:true={orders.data} >
+            <lightning-layout>
+                <lightning-layout-item padding="around-small">
+                    <lightning-button variant="brand" label="Next" title="Primary action" onclick={handleNextClick}
+                        class="slds-m-left_x-small"></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
     </div>
 </template>

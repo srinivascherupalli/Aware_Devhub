@@ -1,0 +1,36 @@
+public class PublicHolidaysController {
+    
+    @AuraEnabled
+    public static List<Map<String, String>> getAllPublicHolidays() {
+        List<Map<String, String>> responseList = new List<Map<String, String>>();
+        Map<String, String> response = new Map<String, String> ();
+        try{
+
+            Id contactId = [Select contactid from User where id =: Userinfo.getUserid()].contactId;
+
+            Contact contact = [
+                SELECT Id, AccountId, Account.BillingState 
+                FROM Contact 
+                WHERE id =:contactId
+            ];
+
+            String billingState = contact.Account.billingState;
+
+            List<Public_Holiday__c> publicHolidayList = [
+                SELECT Id, Name, Date__c
+                FROM Public_Holiday__c
+                WHERE State__c=:billingState
+            ];
+
+            response.put('status', 'success');
+            response.put('data', JSON.serialize(publicHolidayList));
+            responseList.add(response);
+        }
+        catch (Exception e) {
+            response.put('status', 'error');
+            response.put('message', e.getMessage()+'<br/>'+e.getStackTraceString());
+            responseList.add(response);
+        }
+        return responseList;
+    }
+}

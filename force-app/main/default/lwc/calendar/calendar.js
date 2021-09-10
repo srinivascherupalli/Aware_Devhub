@@ -72,6 +72,7 @@ export default class Calendar extends LightningElement {
 
     @track dAW = [];
     @api daysInput;
+    @api publicHolidays;
 
     date = {
         current: {
@@ -307,7 +308,9 @@ export default class Calendar extends LightningElement {
                 }
                 if (dAW[j].days[k]) {
                     tdClass = "";
-                    console.log(this.daysInput);
+
+                    let publicHolidays = this.publicHolidays;
+                    
                     var disableDaysOfWeek = this.daysInput;
                     var currentDayOfWeek = d.getDay();
 
@@ -328,6 +331,24 @@ export default class Calendar extends LightningElement {
                     ) {
                         dAW[j].days[k].ariaDisabled = true;
                         tdClass = "slds-disabled-text";
+                    }
+
+                    let parsedDateMonth = '' + (d.getMonth() + 1);
+                    let parsedDateDay = '' + d.getDate();
+                    let parsedDateYear = d.getFullYear();
+
+                    if (parsedDateMonth.length < 2){
+                        parsedDateMonth = '0' + parsedDateMonth;
+                    } 
+                    
+                    if (parsedDateDay.length < 2){
+                        parsedDateDay = '0' + parsedDateDay;
+                    }
+                    
+                    let parsedDate = parsedDateYear+'-'+parsedDateMonth+'-'+parsedDateDay;
+                    if (publicHolidays.indexOf(parsedDate) != -1) {
+                        tdClass = "slds-disabled-text";
+                        dAW[j].days[k].ariaDisabled = true;
                     }
                     if (this.dateEquals(d, today)) {
                         tdClass += " slds-is-today";

@@ -12,6 +12,7 @@ import saveOrderLineItem from '@salesforce/apex/OrderGridControler.saveOrderLine
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
+import getAllPublicHolidays from '@salesforce/apex/PublicHolidaysController.getAllPublicHolidays';
 
 
 export default class OrderGrid extends NavigationMixin(LightningElement) {
@@ -22,6 +23,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
     @track pickedDate;
     @track isModalOpen;
     @track daysOfWeek = [];
+    @track publicHolidays = [];
 
     @wire(getOrderList, {cuserId: '$userId'})
     orders;
@@ -62,8 +64,11 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order6__c'}, ref:'Order6__c'}
         },
-        {label: 'Pending', type: 'number', fieldName: 'OrderPending__c', cellAttributes: { alignment: 'center' }},
-        { label: 'Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'center' }  },
+        {label: 'Pending', type: 'button', fieldName: 'OrderPending__c', cellAttributes: { alignment: 'center' },
+            actions: [{ label: 'Select All', checked: false, name:'Select All' }],
+            typeAttributes:{ label: { fieldName: 'OrderPending__c'}, ref:'OrderPending__c'}
+        },
+        { label: 'Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'right' }  },
         { label: 'Price', fieldName: 'Total_Price_Formula__c',hideDefaultActions:true, type: 'currency'},
         { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true, cellAttributes: { alignment: 'center' } },
     ];
@@ -140,6 +145,31 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
             }).catch((error) => {
                 console.log(error);
             })
+
+            //Get all public holidays 
+            getAllPublicHolidays({
+                
+            })
+            .then(response => {
+                console.log(response);
+                if(response[0].status == 'success') {
+
+                    let data = JSON.parse(response[0].data);
+                    let publicHolidays = [];
+                    if(data.length>0) {
+                        for(var i=0; i<data.length; i++) {
+                            if(data[i].Date__c) {
+                                publicHolidays.push(data[i].Date__c);
+                            }
+                        }
+                    }
+                    
+                    this.publicHolidays = publicHolidays;
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+
         } catch(error) {
             console.log(error);
         }
@@ -220,23 +250,17 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
     }
 
     handleNextClick(){
-        //Populate the Cart Object.
-        createOrder({cuserId: this.userId, deliveryDate: this.pickedDate})
-        .then((result) => {
-            console.log(result);
-            console.log('In the create order Function Success: ');
-            /*this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Order Transfered to Cart.',
-                    variant: 'success'
-                })
-            );*/
-            this.navigateToCartPage(result);
-        })
-        .catch((error) => {
-            console.log('In the create order Function Error: '+error);
-        });
+        let deliveryDate = this.template.querySelector('.delivery-date');
+        if(deliveryDate.reportValidity() && deliveryDate.checkValidity()) {
+            createOrder({cuserId: this.userId, deliveryDate: this.pickedDate})
+            .then((result) => {
+                console.log(result);
+                this.navigateToCartPage(result);
+            })
+            .catch((error) => {
+                console.log('In the create order Function Error: '+error);
+            });
+        }
     }
 
     //Get selected cell and populate Required Order Cell. 

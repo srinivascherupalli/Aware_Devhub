@@ -46,6 +46,12 @@ body {
 .dataTable td button {
     border: none !important;
     background: transparent !important;
+    color:#2574A9;
+}
+
+.dataTable td button:hover {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .dataTable .slds-button:focus {
@@ -104,7 +110,17 @@ ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[comm
 }
 
 ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[community_navigation-multiLevelNavigation_multiLevelNavigation] a{
+    /*color:#fff !important;*/
+}
+
+
+nav ul li button[aria-expanded="true"],
+nav ul li a:hover, nav ul li button:hover {
     color:#fff !important;
+}
+
+nav ul li ul li a, nav ul li ul li a:hover {
+    color:#002855 !important;
 }
 
 svg[b2b_buyer_cart-badge_badge] {
@@ -114,4 +130,10 @@ svg[b2b_buyer_cart-badge_badge] {
 .dataTable svg {
     fill: #fff !important;
     font-size: 1rem !important;
+}
+
+
+.dataTable button.slds-cell-edit__button {
+    position: relative;
+    left: -20px;
 }

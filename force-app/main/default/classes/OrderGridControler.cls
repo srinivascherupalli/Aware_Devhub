@@ -11,7 +11,7 @@ public with sharing class OrderGridControler {
         system.debug('The Account id is:'+accountId);
         return [SELECT Id, Code__c, Order1_Date__c, Order2_Date__c,Order3_Date__c,Order4_Date__c,Order5_Date__c,Order6_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
                         Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Avg_Of_Orders__c, Total_Price__c, 
-                        Total_Weight__c, OrderPending__c FROM Order_Grid__c where Account_Name__c =: accountId];
+                        Total_Weight__c, OrderPending__c FROM Order_Grid__c where Account_Name__c =: accountId AND Code__c!=''];
     }
 
     @AuraEnabled
@@ -210,7 +210,7 @@ public with sharing class OrderGridControler {
     //TODO: Create Required Order from the required quantity field in the Order Grid custom object. 
     @AuraEnabled
     public static string createOrder(String cuserId, String deliveryDate) {
-        system.debug('The user id is:'+deliveryDate);
+        system.debug('createOrder delivery Date:'+deliveryDate);
         
         Id customerUserId = ID.valueof(cuserId);
         system.debug('The user id is:'+customerUserId);
@@ -220,26 +220,33 @@ public with sharing class OrderGridControler {
         ID accountid = contactuser.accountid;
         try {
             //Check is the Cat already exists.
-            WebCart cart = new WebCart();
+           // WebCart cart = new WebCart();
             CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
-            cart = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = '005O0000007L3WmIAK' and status = 'Active' and accountid=:accountid Limit 1];
+            WebCart cart = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = :customerUserId and status = 'Active' and accountid=:accountid Limit 1];
             
             //If cart does not exist then create a new Cart. 
             if(cart == null){            
-                cart.name = 'CartX';
-                cart.AccountId = ID.valueof('001O000001n7RtlIAE');//get from userid->Contact->Account
-                cart.OwnerId = id.valueOf('005O0000007L3WmIAK');//get from community userid lwc
+                cart.name = 'CartX';                
+                cart.AccountId = accountid;//get from userid->Contact->Account
+                cart.OwnerId = customerUserId;//get from community userid lwc
                 cart.WebStoreId = id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
                 insert cart;
                 //insert the Cart Delivery Group. 
                 deliveryGroup.name = 'WYDG';
                 deliveryGroup.cartid = cart.id;
                 deliveryGroup.DeliverToName = 'WY';
+                system.debug('Setting the delivery Date: '+Date.valueOf(deliveryDate));
                 deliveryGroup.DesiredDeliveryDate = Date.valueOf(deliveryDate);
                 insert deliveryGroup;
             }else{
                 ID cartId = cart.id;
-                deliveryGroup = [select id   from CartDeliveryGroup where cartid =: cartId  Limit 1];
+                cart.IsRepricingNeeded = true;
+                update cart;
+                deliveryGroup = [select id,DesiredDeliveryDate   from CartDeliveryGroup where cartid =: cartId  Limit 1];
+                system.debug('Setting the delivery Date in else loop: '+Date.valueOf(deliveryDate));
+                deliveryGroup.DesiredDeliveryDate = Date.valueOf(deliveryDate);
+                update deliveryGroup;
+                
             }
 
             //Get data from Order Grid to Populate the cart.
@@ -248,27 +255,38 @@ public with sharing class OrderGridControler {
             //
 
             List<CartItem> newCartItemsList = new List<CartItem>();
-            List<Order_Grid__c> orderData = [Select id, Order_Required__c, Price__c ,product__c
+            List<Order_Grid__c> orderData = [Select id, Order_Required__c, Price__c ,product__c, product__r.StockKeepingUnit
                                             from Order_Grid__c 
                                             where Account_Name__c =:accountid];
             for(Order_Grid__c orderGridObj : orderData){
+
                 CartItem newCartItem = new CartItem();
                 newCartItem.name = 'CartItemx';
                 newCartItem.type = 'Product';
+                newCartItem.sku = orderGridObj.product__r.StockKeepingUnit;
                 newCartItem.CartDeliveryGroupid = deliveryGroup.id;
                 newCartItem.CartId = cart.id;
-                newCartItem.Product2Id = orderGridObj.product__c;
-                newCartItem.Quantity = Integer.valueOf(orderGridObj.Order_Required__c); //get from Order Grid
+                newCartItem.Product2Id = orderGridObj.product__c;            
+                newCartItem.Quantity = orderGridObj.Order_Required__c;
                 newCartItem.TotalLineAmount = orderGridObj.Price__c; //get from Order Grid
-                newCartItem.TotalPrice = orderGridObj.Price__c; //get from Order Grid
-
-                newCartItemsList.add(newCartItem);
+                newCartItem.TotalPrice = orderGridObj.Price__c * orderGridObj.Order_Required__c; //get from Order Grid
+                newCartItem.ListPrice = orderGridObj.Price__c;
+                newCartItem.UnitAdjustedPrice = orderGridObj.Price__c;
+             //   if(newCartItem.quantity > 0 && newCartItem.TotalPrice > 0){
+                if(newCartItem.quantity > 0 ){
+                    newCartItemsList.add(newCartItem);
+                }
             }
 
             insert newCartItemsList;
             return cart.Id;
         }
         catch (Exception e) {
+            
+            System.debug('.getStackTraceString():  '+e.getStackTraceString());
+            System.debug('.getMessage():  '+e.getMessage());
+            System.debug('.getCause():  '+e.getCause());
+            System.debug('.getLineNumber():  '+ e.getLineNumber());
             return 'The following exception has occurred: ' + e.getMessage();
         }
     }
