@@ -4,6 +4,7 @@ import * as Constants from './constants';
 
 import getPaymentInfo from '@salesforce/apex/B2BPaymentController.getPaymentInfo';
 import setPayment from '@salesforce/apex/B2BPaymentController.setPayment';
+import addDiscountItem from '@salesforce/apex/DiscountController.addDiscountItem';
 
 const columns = [
     { label: 'Card Number', fieldName: 'DisplayCardNumber' },
@@ -326,6 +327,18 @@ export default class PaymentMethod extends LightningElement {
      */
     handlePaymentTypeSelected(event) {
         this._selectedPaymentType = event.currentTarget.value;
+
+        if (
+            event.currentTarget.value === Constants.PaymentTypeEnum.CARDPAYMENT
+        ) {
+            console.log("## calling addDiscountItem.." + event.currentTarget.value);
+            addDiscountItem({
+                cartId: this.cartId
+            }).then(() => {
+            }).catch((error) => {
+                this._purchaseOrderErrorMessage = error.body.message;
+            });
+        }
     }
 
     /**
