@@ -1,0 +1,51 @@
+<!-- 
+  *** Component Details ***
+ Name: GROW_OpHours 
+ Type: Lightning Component
+ Purpose: Component to display Sites Operating Hours
+ Created: 24/Aug/2021
+-->
+
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="GROW_SiteOpHoursCtrl">
+    
+    <aura:attribute name="SitesWrapperList" type="object[]" default="[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.initData}"/>
+    
+    <div class="slds-grid slds-wrap" style="padding-left:17%; padding-right:8%;">
+        
+        <aura:iteration items="{!v.SitesWrapperList}" var="item" indexVar="index">
+            
+            <div class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-p-top_xx-large slds-p-right_medium" style="padding-left:10%;">
+                <b><h2>{!item.Name}</h2></b> <br/>
+                {!item.Address} <br/><br/>
+                
+                PHONE <br/>{!item.Phone} <br/><br/>
+                
+                SITE MANAGER <br/> {!item.SiteManagerName} <br/><br/>
+                SITE MANAGER MOBILE <br/> {!item.SiteManagerMobile} <br/> <br/>
+                
+                <aura:if isTrue="{!item.SiteRelatedAlert != null}">
+                    <lightning:icon iconName="utility:alert" size="x-small" variant="error"/>
+                    <span class="slds-p-left_small" style="color:red"><b>{!item.SiteRelatedAlert}</b>
+                    </span>
+                    
+                </aura:if> 
+                
+                <br/><br/>OPERATING HOURS<br/>
+                Monday: {!item.MonHours} <br/>
+                Tuesday: {!item.TueHours} <br/>
+                Wednesday: {!item.WedHours} <br/>
+                Thursday: {!item.ThuHours} <br/>
+                Friday: {!item.FriHours} <br/>
+                Saturday: {!item.SatHours} <br/>
+                Sunday: {!item.SunHours}
+                
+                
+                
+            </div>
+            
+            
+        </aura:iteration>    
+    </div>
+    
+</aura:component>

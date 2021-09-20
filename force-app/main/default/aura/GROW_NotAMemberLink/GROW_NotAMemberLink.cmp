@@ -1,0 +1,8 @@
+<aura:component>
+    <aura:attribute name="notAMemberLink" type="String" required="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+
+    <div id="sfdc_forgot" class="sfdc">
+        <span><a href="{!v.notAMemberLink}">Not A Member</a></span>
+    </div>
+</aura:component>

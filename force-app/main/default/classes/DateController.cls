@@ -1,12 +1,12 @@
 public with sharing class DateController {
     @AuraEnabled(cacheable=true)
-    public static List<Map<String, String>> getDeliveryDaysByUser() {
+    public static List<Map<String, String>> getDeliveryDaysByUser(String accountId) {
         List<Map<String, String>> responseList = new List<Map<String, String>>();
         Map<String, String> response = new Map<String, String>();
         try {
 
-            Id contactId = [Select contactid from User where id =: Userinfo.getUserid()].contactId;
-            Id accountId  = [Select AccountID from Contact where id =: contactId].AccountId;
+            /*Id contactId = [Select contactid from User where id =: Userinfo.getUserid()].contactId;
+            Id accountId  = [Select AccountID from Contact where id =: contactId].AccountId;*/
             List<B2B_Customer_Delivery_Date__c> customerDeliveryDatesList = [
                 SELECT Id, Day__c
                 FROM B2B_Customer_Delivery_Date__c

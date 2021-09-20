@@ -1,0 +1,10 @@
+<template>  
+    <template if:true={initialLoad}>
+        <lightning-button variant="brand" label="Not a member"  onclick={handleNewUserRequest}
+                        class="slds-m-left_x-small"></lightning-button>
+    </template>
+    <template if:false={initialLoad}>
+        <p> New Case Creation Form</p>
+    </template>
+    
+</template>

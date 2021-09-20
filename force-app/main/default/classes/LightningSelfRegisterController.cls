@@ -4,6 +4,7 @@ global class LightningSelfRegisterController {
 
     }
 
+
     @TestVisible 
     private static boolean isValidPassword(String password, String confirmPassword) {
         return password == confirmPassword;

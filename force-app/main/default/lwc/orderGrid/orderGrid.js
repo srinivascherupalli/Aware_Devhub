@@ -1,4 +1,4 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, wire, api } from 'lwc';
 import Id from '@salesforce/user/Id';
 import { NavigationMixin } from "lightning/navigation";
 import { CurrentPageReference } from "lightning/navigation";
@@ -6,7 +6,6 @@ import getCustomerDeleiveryDates from "@salesforce/apex/DateController.getDelive
 import getOrderList from '@salesforce/apex/OrderGridControler.getOrderList';
 import setRequiredOrder from '@salesforce/apex/OrderGridControler.setRequiredOrder';
 import updateOrderGrid from '@salesforce/apex/OrderGridControler.updateOrderGrid';
-import getOrde1Date from '@salesforce/apex/OrderGridControler.getOrde1Date';
 import createOrder from '@salesforce/apex/OrderGridControler.createOrder';
 import saveOrderLineItem from '@salesforce/apex/OrderGridControler.saveOrderLineItem';
 import { refreshApex } from '@salesforce/apex';
@@ -19,13 +18,15 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
     userId = Id;
 
+    @api effectiveAccountId;
+
     //Date Picker  variables.
     @track pickedDate;
     @track isModalOpen;
     @track daysOfWeek = [];
     @track publicHolidays = [];
 
-    @wire(getOrderList, {cuserId: '$userId'})
+    @wire(getOrderList, {accountId: '$effectiveAccountId'})
     orders;
 
    //this for Column Actions
@@ -34,42 +35,39 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
    columns = [
         { label: 'Code', fieldName: 'Code__c', hideDefaultActions:true },
         { label: 'Product Name', fieldName: 'Product_Name__c', initialWidth :130, hideDefaultActions:true, wrapText:true},
-        { label: 'Price', fieldName: 'Price__c', type: 'currency', hideDefaultActions:true },
+        { label: 'Price', fieldName: 'Price__c', type: 'currency', hideDefaultActions:true, initialWidth :70 },
         { label: 'Pack Size', fieldName: 'Pack_Size__c', hideDefaultActions:true, cellAttributes: { alignment: 'center' }},
-        {label: 'Default', type: 'button', fieldName: 'Avg_Of_Orders__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],  
+        {label: 'Default Order', type: 'button', fieldName: 'Avg_Of_Orders__c', sortable: true,
+            cellAttributes: { alignment: 'center' }, 
             typeAttributes:{ label: { fieldName: 'Avg_Of_Orders__c'}, ref:'Avg_Of_Orders__c'}
         },
-        {label: 'Order_1', type: 'button', fieldName: 'Order1__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],  
-            typeAttributes:{ label: { fieldName: 'Order1__c'}, ref:'Order1__c'}
+        {label: 'Order_1', type: 'button', fieldName: 'Order1__c', sortable: true, cellAttributes: { alignment: 'center' },
+            actions: [{ label: 'Select All', checked: true, name:'Select All' }],  
+            typeAttributes:{ label: { fieldName: 'Order1__c'}, ref:' Order1__c'}
         },
-        {label: 'Order_2', type: 'button', fieldName: 'Order2__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],
+        {label: 'Order_2', type: 'button', fieldName: 'Order2__c', sortable: true,cellAttributes: { alignment: 'center' },
+            actions: [{ label: 'Select All', checked: true, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order2__c'}, ref:'Order2__c'}
         },
-        {label: 'Order_3', type: 'button', fieldName: 'Order3__c', cellAttributes: { alignment: 'center' },
+        {label: 'Order_3', type: 'button', fieldName: 'Order3__c', sortable: true, cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order3__c'}, ref:'Order3__c'}
         },
-        {label: 'Order_4', type: 'button', fieldName: 'Order4__c', cellAttributes: { alignment: 'center' },
+        {label: 'Order_4', type: 'button', fieldName: 'Order4__c', sortable: true, cellAttributes: { alignment: 'center' },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order4__c'}, ref:'Order4__c'}
         },
-        {label: 'Order_5', type: 'button', fieldName: 'Order5__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],
+        {label: 'Order_5', type: 'button', fieldName: 'Order5__c', sortable: true, cellAttributes: { alignment: 'center' },
             typeAttributes:{ label: { fieldName: 'Order5__c'}, ref:'Order5__c'}
         },
-        {label: 'Order_6', type: 'button', fieldName: 'Order6__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],
+        {label: 'Order_6', type: 'button', fieldName: 'Order6__c', sortable: true, cellAttributes: { alignment: 'center' },
             typeAttributes:{ label: { fieldName: 'Order6__c'}, ref:'Order6__c'}
         },
-        {label: 'Pending', type: 'button', fieldName: 'OrderPending__c', cellAttributes: { alignment: 'center' },
-            actions: [{ label: 'Select All', checked: false, name:'Select All' }],
+        {label: 'Pending', type: 'button', fieldName: 'OrderPending__c', sortable: true, cellAttributes: { alignment: 'center' },
             typeAttributes:{ label: { fieldName: 'OrderPending__c'}, ref:'OrderPending__c'}
         },
-        { label: 'Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'right' }  },
-        { label: 'Price', fieldName: 'Total_Price_Formula__c',hideDefaultActions:true, type: 'currency'},
+        { label: 'Order Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'right' }  },
+        { label: 'Price', fieldName: 'Total_Price_Formula__c',hideDefaultActions:true, type: 'currency', initialWidth :70},
         { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true, cellAttributes: { alignment: 'center' } },
     ];
     newLabel = '';
@@ -78,7 +76,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
         try{
             getOrderList({
-                cuserId: this.userId
+                accountId: this.effectiveAccountId
             })
             .then(result => {
                 if(result && result.length>0) {
@@ -86,6 +84,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
                     let columns = this.columns;
                     let orderLablesFound = [];
 
+                    console.log(orders);
                     if(orders) {
                         for(let orderIndex=0; orderIndex<orders.length; orderIndex++) {
                             let order = orders[orderIndex];
@@ -127,7 +126,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
             //Date Picker call.
         
             getCustomerDeleiveryDates({
-
+                accountId: this.effectiveAccountId
             }).then((result) =>{
                 let daysInAWeek = ['Sunday', 'Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday'];
                 let daysOfWeek = [];
@@ -148,10 +147,9 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
             //Get all public holidays 
             getAllPublicHolidays({
-                
+                accountId: this.effectiveAccountId
             })
             .then(response => {
-                console.log(response);
                 if(response[0].status == 'success') {
 
                     let data = JSON.parse(response[0].data);
@@ -199,7 +197,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
         const colDef = event.detail.columnDefinition;
         console.log('The value of colDef log is:'+colDef.fieldName);
         this.selectedOrder = colDef.fieldName;
-        setRequiredOrder({ selectedColumn: this.selectedOrder, cuserId: this.userId })
+        setRequiredOrder({ selectedColumn: this.selectedOrder, accountId: this.effectiveAccountId })
             .then((result) => {
                 console.log('In the success Function section');
               //  this.contacts = result;
@@ -252,7 +250,7 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
     handleNextClick(){
         let deliveryDate = this.template.querySelector('.delivery-date');
         if(deliveryDate.reportValidity() && deliveryDate.checkValidity()) {
-            createOrder({cuserId: this.userId, deliveryDate: this.pickedDate})
+            createOrder({customerUserId: this.userId , accountId: this.effectiveAccountId, deliveryDate: this.pickedDate})
             .then((result) => {
                 console.log(result);
                 this.navigateToCartPage(result);
@@ -295,5 +293,34 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
           document.location = generatedUrl;
         });
       }
+
+      sortBy(field, reverse, primer) {
+        const key = primer
+            ? function (x) {
+                  return primer(x[field]);
+              }
+            : function (x) {
+                  return x[field];
+              };
+
+        return function (a, b) {
+            a = key(a);
+            b = key(b);
+            return reverse * ((a > b) - (b > a));
+        };
+    }
+
+    onColumnHeaderClick(event) {
+        let {fieldName} = event.detail;
+        console.log(fieldName);
+        setRequiredOrder({ selectedColumn: fieldName, accountId: this.effectiveAccountId })
+            .then((result) => {
+              refreshApex(this.orders);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log('In the Error Function section'+error);
+            });
+    }
 
 }

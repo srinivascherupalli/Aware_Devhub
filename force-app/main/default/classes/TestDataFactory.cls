@@ -32,7 +32,27 @@ public class TestDataFactory {
             act.Name = 'TestAccount' + i;
             actList.add(act);
         }
-        return actList;
+        return actList;        
+    } 
+    public static Pricebook2 getCustomPricebook(String priceBookName){
+        return new Pricebook2(Name = priceBookName, isActive = true);
+    }
+    public static List<PricebookEntry> getPricebookEntry(Id priceBookId, List<product2> productList){
+        List<PricebookEntry> entryList = new List<PricebookEntry>();
+        for(product2 productVar : productList){
+            entryList.add(new PricebookEntry(Pricebook2Id = priceBookId, Product2Id = productVar.Id, UnitPrice = 100));
+        }
+        return entryList;
+    }
+    public static List<Order> getOrders(integer numOrders, Id accountId, Id priceBookId){
+        List<Order> orderList = new List<Order>();
+        for(integer i =0; i<numOrders; i++){
+            orderList.add(new Order(accountId = accountId, Pricebook2Id = priceBookId, status = 'Draft', EffectiveDate = date.today()+i, OrderedDate = system.now()+i));
+        }
+        return orderList;
+    } 
+    public static OrderItem getOrderItem(Id orderId, Id productId,Id PricebookEntryId){
+        return new OrderItem(orderId = orderId, Product2Id = productId, PricebookEntryId = PricebookEntryId, UnitPrice = 100, Quantity = 1);
     }
     public static B2B_Customer_Delivery_Date__c getPreferredDeliveryDay(Id accountId, String dayVar){
         B2B_Customer_Delivery_Date__c preferredDeliveryDay = new B2B_Customer_Delivery_Date__c();

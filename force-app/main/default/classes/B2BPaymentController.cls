@@ -164,34 +164,47 @@ public with sharing class B2BPaymentController {
                     System.debug('###isUsingTokenisedCard : ' + isUsingTokenisedCard);
                 }else{
 
-                    // Tokenize the paymentInfo
-                    ConnectApi.PaymentMethodTokenizationRequest tokenizeRequest = new ConnectApi.PaymentMethodTokenizationRequest();
-                    tokenizeRequest.paymentGatewayId = paymentGatewayId;
-                    tokenizeRequest.cardPaymentMethod = getCardPaymentMethod(paymentInfo, cart);
-                    if (billAddressSet) {
-                        tokenizeRequest.address = getAddress(billingAddress);                    
+                    System.debug('### has saveCard key: ' + paymentInfo.containsKey('saveCard'));
+                    if(paymentInfo.containsKey('saveCard')){
+                        String saveCard = (String) paymentInfo.get('saveCard');
+                        System.debug('### saveCard: ' + saveCard);
+
+                        if(saveCard=='true'){
+                            // Tokenize the paymentInfo
+                            ConnectApi.PaymentMethodTokenizationRequest tokenizeRequest = new ConnectApi.PaymentMethodTokenizationRequest();
+                            tokenizeRequest.paymentGatewayId = paymentGatewayId;
+                            tokenizeRequest.cardPaymentMethod = getCardPaymentMethod(paymentInfo, cart);
+                            if (billAddressSet) {
+                                tokenizeRequest.address = getAddress(billingAddress);                    
+                            }
+
+                            ConnectApi.PaymentMethodTokenizationResponse tokenizeResponse = ConnectApi.Payments.tokenizePaymentMethod(tokenizeRequest);                
+                            
+                            if (tokenizeResponse.error != null) {
+                                System.debug('TokenizeResponse has an error: ' + tokenizeResponse.error.message);
+                                throw new AuraHandledException('There are issues finalizing your payment. Try contacting your account rep.');
+                            }
+                            // Tokenize was successful, assign the new payment method to the cart.
+                            cart.paymentMethodId = tokenizeResponse.paymentMethod.Id;
+                        }
                     }
 
-                    ConnectApi.PaymentMethodTokenizationResponse tokenizeResponse = ConnectApi.Payments.tokenizePaymentMethod(tokenizeRequest);                
-                    
-                    if (tokenizeResponse.error != null) {
-                        System.debug('TokenizeResponse has an error: ' + tokenizeResponse.error.message);
-                        throw new AuraHandledException('There are issues finalizing your payment. Try contacting your account rep.');
-                    }
-                    // Tokenize was successful, assign the new payment method to the cart.
-                    cart.paymentMethodId = tokenizeResponse.paymentMethod.Id;
                 }
 
             }
 
            // Now update the webCart
            if(Schema.sObjectType.WebCart.isAccessible()) {
+                authorizePaymentInfo(cartId,billingAddress,paymentInfo);
+
+                /*
                if(isUsingTokenisedCard){
                     authorizePaymentInfo(cartId,billingAddress,paymentInfo);
                }else{
                     update cart;       
                     System.debug('##Cart updated...');
                }
+               */
            }
         } catch (AuraHandledException e) {
             throw e;
@@ -220,9 +233,6 @@ public with sharing class B2BPaymentController {
         try {
             cart = [SELECT WebStoreId, GrandTotalAmount, AccountId, PaymentMethodId FROM WebCart WHERE Id=:cartId];
 
-            ConnectApi.AuthApiPaymentMethodRequest authApiPaymentMethodRequest = new ConnectApi.AuthApiPaymentMethodRequest();
-            authApiPaymentMethodRequest.Id = (String) paymentInfo.get('cardPaymentMethodId'); //'03OO00000004C9IMAU'; //cart.PaymentMethodId;
-
             authRequest.amount = cart.GrandTotalAmount;
             authRequest.accountId = cart.AccountId;
             authRequest.comments = 'Authorizing $' + cart.GrandTotalAmount;
@@ -236,7 +246,15 @@ public with sharing class B2BPaymentController {
             }
 
             authRequest.paymentGatewayId = paymentGatewayId;
-            authRequest.paymentMethod = authApiPaymentMethodRequest;
+
+            if(paymentInfo.containsKey('cardPaymentMethodId')){
+                ConnectApi.AuthApiPaymentMethodRequest authApiPaymentMethodRequest = new ConnectApi.AuthApiPaymentMethodRequest();
+                authApiPaymentMethodRequest.Id = (String) paymentInfo.get('cardPaymentMethodId'); //'03OO00000004C9IMAU'; //cart.PaymentMethodId;
+                authRequest.paymentMethod = authApiPaymentMethodRequest;
+            }else{
+                authRequest.paymentMethod = getAuthPaymentMethod(paymentInfo, selectedBillingAddress, cart);
+            }
+
             authRequest.paymentGroup = getPaymentGroup(cartId);
             
             //authRequest.additionalData = new Map<String, String>();
@@ -254,6 +272,18 @@ public with sharing class B2BPaymentController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    // Get the PaymentMethodRequest
+    private static ConnectApi.AuthApiPaymentMethodRequest getAuthPaymentMethod(Map<String, Object> paymentInfo, Map<String, Object> billingAddress, WebCart cart) {
+        ConnectApi.AuthApiPaymentMethodRequest authApiMethod = new ConnectApi.AuthApiPaymentMethodRequest();
+        
+        authApiMethod.cardPaymentMethod = getCardPaymentMethod(paymentInfo, cart);
+        authApiMethod.address = getAddress(billingAddress);
+        authApiMethod.saveForFuture = false;
+
+        return authApiMethod;
+    }
+
 
     private static ConnectApi.PaymentGroupRequest getPaymentGroup(String cartId) {
         try {

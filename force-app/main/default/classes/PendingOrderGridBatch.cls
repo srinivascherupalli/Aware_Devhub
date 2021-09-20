@@ -8,7 +8,7 @@ public with sharing class PendingOrderGridBatch implements Database.Batchable<sO
                         'FROM Orders '+
                         'WHERE Order.status = \'On Hold\' '+
                         'Order by OrderedDate Asc limit 1)'+
-						'FROM Account';
+						'FROM Account where id= \'001O000001oY5js\'';
 		return Database.getQueryLocator(query);
 	}
 
@@ -123,6 +123,7 @@ public with sharing class PendingOrderGridBatch implements Database.Batchable<sO
                     }
                     newOrderGridObj.OrderPending__c = orderItemObj.Quantity== null ? 0 : orderItemObj.Quantity;
                     newOrderGridObj.Order_Pending_Date__c = orderItemObj.Order.OrderedDate.date() == null ? System.now().date() :orderItemObj.Order.OrderedDate.date();
+                    newOrderGridObj.Unique_Key__c = String.valueOf(orderItemObj.Order.Accountid) + String.valueOf(orderItemObj.Product2Id); 
                     orderGridtobeUpserted.add(newOrderGridObj);
 
                 }

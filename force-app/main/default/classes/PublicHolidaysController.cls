@@ -1,20 +1,15 @@
 public class PublicHolidaysController {
     
     @AuraEnabled
-    public static List<Map<String, String>> getAllPublicHolidays() {
+    public static List<Map<String, String>> getAllPublicHolidays(String accountId) {
         List<Map<String, String>> responseList = new List<Map<String, String>>();
         Map<String, String> response = new Map<String, String> ();
         try{
-
-            Id contactId = [Select contactid from User where id =: Userinfo.getUserid()].contactId;
-
-            Contact contact = [
-                SELECT Id, AccountId, Account.BillingState 
-                FROM Contact 
-                WHERE id =:contactId
-            ];
-
-            String billingState = contact.Account.billingState;
+            String billingState = [
+                SELECT billingState 
+                FROM Account 
+                WHERE Id=:accountId
+            ].billingState;
 
             List<Public_Holiday__c> publicHolidayList = [
                 SELECT Id, Name, Date__c

@@ -1,16 +1,30 @@
+:root {
+    --text-light: #fff;
+    --text-base: #002855;
+    --text-blue-light: #2574A9;
+    --bg1:#16325c;
+    --bg-light:#ddd;
+    --bg-light2:#f2f4f6;
+    --border-light-1px:solid 1px #ccc;
+    --text-var1:#ffe464;
+    --text-var2:#a6eaea;
+    --font-size-basic:0.9rem;
+    --font-size-tiny:0.85rem;
+}
+
 body {
-    font-size: 1rem;
+    font-size: var(--font-size-basic);
 }
 
 
 .dataTable {
-    font-size: 0.9rem !important;
+    font-size: var(--font-size-tiny) !important;
 }
 /*Data table */
 .dataTable .slds-cell-fixed,.dataTable .slds-th__action:focus,.dataTable .slds-th__action:hover, 
 .dataTable .slds-has-button-menu .slds-th__action {
-    background-color: #16325c !important;
-    color: #fff !important;
+    background-color: var(--bg1) !important;
+    color: var(--text-light) !important;
     cursor:pointer;
     text-align: center;
     padding: 0.5rem 0rem !important;
@@ -22,7 +36,7 @@ body {
 }
 
 .dataTable .slds-table_header-fixed_container {
-    border: solid 1px #ccc;
+    border: var(--border-light-1px);
 }
 
 .dataTable .slds-table_header-fixed_container .slds-table, .dataTable .slds-table_header-fixed_container .slds-scrollable_y {
@@ -38,18 +52,22 @@ body {
 }
 
 .dataTable .slds-th__action .slds-dropdown__list a {
-    font-size: 1rem !important;
-    color:#002855 !important;
+    font-size: var(--font-size-basic) !important;
+    color:var(--text-base) !important;
     width:100px;
 }
 
-.dataTable td button {
+.dataTable td button, .dataTable td.slds-cell-edit span div  {
     border: none !important;
     background: transparent !important;
-    color:#2574A9;
+    color:var(--text-blue-light);
 }
 
-.dataTable td button:hover {
+.dataTable tr td:nth-child(6), .dataTable tr td:nth-child(14) {
+    background:var(--bg-light2);
+}
+
+.dataTable td button:hover, .dataTable td.slds-cell-edit span div:hover {
     text-decoration: underline;
     font-weight: bold;
 }
@@ -63,18 +81,18 @@ body {
 
 
 c-order-grid lightning-input label, c-order-grid input {
-    font-size: 1rem !important;
+    font-size: var(--font-size-basic) !important;
     font-weight: bold !important;
 }
 
 
 div[community_user-userprofilemenu_userprofilemenu], div[community_user-userprofilemenu_userprofilemenu] svg {
-    color:#fff !important;
+    color:var(--text-light) !important;
 }
 
 .dataTable .header-top {
-    background: #002855;
-    color: #fff;
+    background: var(--text-base);
+    color: var(--text-light);
     margin-top:15px;
     display: none;
 }
@@ -82,7 +100,7 @@ div[community_user-userprofilemenu_userprofilemenu], div[community_user-userprof
 .dataTable .header-top tr td {
     padding: 1rem 0rem;
     text-align: center;
-    font-size: 1rem;
+    font-size: var(--font-size-basic);
     font-weight: bold;
 }
 
@@ -97,43 +115,82 @@ div[community_user-userprofilemenu_userprofilemenu], div[community_user-userprof
 }
 
 .navBarContainer {
-    background-color: #ddd !important;
+    background-color: var(--bg-light) !important;
 }
 
 .navBarContainer ul li a {
-    color:#002855 !important;
-    font-size: 1rem !important;
+    color:var(--text-base) !important;
+    font-size: var(--font-size-basic) !important;
 }
 
 ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[community_navigation-multiLevelNavigation_multiLevelNavigation] {
-    background-color: #002855 !important;
-}
-
-ul[community_navigation-multiLevelNavigation_multiLevelNavigation] li:hover[community_navigation-multiLevelNavigation_multiLevelNavigation] a{
-    /*color:#fff !important;*/
+    background-color: var(--text-base) !important;
 }
 
 
 nav ul li button[aria-expanded="true"],
 nav ul li a:hover, nav ul li button:hover {
-    color:#fff !important;
+    color:var(--text-light) !important;
 }
 
 nav ul li ul li a, nav ul li ul li a:hover {
-    color:#002855 !important;
+    color:var(--text-base) !important;
 }
 
 svg[b2b_buyer_cart-badge_badge] {
-    fill: #fff !important;
+    fill: var(--text-light) !important;
 }
 
 .dataTable svg {
-    fill: #fff !important;
-    font-size: 1rem !important;
+    fill: var(--text-light) !important;
+    font-size: var(--font-size-basic) !important;
 }
 
 
 .dataTable button.slds-cell-edit__button {
     position: relative;
-    left: -20px;
+    left: -18px;
 }
+
+.dataTable thead tr th span.slds-truncate {
+    white-space: pre-line;
+}
+
+.dataTable thead tr th:nth-child(6) span.slds-truncate,
+.dataTable thead tr th:nth-child(7) span.slds-truncate,
+.dataTable thead tr th:nth-child(8) span.slds-truncate,
+.dataTable thead tr th:nth-child(9) span.slds-truncate,
+.dataTable thead tr th:nth-child(10) span.slds-truncate,
+.dataTable thead tr th:nth-child(11) span.slds-truncate,
+.dataTable thead tr th:nth-child(12) span.slds-truncate,
+.dataTable thead tr th:nth-child(13) span.slds-truncate {
+    color:var(--text-var1) !important;
+}
+
+.dataTable thead tr th:nth-child(14) span.slds-truncate {
+    color:var(--text-var2) !important;
+    font-size: var(--font-size-basic) !important;
+    font-weight: bold !important;
+}
+
+
+.dataTable thead tr th lightning-primitive-icon {
+    display:none !important;
+}
+/*.dataTable thead tr th:nth-child(6) div.slds-dropdown {
+    display: block !important;
+    position: relative !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 30px !important;
+}
+
+
+.dataTable thead tr th:nth-child(6) div.slds-dropdown {
+    visibility: initial !important;
+}
+
+.dataTable thead tr th:nth-child(6) div.slds-dropdown span {
+    display: none !important;
+}*/

@@ -1,0 +1,43 @@
+<!-- 
+  *** Component Details ***
+ Name: GROW_SiteGrainPriceView 
+ Type: Lightning Component
+ Purpose: Component to display Sites Grain Prices
+ Created: 27/Aug/2021
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="GROW_SiteGrainPriceViewCtrl" >
+    
+    <aura:attribute name="HeaderRow" type="List" default="[]" />
+    <aura:attribute name="GrainPriceGrid" type="List" default = "[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.initData}"/>
+    
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Example table of Opportunities with vertical borders">
+        <thead>
+            <tr class="slds-line-height_reset">
+                
+                <aura:iteration items="{!v.HeaderRow}" var="item" indexVar="index">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Contact">{!item}</div>
+                    </th>
+                </aura:iteration>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <aura:iteration items="{!v.GrainPriceGrid}" var="binGrade" indexVar="index">
+                
+                <tr class="slds-hint-parent">
+                    <aura:iteration items="{!binGrade}" var="item2" indexVar="index">
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="Cloudhub">{!item2}</div>
+                        </td>
+                    </aura:iteration>
+                    
+                </tr>
+                
+            </aura:iteration>            
+            
+        </tbody>
+    </table>
+</aura:component>

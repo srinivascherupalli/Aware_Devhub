@@ -1,13 +1,8 @@
 public with sharing class OrderGridControler {
 
     @AuraEnabled(cacheable=true)
-    public static List<Order_Grid__c> getOrderList(String cuserId) {
-        Id customerUserId = ID.valueof(cuserId);
-        system.debug('The user id is:'+customerUserId);
-        User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
-        Id contactId = communityUser.ContactId;
-        Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
-        ID accountid = contactuser.accountid;
+    public static List<Order_Grid__c> getOrderList(String accountId) {
+
         system.debug('The Account id is:'+accountId);
         return [SELECT Id, Code__c, Order1_Date__c, Order2_Date__c,Order3_Date__c,Order4_Date__c,Order5_Date__c,Order6_Date__c,Price__c, Total_Price_Formula__c,Total_Weight_Formula__c, Pack_Size__c, Default_Order__c, 
                         Product_Name__c, Order_Required__c, Order1__c, Order2__c, Order3__c, Order4__c, Order5__c, Order6__c, Avg_Of_Orders__c, Total_Price__c, 
@@ -15,64 +10,15 @@ public with sharing class OrderGridControler {
     }
 
     @AuraEnabled
-    public static List<String> getOrde1Date(String cuserId) {
-        Id customerUserId = ID.valueof(cuserId);
+    public static void setRequiredOrder(String  selectedColumn, String accountId ) {
+
+    /*    Id customerUserId = ID.valueof(cuserId);
         system.debug('The user id is:'+customerUserId);
         User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
         Id contactId = communityUser.ContactId;
         Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
         ID accountid = contactuser.accountid;
-        String order1Date = '';
-        String order2Date = '';
-        String order3Date = '';
-        String order4Date = '';
-        String order5Date = '';
-        String order6Date = '';
-        List<String> stringList = new List<String>();
-        try{
-            List<Order_Grid__c> orderGridList =  [SELECT id, Order1_Date__c, Order2_Date__c, Order3_Date__c, Order4_Date__c, Order5_Date__c, Order6_Date__c FROM Order_Grid__c where Account_Name__c =: accountId LIMIT 10];
-            System.debug('Size of orderGridList: '+ orderGridList.size());
-            if(orderGridList[0].Order1_Date__c !=null){
-                order1Date = string.valueOf(orderGridList[0].Order1_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order1_Date__c.month());
-                stringList.add(order1Date);
-            }
-            if(orderGridList[0].Order2_Date__c !=null){
-                order2Date = string.valueOf(orderGridList[0].Order2_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order2_Date__c.month());
-                stringList.add(order2Date);
-            }
-            if(orderGridList[0].Order3_Date__c !=null){
-                order3Date = string.valueOf(orderGridList[0].Order3_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order3_Date__c.month());
-                stringList.add(order3Date);
-            }
-            if(orderGridList[0].Order4_Date__c !=null){
-                order4Date = string.valueOf(orderGridList[0].Order4_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order4_Date__c.month());
-                stringList.add(order4Date);
-            }
-            if(orderGridList[0].Order5_Date__c !=null){
-                order5Date = string.valueOf(orderGridList[0].Order5_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order5_Date__c.month());
-                stringList.add(order5Date);
-            }
-            if(orderGridList[0].Order6_Date__c !=null){
-                order6Date = string.valueOf(orderGridList[0].Order6_Date__c.day())+ '/'+ string.valueOf(orderGridList[0].Order6_Date__c.month());
-                stringList.add(order6Date);
-            }       
-        }
-        catch(Exception e){
-            System.debug('Error ' + e.getMessage());
-        }
-        return stringList;
-    }
-
-    @AuraEnabled
-    public static void setRequiredOrder(String  selectedColumn, String cuserId ) {
-
-        Id customerUserId = ID.valueof(cuserId);
-        system.debug('The user id is:'+customerUserId);
-        User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
-        Id contactId = communityUser.ContactId;
-        Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
-        ID accountid = contactuser.accountid;
-
+*/
         String column = '';
         column = selectedColumn;
         Double orderQuantity = 0.0;
@@ -132,15 +78,15 @@ public with sharing class OrderGridControler {
                 }
             }
             if(column.equals('Order5__c')){
-                if(orderGridObj.Order1__c == null){
+                if(orderGridObj.Order5__c == null){
                     orderQuantity = 0.0;
                 }else {
                     orderQuantity = orderGridObj.Order5__c;
                 }
                 orderGridObj.Order_Required__c = orderGridObj.Order5__c;
                 if(orderGridObj.Price__c!= null ){
-                orderGridObj.Total_Price__c = orderGridObj.Price__c * orderQuantity;
-                orderGridObj.Total_Weight__c = orderGridObj.Pack_Size__c * orderQuantity;
+                    orderGridObj.Total_Price__c = orderGridObj.Price__c * orderQuantity;
+                    orderGridObj.Total_Weight__c = orderGridObj.Pack_Size__c * orderQuantity;
                 }
             }
             if(column.equals('Order6__c')){
@@ -207,27 +153,31 @@ public with sharing class OrderGridControler {
         }
     }
 
-    //TODO: Create Required Order from the required quantity field in the Order Grid custom object. 
+    //Create Required Order from the required quantity field in the Order Grid custom object. 
     @AuraEnabled
-    public static string createOrder(String cuserId, String deliveryDate) {
+    public static string createOrder(String customerUserId, String accountId, String deliveryDate) {
         system.debug('createOrder delivery Date:'+deliveryDate);
-        
-        Id customerUserId = ID.valueof(cuserId);
+        system.debug('Account id passed in accountId: '+accountId);
+
+     /*   Id customerUserId = ID.valueof(cuserId);
         system.debug('The user id is:'+customerUserId);
         User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
         Id contactId = communityUser.ContactId;
         Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
-        ID accountid = contactuser.accountid;
+        ID accountid = contactuser.accountid;*/
         try {
             //Check is the Cat already exists.
-           // WebCart cart = new WebCart();
+            WebCart cart ;//= new WebCart();
             CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
-            WebCart cart = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = :customerUserId and status = 'Active' and accountid=:accountid Limit 1];
-            
+            List<WebCart> cartList = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = :customerUserId and status = 'Active' and accountid=:accountId Limit 1];
+    
+            if (cartList.size() > 0)
+            cart = cartList[0];
             //If cart does not exist then create a new Cart. 
-            if(cart == null){            
+            if(cart == null){          
+                cart = new WebCart();  
                 cart.name = 'CartX';                
-                cart.AccountId = accountid;//get from userid->Contact->Account
+                cart.AccountId = Id.valueOf(accountid);//get from userid->Contact->Account
                 cart.OwnerId = customerUserId;//get from community userid lwc
                 cart.WebStoreId = id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
                 insert cart;
@@ -272,7 +222,6 @@ public with sharing class OrderGridControler {
                 newCartItem.TotalPrice = orderGridObj.Price__c * orderGridObj.Order_Required__c; //get from Order Grid
                 newCartItem.ListPrice = orderGridObj.Price__c;
                 newCartItem.UnitAdjustedPrice = orderGridObj.Price__c;
-             //   if(newCartItem.quantity > 0 && newCartItem.TotalPrice > 0){
                 if(newCartItem.quantity > 0 ){
                     newCartItemsList.add(newCartItem);
                 }

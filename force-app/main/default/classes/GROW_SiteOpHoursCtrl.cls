@@ -12,7 +12,7 @@ public with Sharing class GROW_SiteOpHoursCtrl {
             List<Site__c> lstParentSites = new List<Site__c>();
             List<SiteWrapper> lstSites = new List<SiteWrapper>();
             
-            lstParentSites = [SELECT Id, Name, Phone__c, Address__c, Site_Related_Alert__c, 
+            lstParentSites = [SELECT Id, Name, Phone__c, Address__c, Site_Related_Alert__c, Site_Manager__r.Name, Site_Manager_Mobile__c, 
                               (SELECT Id, Name, Open_Time__c, Closing_Time__c, Closed__c FROM Operation_Hours__r)
                               FROM Site__c 
                               ORDER BY Name ASC
@@ -42,6 +42,8 @@ public with Sharing class GROW_SiteOpHoursCtrl {
         @AuraEnabled public String SatHours{get;set;}
         @AuraEnabled public String SunHours{get;set;}
         @AuraEnabled public String SiteRelatedAlert{get;set;}
+        @AuraEnabled public String SiteManagerName{get;set;}
+        @AuraEnabled public String SiteManagerMobile{get;set;}
     }
     
     /* ------------- HELPER METHODS -------------- */
@@ -56,6 +58,8 @@ public with Sharing class GROW_SiteOpHoursCtrl {
             newSite.Address = st.Address__c;
             newSite.Phone = st.Phone__c;
             newSite.SiteRelatedAlert = st.Site_Related_Alert__c;
+            newSite.SiteManagerName = st.Site_Manager__r.Name;
+            newSite.SiteManagerMobile = st.Site_Manager_Mobile__c;
             
             if (st.Operation_Hours__r.size() > 0){
                 for (Operation_Hours__c opHours: st.Operation_Hours__r){

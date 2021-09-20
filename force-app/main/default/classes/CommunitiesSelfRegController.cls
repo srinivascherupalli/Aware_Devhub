@@ -17,12 +17,13 @@ public class CommunitiesSelfRegController {
         }    
     }
     
+
     private boolean isValidPassword() {
         return password == confirmPassword;
     }
 
     public PageReference registerUser() {
-    
+        System.debug('Inside register user method');
            // it's okay if password is null - we'll send the user a random password in that case
         if (!isValidPassword()) {
             ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.ERROR, Label.site.passwords_dont_match);
@@ -45,7 +46,7 @@ public class CommunitiesSelfRegController {
 		u.ProfileId = profileId;
 		
         String userId;
-
+        
         try {
             userId = Site.createExternalUser(u, accountId, password);
         } catch(Site.ExternalUserCreateException ex) {
@@ -53,9 +54,6 @@ public class CommunitiesSelfRegController {
             for (String error : errors)  {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, error));
             }
-            
-            // This message is used for debugging. Do not display this in the UI to the end user.
-            // It has the information around why the user creation failed.
             System.debug(ex.getMessage());
         }
         

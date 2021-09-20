@@ -1,5 +1,6 @@
 ({
     initialize: function(component, event, helper) {
+        console.log('coming here>>');
         $A.get("e.siteforce:registerQueryEventMap").setParams({"qsToEvent" : helper.qsToEventMap}).fire();
         $A.get("e.siteforce:registerQueryEventMap").setParams({"qsToEvent" : helper.qsToEventMap2}).fire();        
         component.set('v.extraFields', helper.getExtraFields(component, event, helper));

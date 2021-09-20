@@ -5,12 +5,11 @@ global with sharing class B2BTaxSample implements sfdc_checkout.CartTaxCalculati
         System.debug('###startCartProcessAsync : started....');
         sfdc_checkout.IntegrationStatus integStatus = new sfdc_checkout.IntegrationStatus();
 //        try {
-            AggregateResult[] groupedResults = [SELECT sum(TotalPrice)CartTotalValue FROM CartItem where cartid=:cartId and type='Product'];
+            AggregateResult[] groupedResults = [SELECT sum(TotalPrice)CartTotalValue FROM CartItem where cartid=:cartId and type='Product' and product2.Tax_Required__c = true];
             Decimal CartTotalValue = (Decimal) groupedResults[0].get('CartTotalValue');  
             Decimal totalTaxAmount = CartTotalValue*0.1; //10% GST
 
             System.debug('###CartTotalValue : ' + CartTotalValue);
-
             CartItem taxCartItem = null;
 
             List<CartItem> taxCartItemList = [SELECT Id FROM CartItem WHERE CartId=:cartId and Type='Charge' WITH SECURITY_ENFORCED];
