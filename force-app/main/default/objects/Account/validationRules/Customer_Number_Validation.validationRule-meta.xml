@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Number_Validation</fullName>
+    <active>true</active>
+    <description>Customer Number should only have numeric values.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &apos;B2B_Customer&apos;,
+    NOT(ISBLANK(Customer_Number__c)),
+    NOT(ISNUMBER(Customer_Number__c))
+    )</errorConditionFormula>
+    <errorDisplayField>Customer_Number__c</errorDisplayField>
+    <errorMessage>Customer Number should only have numeric values.</errorMessage>
+</ValidationRule>

@@ -9,7 +9,7 @@
 public class CreateDefaultOrderBatch implements Database.Batchable<sObject>, schedulable{
 
     public Database.QueryLocator start(Database.BatchableContext BC){
-        String queryString = 'SELECT ID, Lead_Time_In_Days__C, Cut_Off_Time__C FROM Account WHERE Default_Order_Enabled__C= true';
+        String queryString = 'SELECT ID, Lead_Time_In_Days__C, Cut_Off_Time__C, Tax_Exemption_Account__c FROM Account WHERE Default_Order_Enabled__C= true';
         return Database.getQueryLocator(queryString); 
     }
 

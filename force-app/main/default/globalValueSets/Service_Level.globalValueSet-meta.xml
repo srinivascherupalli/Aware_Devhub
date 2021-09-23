@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Call to place Orders</fullName>
+        <default>false</default>
+        <label>Call to place Orders</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer to be Contacted</fullName>
+        <default>false</default>
+        <label>Customer to be Contacted</label>
+    </customValue>
+    <masterLabel>Service Level</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

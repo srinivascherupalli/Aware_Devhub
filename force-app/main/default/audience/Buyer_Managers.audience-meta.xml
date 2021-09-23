@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>Buyer Managers</audienceName>
+    <container>Manildra B2B</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <isEnabled>true</isEnabled>
+                <permissionName>B2BCommerceSuperUser</permissionName>
+                <permissionType>Standard</permissionType>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Permission</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AllCriteriaMatch</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>7aa4b089-3470-4ab4-ad83-c2ba74080d96$#$c94706ab-6e8c-4b8c-9a65-f54318efa8da</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Default_Customizable_User_Profile_Menu_Component_Properties</targetValue>
+        </target>
+        <target>
+            <groupName>c609c9d9-c8fc-45e6-8aae-b12042612af5$#$4459cb38-63f4-4bab-b09b-f86b59adc455</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Customizable_User_Profile_Menu_Component_Properties</targetValue>
+        </target>
+        <target>
+            <groupName>44de2c70-d8cf-44e5-9d8b-7cc0ff538d7d$#$26a52cdf-b1e5-4c15-b521-c5e7e7e7d855</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>My_Account_Buyer_Account_Component</targetValue>
+        </target>
+    </targets>
+</Audience>

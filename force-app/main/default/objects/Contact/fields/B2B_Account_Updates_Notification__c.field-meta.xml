@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Account_Updates_Notification__c</fullName>
+    <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
+    <inlineHelpText>If Checked, this will send an email alert to this Contact&apos;s Account details get updated:
+1. Phone or Email
+2. Preferences are updated
+3 Preferred Delivery Dates are updated</inlineHelpText>
+    <label>Account Updates Notification</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

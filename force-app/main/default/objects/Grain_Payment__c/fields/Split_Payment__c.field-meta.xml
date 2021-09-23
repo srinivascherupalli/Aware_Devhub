@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Split_Payment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox to indicate if grain payment is split payment, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Split Payment</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

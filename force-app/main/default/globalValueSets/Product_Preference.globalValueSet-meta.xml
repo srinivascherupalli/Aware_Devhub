@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Oil</fullName>
+        <default>false</default>
+        <label>Oil</label>
+    </customValue>
+    <customValue>
+        <fullName>Wheat</fullName>
+        <default>false</default>
+        <label>Wheat</label>
+    </customValue>
+    <customValue>
+        <fullName>Flour</fullName>
+        <default>false</default>
+        <label>Flour</label>
+    </customValue>
+    <customValue>
+        <fullName>Sugar</fullName>
+        <default>false</default>
+        <label>Sugar</label>
+    </customValue>
+    <customValue>
+        <fullName>Petrol</fullName>
+        <default>false</default>
+        <label>Petrol</label>
+    </customValue>
+    <masterLabel>Product Preference</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

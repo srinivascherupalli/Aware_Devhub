@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grain_Contract</fullName>
+    <active>true</active>
+    <description>Grower&apos;s Contract Record Type - used for all Grain Contracts</description>
+    <label>Grain Contract</label>
+    <picklistValues>
+        <picklist>Payment_Terms__c</picklist>
+        <values>
+            <fullName>15 Days EOW of Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 Days EOW of Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 Days EOW of Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>July Payment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Price_Basis__c</picklist>
+        <values>
+            <fullName>Delivered Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered Site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ex Farm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FIS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Track</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Activated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Approval Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

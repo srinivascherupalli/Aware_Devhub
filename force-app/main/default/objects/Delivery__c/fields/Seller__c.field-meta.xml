@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seller__c</fullName>
+    <description>Master-Detail Relationship with Account, so that, if a Site Manager or Grain Buying Lead is the owner or has access to an Account, access to that Account&apos;s deliveries are provided implicitly.</description>
+    <externalId>false</externalId>
+    <label>Seller</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Deliveries</relationshipLabel>
+    <relationshipName>Deliveries</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -4,7 +4,8 @@ import * as Constants from './constants';
 
 import getPaymentInfo from '@salesforce/apex/B2BPaymentController.getPaymentInfo';
 import setPayment from '@salesforce/apex/B2BPaymentController.setPayment';
-import addDiscountItem from '@salesforce/apex/DiscountController.addDiscountItem';
+//import addDiscountItem from '@salesforce/apex/DiscountController.addDiscountItem';
+import isDiscountItemIncluded from '@salesforce/apex/DiscountController.isDiscountItemIncluded';
 
 const columns = [
     { label: 'Card Number', fieldName: 'DisplayCardNumber' },
@@ -228,6 +229,26 @@ export default class PaymentMethod extends LightningElement {
     get cartId() {
         return this._cartId;
     }
+
+    /**Added by : WY
+     * Check if cart had a Discount Item set. 
+     */
+    /* async connectedCallback() {
+        isDiscountItemIncluded({
+            cartIdValue: this.cartId
+        }).then((result) =>{
+           if(result){
+            this.hidePurchaseOrder = true;
+            this.hideCreditCard = false;
+           }
+           else{
+            this.hidePurchaseOrder = false;
+            this.hideCreditCard = true;
+           }
+        }).catch((error) => {
+            console.log(error);
+        })
+     }*/
 
     /**
      * Sets the cartId of the current webCart.

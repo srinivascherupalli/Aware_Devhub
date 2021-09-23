@@ -35,12 +35,14 @@ public class TestDataFactory {
         return actList;        
     } 
     public static Pricebook2 getCustomPricebook(String priceBookName){
-        return new Pricebook2(Name = priceBookName, isActive = true);
+        return new Pricebook2(Name = priceBookName, isActive = true, PricebookExternalID__c = string.valueOf(System.now()));
     }
     public static List<PricebookEntry> getPricebookEntry(Id priceBookId, List<product2> productList){
         List<PricebookEntry> entryList = new List<PricebookEntry>();
-        for(product2 productVar : productList){
-            entryList.add(new PricebookEntry(Pricebook2Id = priceBookId, Product2Id = productVar.Id, UnitPrice = 100));
+        integer i =0;
+        for(product2 productVar : productList){            
+            entryList.add(new PricebookEntry(Pricebook2Id = priceBookId, Product2Id = productVar.Id, UnitPrice = 100, PricebookEntryExternalID__c = String.valueOf(System.now().millisecond())+i));
+            i++;
         }
         return entryList;
     }
@@ -99,10 +101,31 @@ public class TestDataFactory {
         return new BuyerAccount(BuyerId = actRecordId, IsActive= true, Name= 'TestName');
     }
     public static webStore getWebStore(){
-        return new webStore(name = 'TestName');
+        return new webStore(name = 'TestName', DefaultLanguage='en_US');
     }
     public static WebStoreBuyerGroup getWebStoreBuyerGroup(Id webStoreId, Id BuyerGroupId){
         return new WebStoreBuyerGroup(WebStoreId = webStoreId, BuyerGroupId = BuyerGroupId);
+    }
+
+    public static WebCart getCart(Id webStoreId, Id accountId){
+        return new WebCart(Name='Cart', WebStoreId=webStoreId, AccountId=accountId);
+    }
+    public static CartDeliveryGroup getCartDeliveryGroup(Id cartId){
+        return new CartDeliveryGroup(Name='Default Delivery', CartId=cartId);
+    }
+
+    public static CartItem getCartItem(Id cartId, Id CartDeliveryGroupId, Id productId, String type, String skuStr, String itemName, decimal quantityStr, decimal totalPrice){
+        CartItem cartItem = new CartItem(
+            CartId=cartId, 
+            Sku=skuStr, 
+            Quantity=quantityStr, 
+            Type=type, 
+            Name=itemName, 
+            TotalPrice=totalPrice,
+            CartDeliveryGroupId=CartDeliveryGroupId,
+            Product2Id = productId
+        );
+        return cartItem;
     }
     
     public static Site__c getSite(String name){

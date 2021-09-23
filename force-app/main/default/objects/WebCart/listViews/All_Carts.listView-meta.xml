@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Carts</fullName>
+    <columns>Id</columns>
+    <columns>Owner</columns>
+    <columns>Name</columns>
+    <columns>CreatedDate</columns>
+    <columns>Account</columns>
+    <columns>Status</columns>
+    <columns>GrandTotalAmount</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Carts</label>
+</ListView>

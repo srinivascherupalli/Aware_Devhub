@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Terms_Code__c</fullName>
+    <externalId>false</externalId>
+    <label>Terms Code</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Terms_Code_Description__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>02</fullName>
+                <default>false</default>
+                <label>02</label>
+            </value>
+            <value>
+                <fullName>03</fullName>
+                <default>false</default>
+                <label>03</label>
+            </value>
+            <value>
+                <fullName>04</fullName>
+                <default>false</default>
+                <label>04</label>
+            </value>
+            <value>
+                <fullName>06</fullName>
+                <default>false</default>
+                <label>06</label>
+            </value>
+            <value>
+                <fullName>09</fullName>
+                <default>false</default>
+                <label>09</label>
+            </value>
+            <value>
+                <fullName>12</fullName>
+                <default>false</default>
+                <label>12</label>
+            </value>
+            <value>
+                <fullName>14</fullName>
+                <default>false</default>
+                <label>14</label>
+            </value>
+            <value>
+                <fullName>15</fullName>
+                <default>false</default>
+                <label>15</label>
+            </value>
+            <value>
+                <fullName>21</fullName>
+                <default>false</default>
+                <label>21</label>
+            </value>
+            <value>
+                <fullName>22</fullName>
+                <default>false</default>
+                <label>22</label>
+            </value>
+            <value>
+                <fullName>23</fullName>
+                <default>false</default>
+                <label>23</label>
+            </value>
+            <value>
+                <fullName>25</fullName>
+                <default>false</default>
+                <label>25</label>
+            </value>
+            <value>
+                <fullName>27</fullName>
+                <default>false</default>
+                <label>27</label>
+            </value>
+            <value>
+                <fullName>29</fullName>
+                <default>false</default>
+                <label>29</label>
+            </value>
+            <value>
+                <fullName>31</fullName>
+                <default>false</default>
+                <label>31</label>
+            </value>
+            <value>
+                <fullName>33</fullName>
+                <default>false</default>
+                <label>33</label>
+            </value>
+            <value>
+                <fullName>34</fullName>
+                <default>false</default>
+                <label>34</label>
+            </value>
+            <value>
+                <fullName>35</fullName>
+                <default>false</default>
+                <label>35</label>
+            </value>
+            <value>
+                <fullName>37</fullName>
+                <default>false</default>
+                <label>37</label>
+            </value>
+            <value>
+                <fullName>39</fullName>
+                <default>false</default>
+                <label>39</label>
+            </value>
+            <value>
+                <fullName>40</fullName>
+                <default>false</default>
+                <label>40</label>
+            </value>
+            <value>
+                <fullName>41</fullName>
+                <default>false</default>
+                <label>41</label>
+            </value>
+            <value>
+                <fullName>42</fullName>
+                <default>false</default>
+                <label>42</label>
+            </value>
+            <value>
+                <fullName>43</fullName>
+                <default>false</default>
+                <label>43</label>
+            </value>
+            <value>
+                <fullName>45</fullName>
+                <default>false</default>
+                <label>45</label>
+            </value>
+            <value>
+                <fullName>98</fullName>
+                <default>false</default>
+                <label>98</label>
+            </value>
+            <value>
+                <fullName>99</fullName>
+                <default>false</default>
+                <label>99</label>
+            </value>
+            <value>
+                <fullName>16</fullName>
+                <default>false</default>
+                <label>16</label>
+            </value>
+            <value>
+                <fullName>08</fullName>
+                <default>false</default>
+                <label>08</label>
+            </value>
+            <value>
+                <fullName>51</fullName>
+                <default>false</default>
+                <label>51</label>
+            </value>
+            <value>
+                <fullName>46</fullName>
+                <default>false</default>
+                <label>46</label>
+            </value>
+            <value>
+                <fullName>24</fullName>
+                <default>false</default>
+                <label>24</label>
+            </value>
+            <value>
+                <fullName>S3</fullName>
+                <default>false</default>
+                <label>S3</label>
+            </value>
+            <value>
+                <fullName>05</fullName>
+                <default>false</default>
+                <label>05</label>
+            </value>
+            <value>
+                <fullName>F3</fullName>
+                <default>false</default>
+                <label>F3</label>
+            </value>
+            <value>
+                <fullName>95</fullName>
+                <default>false</default>
+                <label>95</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Stop Delivery</controllingFieldValue>
+            <valueName>41</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>T/T Prior to Shipment</controllingFieldValue>
+            <valueName>42</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unlimited Credit</controllingFieldValue>
+            <valueName>43</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Before Delivery</controllingFieldValue>
+            <valueName>45</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acc Closed - Do Not Use</controllingFieldValue>
+            <valueName>98</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acc Closed - Refer New Acc</controllingFieldValue>
+            <valueName>99</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>15 Days From Statement</controllingFieldValue>
+            <valueName>16</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>7 Days From Invoice - No$s</controllingFieldValue>
+            <valueName>08</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Card on Deliver</controllingFieldValue>
+            <valueName>51</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Before Delivery - No$s</controllingFieldValue>
+            <valueName>46</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>By Arrangement - No Payment</controllingFieldValue>
+            <valueName>22</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>By Arrangement</controllingFieldValue>
+            <valueName>24</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>* Strictly Cash on Delivery *</controllingFieldValue>
+            <valueName>23</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Strictly 30 Days From S&apos;ment</controllingFieldValue>
+            <valueName>S3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>COD &amp; Arrangement</controllingFieldValue>
+            <valueName>25</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5 Day Account</controllingFieldValue>
+            <valueName>05</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consignment</controllingFieldValue>
+            <valueName>27</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>30 Days From Invoice Date</controllingFieldValue>
+            <valueName>F3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Current &amp; Arrangement</controllingFieldValue>
+            <valueName>29</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donations</controllingFieldValue>
+            <valueName>95</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Legal</controllingFieldValue>
+            <valueName>31</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter of Credit</controllingFieldValue>
+            <valueName>33</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Telegraphic Transfer</controllingFieldValue>
+            <valueName>34</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>May Pay on Deli-Strictly 30Day</controllingFieldValue>
+            <valueName>35</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pay on Delivery</controllingFieldValue>
+            <valueName>37</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>7 Days from Invoice</controllingFieldValue>
+            <valueName>02</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>30 Days from Statement</controllingFieldValue>
+            <valueName>03</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>45 Days from Statement</controllingFieldValue>
+            <valueName>04</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>60 Days from Statement</controllingFieldValue>
+            <valueName>06</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>90 Days from Statement</controllingFieldValue>
+            <valueName>09</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>120 Days from Statement</controllingFieldValue>
+            <valueName>12</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>14 Days from Invoice</controllingFieldValue>
+            <valueName>14</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>15 Days from Invoice</controllingFieldValue>
+            <valueName>15</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>21 Days from Invoice</controllingFieldValue>
+            <valueName>21</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>POD &amp; Arrangement</controllingFieldValue>
+            <valueName>39</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sight Draft</controllingFieldValue>
+            <valueName>40</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

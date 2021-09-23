@@ -1,36 +1,37 @@
 @isTest
 public class B2BTaxSampleTest {
     @testSetup static void setup() {
-        Account account = new Account(Name='TestAccount');
+        Account account = TestDataFactory.getAccounts(1)[0];
         insert account;
-        WebStore webStore = new WebStore(Name='TestWebStore', DefaultLanguage='en_US');
+        WebStore webStore = TestDataFactory.getWebStore();
         insert webStore;
-        WebCart cart = new WebCart(Name='Cart', WebStoreId=webStore.Id, AccountId=account.Id);
+        WebCart cart = TestDataFactory.getCart(webStore.Id, account.Id);
         insert cart;
-        CartDeliveryGroup cartDeliveryGroup = new CartDeliveryGroup(CartId=cart.Id, Name='Default Delivery');
+        CartDeliveryGroup cartDeliveryGroup = TestDataFactory.getCartDeliveryGroup(cart.Id);
         insert cartDeliveryGroup;
         
-        CartItem cartItem = new CartItem(
-            CartId=cart.Id, 
-            Sku='SKU_Test1', 
-            Quantity=3.0, 
-            Type='Product', 
-            Name='TestProduct', 
-            TotalPrice=100,
-            CartDeliveryGroupId=cartDeliveryGroup.Id
-        );
-        insert cartItem;
+        Id pricebookId = Test.getStandardPricebookId();
 
-        cartItem = new CartItem(
-            CartId=cart.Id, 
-            Sku='SKU_GST', 
-            Quantity=1, 
-            Type='Charge', 
-            Name='GST',
-            TotalPrice=10, 
-            CartDeliveryGroupId=cartDeliveryGroup.Id
-        );
-        insert cartItem;
+        Pricebook2 Pricebook2Var = TestDataFactory.getCustomPricebook('TestPriceBook');
+        insert Pricebook2Var;
+
+        List<product2> productList = TestDataFactory.getProducts(2);
+        productList[0].Name = 'Shipping Charge for this delivery method';
+        productList[1].Tax_Required__c = true;
+        insert productList ;
+
+        List<PricebookEntry> PricebookEntryStandard = TestDataFactory.getPricebookEntry(pricebookId, productList);
+        insert PricebookEntryStandard;
+
+        List<PricebookEntry> PricebookEntryCustom = TestDataFactory.getPricebookEntry(Pricebook2Var.Id, productList);
+        insert PricebookEntryCustom;
+        
+        CartItem cartItemProduct = TestDataFactory.getCartItem(cart.Id, cartDeliveryGroup.Id, productList[1].Id, 'Product', 'SKU_Test1', 'TestProduct', 5, 100);
+        CartItem cartItemCharge = TestDataFactory.getCartItem(cart.Id, cartDeliveryGroup.Id, productList[0].Id, 'Product', 'SKU_GST', 'GST', 1, 0);
+
+        List<CartItem> cartItemList = new List<CartItem>{cartItemProduct, cartItemCharge};
+
+        insert cartItemList;
     }
     
     @isTest static void testCartTaxForCartItemSuccessfullyInserted() {

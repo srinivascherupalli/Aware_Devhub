@@ -3,7 +3,7 @@
 * 
 */
 
-public with Sharing class GROW_SiteOpHoursCtrl {
+public without Sharing class GROW_SiteOpHoursCtrl {
     
     @AuraEnabled 
     public static List<SiteWrapper> getSites(){ 
@@ -12,7 +12,7 @@ public with Sharing class GROW_SiteOpHoursCtrl {
             List<Site__c> lstParentSites = new List<Site__c>();
             List<SiteWrapper> lstSites = new List<SiteWrapper>();
             
-            lstParentSites = [SELECT Id, Name, Phone__c, Address__c, Site_Related_Alert__c, Site_Manager__r.Name, Site_Manager_Mobile__c, 
+            lstParentSites = [SELECT Id, Name, Phone__c, Address__c, Site_Related_Alert__c, Site_Manager__r.Name, Site_Manager__r.FirstName, Site_Manager__r.LastName, Site_Manager_Mobile__c, 
                               (SELECT Id, Name, Open_Time__c, Closing_Time__c, Closed__c FROM Operation_Hours__r)
                               FROM Site__c 
                               ORDER BY Name ASC
@@ -58,7 +58,15 @@ public with Sharing class GROW_SiteOpHoursCtrl {
             newSite.Address = st.Address__c;
             newSite.Phone = st.Phone__c;
             newSite.SiteRelatedAlert = st.Site_Related_Alert__c;
-            newSite.SiteManagerName = st.Site_Manager__r.Name;
+            if(st.Site_Manager__r != null){
+                if(st.Site_Manager__r.FirstName != null){
+                    newSite.SiteManagerName = st.Site_Manager__r.FirstName ; 
+                }
+                if(st.Site_Manager__r.LastName != null){
+                    newSite.SiteManagerName = newSite.SiteManagerName + ' ' +  st.Site_Manager__r.LastName; 
+                }
+            }
+            
             newSite.SiteManagerMobile = st.Site_Manager_Mobile__c;
             
             if (st.Operation_Hours__r.size() > 0){

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Export</fullName>
+        <default>false</default>
+        <label>Export</label>
+    </customValue>
+    <customValue>
+        <fullName>Domestic</fullName>
+        <default>false</default>
+        <label>Domestic</label>
+    </customValue>
+    <customValue>
+        <fullName>Bakers Delight</fullName>
+        <default>false</default>
+        <label>Bakers Delight</label>
+    </customValue>
+    <customValue>
+        <fullName>Aldi Stores</fullName>
+        <default>false</default>
+        <label>Aldi Stores</label>
+    </customValue>
+    <customValue>
+        <fullName>Arnotts</fullName>
+        <default>false</default>
+        <label>Arnotts</label>
+    </customValue>
+    <customValue>
+        <fullName>Bidvest</fullName>
+        <default>false</default>
+        <label>Bidvest</label>
+    </customValue>
+    <customValue>
+        <fullName>Boral</fullName>
+        <default>false</default>
+        <label>Boral</label>
+    </customValue>
+    <customValue>
+        <fullName>BP Group of Customers</fullName>
+        <default>false</default>
+        <label>BP Group of Customers</label>
+    </customValue>
+    <customValue>
+        <fullName>Carter Holt Harvey</fullName>
+        <default>false</default>
+        <label>Carter Holt Harvey</label>
+    </customValue>
+    <customValue>
+        <fullName>Costco Group</fullName>
+        <default>false</default>
+        <label>Costco Group</label>
+    </customValue>
+    <customValue>
+        <fullName>CSR</fullName>
+        <default>false</default>
+        <label>CSR</label>
+    </customValue>
+    <customValue>
+        <fullName>Caltex Group</fullName>
+        <default>false</default>
+        <label>Caltex Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Fosters</fullName>
+        <default>false</default>
+        <label>Fosters</label>
+    </customValue>
+    <customValue>
+        <fullName>Country Wide</fullName>
+        <default>false</default>
+        <label>Country Wide</label>
+    </customValue>
+    <customValue>
+        <fullName>Donation Accounts</fullName>
+        <default>false</default>
+        <label>Donation Accounts</label>
+    </customValue>
+    <customValue>
+        <fullName>Freedom Fuels</fullName>
+        <default>false</default>
+        <label>Freedom Fuels</label>
+    </customValue>
+    <customValue>
+        <fullName>Goodman Fielder</fullName>
+        <default>false</default>
+        <label>Goodman Fielder</label>
+    </customValue>
+    <customValue>
+        <fullName>Greens Group</fullName>
+        <default>false</default>
+        <label>Greens Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Coles Group</fullName>
+        <default>false</default>
+        <label>Coles Group</label>
+    </customValue>
+    <customValue>
+        <fullName>General Mills</fullName>
+        <default>false</default>
+        <label>General Mills</label>
+    </customValue>
+    <customValue>
+        <fullName>george western foods</fullName>
+        <default>false</default>
+        <label>george western foods</label>
+    </customValue>
+    <customValue>
+        <fullName>Holland American Line</fullName>
+        <default>false</default>
+        <label>Holland American Line</label>
+    </customValue>
+    <customValue>
+        <fullName>Just Fuel</fullName>
+        <default>false</default>
+        <label>Just Fuel</label>
+    </customValue>
+    <customValue>
+        <fullName>Kimberly Clark Australia</fullName>
+        <default>false</default>
+        <label>Kimberly Clark Australia</label>
+    </customValue>
+    <customValue>
+        <fullName>Kelloggs</fullName>
+        <default>false</default>
+        <label>Kelloggs</label>
+    </customValue>
+    <customValue>
+        <fullName>Kerry Ingredients</fullName>
+        <default>false</default>
+        <label>Kerry Ingredients</label>
+    </customValue>
+    <customValue>
+        <fullName>Kraft Foods (Cadbury previously)</fullName>
+        <default>false</default>
+        <label>Kraft Foods (Cadbury previously)</label>
+    </customValue>
+    <customValue>
+        <fullName>Krispy Kreme</fullName>
+        <default>false</default>
+        <label>Krispy Kreme</label>
+    </customValue>
+    <customValue>
+        <fullName>Knauf Plasterboard</fullName>
+        <default>false</default>
+        <label>Knauf Plasterboard</label>
+    </customValue>
+    <customValue>
+        <fullName>Liberty</fullName>
+        <default>false</default>
+        <label>Liberty</label>
+    </customValue>
+    <customValue>
+        <fullName>Michels Bakery Group</fullName>
+        <default>false</default>
+        <label>Michels Bakery Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Metcash Group</fullName>
+        <default>false</default>
+        <label>Metcash Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Masterfoods</fullName>
+        <default>false</default>
+        <label>Masterfoods</label>
+    </customValue>
+    <customValue>
+        <fullName>Murray Goulburn</fullName>
+        <default>false</default>
+        <label>Murray Goulburn</label>
+    </customValue>
+    <customValue>
+        <fullName>Mobil Oil Group of Customers</fullName>
+        <default>false</default>
+        <label>Mobil Oil Group of Customers</label>
+    </customValue>
+    <customValue>
+        <fullName>Nestle</fullName>
+        <default>false</default>
+        <label>Nestle</label>
+    </customValue>
+    <customValue>
+        <fullName>Neuman Petroleum</fullName>
+        <default>false</default>
+        <label>Neuman Petroleum</label>
+    </customValue>
+    <customValue>
+        <fullName>NAFDA</fullName>
+        <default>false</default>
+        <label>NAFDA</label>
+    </customValue>
+    <customValue>
+        <fullName>Nippon Paper (ex - paperlinx = apx)</fullName>
+        <default>false</default>
+        <label>Nippon Paper (ex - paperlinx = apx)</label>
+    </customValue>
+    <customValue>
+        <fullName>Opal Group (ex orora/amc)</fullName>
+        <default>false</default>
+        <label>Opal Group (ex orora/amc)</label>
+    </customValue>
+    <customValue>
+        <fullName>Patties Foods</fullName>
+        <default>false</default>
+        <label>Patties Foods</label>
+    </customValue>
+    <customValue>
+        <fullName>PDF Wholesale Group</fullName>
+        <default>false</default>
+        <label>PDF Wholesale Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Pinnacle Bky</fullName>
+        <default>false</default>
+        <label>Pinnacle Bky</label>
+    </customValue>
+    <customValue>
+        <fullName>Real Pet Foods/VIP Foods</fullName>
+        <default>false</default>
+        <label>Real Pet Foods/VIP Foods</label>
+    </customValue>
+    <customValue>
+        <fullName>Sanitarium</fullName>
+        <default>false</default>
+        <label>Sanitarium</label>
+    </customValue>
+    <customValue>
+        <fullName>Shell</fullName>
+        <default>false</default>
+        <label>Shell</label>
+    </customValue>
+    <customValue>
+        <fullName>Statewide Independent Wholesalers</fullName>
+        <default>false</default>
+        <label>Statewide Independent Wholesalers</label>
+    </customValue>
+    <customValue>
+        <fullName>Unilever</fullName>
+        <default>false</default>
+        <label>Unilever</label>
+    </customValue>
+    <customValue>
+        <fullName>United Petroleum</fullName>
+        <default>false</default>
+        <label>United Petroleum</label>
+    </customValue>
+    <customValue>
+        <fullName>VISY</fullName>
+        <default>false</default>
+        <label>VISY</label>
+    </customValue>
+    <customValue>
+        <fullName>Brumbys Group</fullName>
+        <default>false</default>
+        <label>Brumbys Group</label>
+    </customValue>
+    <customValue>
+        <fullName>NAFDA New Group</fullName>
+        <default>false</default>
+        <label>NAFDA New Group</label>
+    </customValue>
+    <customValue>
+        <fullName>Warehouses</fullName>
+        <default>false</default>
+        <label>Warehouses</label>
+    </customValue>
+    <customValue>
+        <fullName>Woolworths</fullName>
+        <default>false</default>
+        <label>Woolworths</label>
+    </customValue>
+    <customValue>
+        <fullName>Export - GM Scott Customers</fullName>
+        <default>false</default>
+        <label>Export - GM Scott Customers</label>
+    </customValue>
+    <customValue>
+        <fullName>Domestic - GM Scott Customers</fullName>
+        <default>false</default>
+        <label>Domestic - GM Scott Customers</label>
+    </customValue>
+    <masterLabel>Buyer Groups</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

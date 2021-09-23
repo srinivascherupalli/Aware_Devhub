@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Online_Discount_Amount__c</fullName>
+    <description>This is a percentage value of discount applied to the order if online payment is done.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is a percentage discount applied to the order if online payment is done.</inlineHelpText>
+    <label>Online Discount Amount</label>
+    <precision>14</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Percent</type>
+</CustomField>

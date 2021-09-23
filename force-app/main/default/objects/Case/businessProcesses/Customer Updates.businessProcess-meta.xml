@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer Updates</fullName>
+    <description>Support Process involving price changes for Customer Price books by Sales Reps and Preferred Delivery Date updates by the Customer through the Storefront</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Approved</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>New</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Rejected</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

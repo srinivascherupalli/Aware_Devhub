@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site__c</fullName>
+    <description>Site Picklist field to indicate which Site the case is a part of - used for Grower&apos;s Portal Inquiry cases on the Grower&apos;s Portal</description>
+    <externalId>false</externalId>
+    <label>Site</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Stockinbingal</fullName>
+                <default>false</default>
+                <label>Stockinbingal</label>
+            </value>
+            <value>
+                <fullName>Bellata</fullName>
+                <default>false</default>
+                <label>Bellata</label>
+            </value>
+            <value>
+                <fullName>Manildra</fullName>
+                <default>false</default>
+                <label>Manildra</label>
+            </value>
+            <value>
+                <fullName>Moree</fullName>
+                <default>false</default>
+                <label>Moree</label>
+            </value>
+            <value>
+                <fullName>Bogan Gate</fullName>
+                <default>false</default>
+                <label>Bogan Gate</label>
+            </value>
+            <value>
+                <fullName>Grong Grong</fullName>
+                <default>false</default>
+                <label>Grong Grong</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EPR_Including_GST__c</fullName>
+    <description>Currency field to house EPR data, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>EPR (Including GST)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

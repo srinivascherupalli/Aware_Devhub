@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grower_Card__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to Grower Card, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Grower Card</label>
+    <referenceTo>Grower_s_Card__c</referenceTo>
+    <relationshipLabel>Partnerships Members</relationshipLabel>
+    <relationshipName>Partnerships_Members</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Terms_Code_Description__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Customers terms and agreement</inlineHelpText>
+    <label>Terms Code Description</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>7 Days from Invoice</fullName>
+                <default>false</default>
+                <label>7 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>30 Days from Statement</fullName>
+                <default>false</default>
+                <label>30 Days from Statement</label>
+            </value>
+            <value>
+                <fullName>45 Days from Statement</fullName>
+                <default>false</default>
+                <label>45 Days from Statement</label>
+            </value>
+            <value>
+                <fullName>60 Days from Statement</fullName>
+                <default>false</default>
+                <label>60 Days from Statement</label>
+            </value>
+            <value>
+                <fullName>90 Days from Statement</fullName>
+                <default>false</default>
+                <label>90 Days from Statement</label>
+            </value>
+            <value>
+                <fullName>120 Days from Statement</fullName>
+                <default>false</default>
+                <label>120 Days from Statement</label>
+            </value>
+            <value>
+                <fullName>14 Days from Invoice</fullName>
+                <default>false</default>
+                <label>14 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>15 Days from Invoice</fullName>
+                <default>false</default>
+                <label>15 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>21 Days from Invoice</fullName>
+                <default>false</default>
+                <label>21 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>By Arrangement - No Payment</fullName>
+                <default>false</default>
+                <label>By Arrangement - No Payment</label>
+            </value>
+            <value>
+                <fullName>* Strictly Cash on Delivery *</fullName>
+                <default>false</default>
+                <label>* Strictly Cash on Delivery *</label>
+            </value>
+            <value>
+                <fullName>COD &amp; Arrangement</fullName>
+                <default>false</default>
+                <label>COD &amp; Arrangement</label>
+            </value>
+            <value>
+                <fullName>Consignment</fullName>
+                <default>false</default>
+                <label>Consignment</label>
+            </value>
+            <value>
+                <fullName>Current &amp; Arrangement</fullName>
+                <default>false</default>
+                <label>Current &amp; Arrangement</label>
+            </value>
+            <value>
+                <fullName>Legal</fullName>
+                <default>false</default>
+                <label>Legal</label>
+            </value>
+            <value>
+                <fullName>Letter of Credit</fullName>
+                <default>false</default>
+                <label>Letter of Credit</label>
+            </value>
+            <value>
+                <fullName>Telegraphic Transfer</fullName>
+                <default>false</default>
+                <label>Telegraphic Transfer</label>
+            </value>
+            <value>
+                <fullName>May Pay on Deli-Strictly 30Day</fullName>
+                <default>false</default>
+                <label>May Pay on Deli-Strictly 30Day</label>
+            </value>
+            <value>
+                <fullName>Pay on Delivery</fullName>
+                <default>false</default>
+                <label>Pay on Delivery</label>
+            </value>
+            <value>
+                <fullName>POD &amp; Arrangement</fullName>
+                <default>false</default>
+                <label>POD &amp; Arrangement</label>
+            </value>
+            <value>
+                <fullName>Sight Draft</fullName>
+                <default>false</default>
+                <label>Sight Draft</label>
+            </value>
+            <value>
+                <fullName>Stop Delivery</fullName>
+                <default>false</default>
+                <label>Stop Delivery</label>
+            </value>
+            <value>
+                <fullName>T/T Prior to Shipment</fullName>
+                <default>false</default>
+                <label>T/T Prior to Shipment</label>
+            </value>
+            <value>
+                <fullName>Unlimited Credit</fullName>
+                <default>false</default>
+                <label>Unlimited Credit</label>
+            </value>
+            <value>
+                <fullName>Payment Before Delivery</fullName>
+                <default>false</default>
+                <label>Payment Before Delivery</label>
+            </value>
+            <value>
+                <fullName>Acc Closed - Do Not Use</fullName>
+                <default>false</default>
+                <label>Acc Closed - Do Not Use</label>
+            </value>
+            <value>
+                <fullName>Acc Closed - Refer New Acc</fullName>
+                <default>false</default>
+                <label>Acc Closed - Refer New Acc</label>
+            </value>
+            <value>
+                <fullName>15 Days From Statement</fullName>
+                <default>false</default>
+                <label>15 Days From Statement</label>
+            </value>
+            <value>
+                <fullName>7 Days From Invoice - No$s</fullName>
+                <default>false</default>
+                <label>7 Days From Invoice - No$s</label>
+            </value>
+            <value>
+                <fullName>Credit Card on Deliver</fullName>
+                <default>false</default>
+                <label>Credit Card on Deliver</label>
+            </value>
+            <value>
+                <fullName>Payment Before Delivery - No$s</fullName>
+                <default>false</default>
+                <label>Payment Before Delivery - No$s</label>
+            </value>
+            <value>
+                <fullName>By Arrangement</fullName>
+                <default>false</default>
+                <label>By Arrangement</label>
+            </value>
+            <value>
+                <fullName>Strictly 30 Days From S&apos;ment</fullName>
+                <default>false</default>
+                <label>Strictly 30 Days From S&apos;ment</label>
+            </value>
+            <value>
+                <fullName>5 Day Account</fullName>
+                <default>false</default>
+                <label>5 Day Account</label>
+            </value>
+            <value>
+                <fullName>30 Days From Invoice Date</fullName>
+                <default>false</default>
+                <label>30 Days From Invoice Date</label>
+            </value>
+            <value>
+                <fullName>Donations</fullName>
+                <default>false</default>
+                <label>Donations</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

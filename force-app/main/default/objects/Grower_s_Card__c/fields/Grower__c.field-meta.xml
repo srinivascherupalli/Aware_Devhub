@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grower__c</fullName>
+    <description>Lookup field to Account to represent the Grower represented by the Grower Card, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Grower</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Grower Cards</relationshipLabel>
+    <relationshipName>Grower_Cards</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

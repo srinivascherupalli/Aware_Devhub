@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Assign_Backorder</name>
+        <label>Assign Backorder</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Backorder</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Cancelled</name>
+        <label>Assign Cancelled</label>
+        <locationX>1634</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Forward_Order</name>
+        <label>Assign Forward Order</label>
+        <locationX>314</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Forward Order</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Invoiced</name>
+        <label>Assign Invoiced</label>
+        <locationX>842</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Invoiced</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Processing</name>
+        <label>Assign Processing</label>
+        <locationX>1370</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Processing</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Under_Review</name>
+        <label>Assign Under Review</label>
+        <locationX>1106</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Under Review</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Waiting_Payment</name>
+        <label>Assign Waiting Payment</label>
+        <locationX>578</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary_Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Awaiting Payment</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Sort through AS400Status value</description>
+        <name>DecisionAS400Status</name>
+        <label>DecisionAS400Status</label>
+        <locationX>974</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Backorder</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Backorder</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Backorder</targetReference>
+            </connector>
+            <label>Backorder</label>
+        </rules>
+        <rules>
+            <name>Forward_Order</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Forward Order</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Forward_Order</targetReference>
+            </connector>
+            <label>Forward Order</label>
+        </rules>
+        <rules>
+            <name>Awaiting_Payment</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Proforma Sent</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Waiting_Payment</targetReference>
+            </connector>
+            <label>Awaiting Payment</label>
+        </rules>
+        <rules>
+            <name>Invoiced</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Invoice Print</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Invoice Printed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Invoice Reprint</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Invoiced</targetReference>
+            </connector>
+            <label>Invoiced</label>
+        </rules>
+        <rules>
+            <name>Under_Review</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Credit Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Held</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Release Pending</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Incomplete</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Under_Review</targetReference>
+            </connector>
+            <label>Under Review</label>
+        </rules>
+        <rules>
+            <name>Processing</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Confirm Order </stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>D/D Print</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>D/D Print</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>D/D Printed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>D/D Reprint</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>D/D Shipped</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>P/U Dkt Print</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>P/U Dkt Printed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>P/U Dkt Sent</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>P/U Dkt Reprint</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Order Purge</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Processing</targetReference>
+            </connector>
+            <label>Processing</label>
+        </rules>
+        <rules>
+            <name>Cancelled</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AS400_Order_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Deleted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Cancelled</targetReference>
+            </connector>
+            <label>Cancelled</label>
+        </rules>
+    </decisions>
+    <description>Update Order Summary Status depending on values from the AS400 Order Status on order Object</description>
+    <interviewLabel>Update Order Summary Status {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Order Summary Status</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Order_Summary_Record</name>
+        <label>Get Order Summary Record</label>
+        <locationX>974</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>DecisionAS400Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OriginalOrderId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrderSummary</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Order_Summary</name>
+        <label>Update Order Summary</label>
+        <locationX>974</locationX>
+        <locationY>767</locationY>
+        <inputReference>Get_Order_Summary_Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>848</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Order_Summary_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <object>Order</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

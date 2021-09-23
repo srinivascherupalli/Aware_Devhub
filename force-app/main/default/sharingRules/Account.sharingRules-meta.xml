@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>B2B_Commerce_AR_Account_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Gives Read/Write access to the Accounts Receivable Group with Accounts with Record Type &quot;B2B Customer&quot;.</description>
+        <label>B2B Commerce - AR Account Sharing Rule</label>
+        <sharedTo>
+            <group>Accounts_Receivable_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>B2B Customer</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>B2B_Commerce_CS_Account_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Account Sharing Rule used to Share all B2B Customer Account with the Customer Service team Group.</description>
+        <label>B2B Commerce -  CS Account Sharing Rule</label>
+        <sharedTo>
+            <group>Customer_Service_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>B2B Customer</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Grower_s_Portal_Account_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Edit</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Account Sharing Rule used to Share all Grower and Farm Accounts with the Grain Buying Lead Role and Subordinates - providing Account access will also provide implicit access to all Grower&apos;s related cases.</description>
+        <label>Grower&apos;s Portal - Account Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Grain_Buying_Lead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Grower</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Farm</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

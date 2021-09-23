@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Preferred Delivery Day</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Preferred Delivery Days</value>
+    </caseValues>
+    <layouts>
+        <layout>B2B Customer Delivery Date Layout</layout>
+        <sections>
+            <label></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label></label>
+        <name>B2B_Update_Preferred_Delivery_Dates_Button</name>
+    </webLinks>
+</CustomObjectTranslation>

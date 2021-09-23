@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grant_Access_To_Grain_Prices__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox to indicate if this contact should have access to the Grain Price Table, used in the Grain Price Controller to control the grain price table visibility on the Grower&apos;s Portal</description>
+    <externalId>false</externalId>
+    <label>Grant Access To Grain Prices</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

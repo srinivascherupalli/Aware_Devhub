@@ -29,6 +29,9 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
     @wire(getOrderList, {accountId: '$effectiveAccountId'})
     orders;
 
+    //variable for checkbox
+    selection = 'payOffline'; 
+    
    //this for Column Actions
 
     
@@ -247,10 +250,12 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
         this.hide = false;
     }
 
+    //Here selected itmes are populated in the Cart. 
     handleNextClick(){
         let deliveryDate = this.template.querySelector('.delivery-date');
         if(deliveryDate.reportValidity() && deliveryDate.checkValidity()) {
-            createOrder({customerUserId: this.userId , accountId: this.effectiveAccountId, deliveryDate: this.pickedDate})
+            console.log('value of selection: '+this.selection);
+            createOrder({customerUserId: this.userId , accountId: this.effectiveAccountId, deliveryDate: this.pickedDate, paymentMethod: this.selection})
             .then((result) => {
                 console.log(result);
                 this.navigateToCartPage(result);
@@ -323,4 +328,23 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
             });
     }
 
+    handleCheckboxChange(){
+        const checked = Array.from(
+            this.template.querySelectorAll('lightning-input')
+        )
+            // Filter down to checked items
+            .filter(element => element.checked)
+            // Map checked items to their labels
+            .map(element => element.name);
+            if(checked.length > 0){
+                this.selection = checked.join(', ');
+            }
+            else{
+                this.selection = 'payOffline';
+            }
+
+        console.log('Value of the checkbox: '+this.selection);    
+
+    }
+    
 }

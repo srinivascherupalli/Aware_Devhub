@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_See_Commercial_Information__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used for Audience in the Storefront</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Allows user to see finical information in the Storefront</inlineHelpText>
+    <label>See Commercial Information</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

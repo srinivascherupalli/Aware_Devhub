@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Outstanding</fullName>
+        <default>true</default>
+        <label>Outstanding</label>
+    </customValue>
+    <customValue>
+        <fullName>Paid</fullName>
+        <default>false</default>
+        <label>Paid</label>
+    </customValue>
+    <customValue>
+        <fullName>Overdue</fullName>
+        <default>false</default>
+        <label>Overdue</label>
+    </customValue>
+    <masterLabel>Payment Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

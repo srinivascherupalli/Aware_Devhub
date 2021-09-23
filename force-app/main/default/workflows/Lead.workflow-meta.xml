@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>New_Lead_Email_Alert</fullName>
+        <description>New Lead Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>B2B_Commerce_Email_Templates/New_Lead_Email_Template</template>
+    </alerts>
+    <rules>
+        <fullName>New Lead Email Alert</fullName>
+        <actions>
+            <name>New_Lead_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.OwnerId</field>
+            <operation>contains</operation>
+            <value>Sales</value>
+        </criteriaItems>
+        <description>New Internal Lead Email Alert for State Manager.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Lead Follow-up Task</fullName>
+        <actions>
+            <name>Lead_Follow_up</name>
+            <type>Task</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.OwnerId</field>
+            <operation>contains</operation>
+            <value>Sales</value>
+        </criteriaItems>
+        <description>Newly created Leads to have a follow-up task assigned to the Lead Owner</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Lead_Follow_up</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>3</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Lead.CreatedDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Lead Follow-up</subject>
+    </tasks>
+</Workflow>

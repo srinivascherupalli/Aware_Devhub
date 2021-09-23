@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Today__c</fullName>
+    <description>Hidden Field: Used to get today&apos;s day name e.g. Monday. Used with automation on creating Tasks related to the Call list record. Used in Flow &apos;Create Tasks on Call Request&apos; Object</description>
+    <externalId>false</externalId>
+    <formula>CASE( MOD( TODAY() - DATE( 1900, 1, 7 ), 7 ), 0, &quot;Sunday&quot;, 1, &quot;Monday&quot;, 2, &quot;Tuesday&quot;, 3, &quot;Wednesday&quot;, 4, &quot;Thursday&quot;, 5, &quot;Friday&quot;, &quot;Saturday&quot; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Today</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

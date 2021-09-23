@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DAFF_Levy__c</fullName>
+    <description>Currency field to house DAFF Levy deducted from Grain Payment, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>DAFF Levy</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

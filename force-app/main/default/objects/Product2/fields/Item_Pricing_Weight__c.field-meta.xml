@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Item_Pricing_Weight__c</fullName>
+    <description>The value used to get the selling quantity back to the pricing quantity. E.g. Pricing in Tonnes, selling 25kg bags, this would be 0.025. Pricing is caluclated Sellining Qty * Contract Price * [this value]</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The value used to get the selling quantity back to the pricing quantity. E.g. Pricing in Tonnes, selling 25kg bags, this would be 0.025. Pricing is caluclated Sellining Qty * Contract Price * [this value]</inlineHelpText>
+    <label>Item Pricing Weight</label>
+    <precision>15</precision>
+    <required>false</required>
+    <scale>6</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

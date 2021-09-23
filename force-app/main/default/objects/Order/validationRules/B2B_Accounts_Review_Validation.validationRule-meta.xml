@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Accounts_Review_Validation</fullName>
+    <active>true</active>
+    <description>If AccountReview Validation is True then Reference Number must be Populated.</description>
+    <errorConditionFormula>AND(   
+    ISPICKVAL(Status, &quot;On Hold&quot;),
+    AccountReview__c = TRUE,
+    ISBLANK(OrderReferenceNumber)
+)</errorConditionFormula>
+    <errorDisplayField>OrderReferenceNumber</errorDisplayField>
+    <errorMessage>Reference Number must be Populated before Progressing the Order to On Hold.</errorMessage>
+</ValidationRule>

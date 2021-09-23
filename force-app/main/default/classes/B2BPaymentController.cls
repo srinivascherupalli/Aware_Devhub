@@ -193,19 +193,16 @@ public with sharing class B2BPaymentController {
 
             }
 
-           // Now update the webCart
-           if(Schema.sObjectType.WebCart.isAccessible()) {
-                authorizePaymentInfo(cartId,billingAddress,paymentInfo);
-
-                /*
-               if(isUsingTokenisedCard){
-                    authorizePaymentInfo(cartId,billingAddress,paymentInfo);
-               }else{
+            if (paymentType == 'PurchaseOrderNumber') {
+                if(Schema.sObjectType.WebCart.isAccessible()) {
                     update cart;       
-                    System.debug('##Cart updated...');
-               }
-               */
-           }
+                }
+                System.debug('##Cart updated...');
+            }else{
+                authorizePaymentInfo(cartId,billingAddress,paymentInfo);
+            }
+            
+           // Now update the webCart
         } catch (AuraHandledException e) {
             throw e;
         } catch (DmlException e) {
@@ -229,6 +226,9 @@ public with sharing class B2BPaymentController {
                 Map<String, Object> selectedBillingAddress,
                 Map<String, Object> paymentInfo) {
         ConnectApi.AuthorizationRequest authRequest = new ConnectApi.AuthorizationRequest();
+
+        //DiscountController.addDiscountItem(cartId);
+
         WebCart cart;
         try {
             cart = [SELECT WebStoreId, GrandTotalAmount, AccountId, PaymentMethodId FROM WebCart WHERE Id=:cartId];

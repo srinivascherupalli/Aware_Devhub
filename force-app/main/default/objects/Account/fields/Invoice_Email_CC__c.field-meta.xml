@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Email_CC__c</fullName>
+    <description>the email address in the cc field that invoice are sent to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>the email address in the cc field that invoice are sent to</inlineHelpText>
+    <label>Invoice Email CC</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

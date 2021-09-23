@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>LightningBolt</label>
+    <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Grower</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Farm</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Contract_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Contract</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Delivery_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Delivery__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Grain_Payment_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Grain_Payment__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <tabs>standard-LightningBoltHome</tabs>
+    <tabs>MobileLanding</tabs>
+    <tabs>Daily_Delivery_Summary__c</tabs>
+    <tabs>Delivery__c</tabs>
+    <tabs>Site__c</tabs>
+    <tabs>Order_Grid__c</tabs>
+    <tabs>B2B_Customer_Delivery_Date__c</tabs>
+    <tabs>Public_Holiday__c</tabs>
+    <tabs>Call_Requests__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

@@ -4,31 +4,6 @@
 */
 
 public with Sharing class GROW_SiteGrainPriceViewCtrl {
-    /*
-    @AuraEnabled 
-    public static List<GrainPriceWrapper> getGrainPrices(){ 
-        
-        /*try{
-            List<Grain_Price__c> lstGrainPrices = new List<Grain_Price__c>();
-            List<GrainPriceWrapper> lstGrainPriceWrapper = new List<GrainPriceWrapper>();
-            
-            lstGrainPrices = [SELECT Id, Bin_Grade__c, Date__c, Price_Per_Metric_Tonne__c, Site__r.Name, Status__c
-                              FROM Grain_Price__c 
-                              ORDER BY Bin_Grade__c ASC, Site__r.Name ASC
-                              LIMIT 200];
-            
-            if (lstGrainPrices.size() > 0){
-                lstGrainPriceWrapper = transformGrainPrices(lstGrainPrices);
-                prepareGrainPriceGridValues(lstGrainPrices);
-            }
-            
-            system.debug('MMM -> lstGrainPriceWrapper: '+lstGrainPriceWrapper);
-            return lstGrainPriceWrapper;
-        }
-        catch (Exception e){
-            throw new AuraHandledException(e.getMessage());
-        }
-*/
     @AuraEnabled 
     public static GrainPriceWrapper getGrainPrices(){ 
         
@@ -66,6 +41,12 @@ public with Sharing class GROW_SiteGrainPriceViewCtrl {
         headerRow.addAll(setSiteNames);
         lstBinGrades.addAll(setBinGrades);
         
+        for(Site__c siteVar : [Select Id, Name From Site__c ]){
+            if(!setSiteNames.contains(siteVar.Name)){
+                headerRow.add(siteVar.Name);
+            }
+        }
+
         lstGrainPriceGrid = prepareGrainPriceTable(headerRow, lstBinGrades, mapBinGradeSitetoPrices); 
         headerRow.add(0, 'Bin Grades'); // Add Blank Cell
         return new GrainPriceWrapper(headerRow, lstGrainPriceGrid);
@@ -73,11 +54,6 @@ public with Sharing class GROW_SiteGrainPriceViewCtrl {
     }
     
     public class GrainPriceWrapper{
-        /*
-        @AuraEnabled public String BinGrade{get;set;}
-        @AuraEnabled public String Site{get;set;}
-        @AuraEnabled public String Price{get;set;}
-		*/
         
         @AuraEnabled public List<String> HeaderRow{get; set;}
         @AuraEnabled public List<List<String>> GrainPriceGrid{get; set;}
@@ -88,31 +64,6 @@ public with Sharing class GROW_SiteGrainPriceViewCtrl {
         }
     }
     
-    /* ------------- HELPER METHODS -------------- */
-    	/*
-    private static List<GrainPriceWrapper> transformGrainPrices(List<Grain_Price__c> lstGrainPricesPrm){
-        GrainPriceWrapper newGrainWrapper;
-        List<GrainPriceWrapper> lstGrainWrapper = new List<GrainPriceWrapper>();
-        
-        for(Grain_Price__c gprice: lstGrainPricesPrm){
-            newGrainWrapper = new GrainPriceWrapper();
-            newGrainWrapper.BinGrade = gprice.Bin_Grade__c;
-            newGrainWrapper.Site = gprice.Site__r.Name;
-            
-            // [27-Aug-2021 - Mansoor] If the grain Price is 0, then display the text message "Not Purchasing".
-            if (gprice.Price_Per_Metric_Tonne__c == 0.0){
-                newGrainWrapper.Price = gprice.Status__c;
-            }
-            else{
-                newGrainWrapper.Price = String.valueOf(gprice.Price_Per_Metric_Tonne__c);
-            }
-            
-			lstGrainWrapper.add(newGrainWrapper);
-        }
-        
-        return lstGrainWrapper;
-    } 
-    */
     private static List<List<String>> prepareGrainPriceTable(List<String> headerRowPrm, List<String> lstBinGradesPrm, Map<String, String> mapGrainPricePrm){
         
 		List<List<String>> grainPriceGrid = new List<List<String>>();

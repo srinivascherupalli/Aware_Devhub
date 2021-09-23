@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>B2B - Inquiry Assignment</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>B2B_Customer_Service_Team_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Storefront Inquiry</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>B2B Price Change</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <assignedTo>Price_Editor_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Price Change</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>Grower%27s Portal - Inquiry Assignment</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <assignedTo>Grower_s_Portal_Inquiry_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Grower&apos;s Portal Inquiry</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

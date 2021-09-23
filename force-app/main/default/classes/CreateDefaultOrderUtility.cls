@@ -60,12 +60,14 @@ public class CreateDefaultOrderUtility {
                     }
                 }
             }
+            System.debug('accountListToProcess>>>>'+accountListToProcess);
             if(!accountListToProcess.isEmpty()){
                 List<Account> acctList = preChecksBeforeDefaultOrderCreation(accountListToProcess);
                 if(!acctList.isEmpty()){
                     Map<Id,list<Order_Grid__c>> actWithGridMap =  getOrderGridsRelatedToAccount(acctList);
+                    System.debug('actWithGridMap>>>>'+actWithGridMap);
                     if(!actWithGridMap.isEmpty()){
-                        createOrderAndOrderLineItems(actWithGridMap);
+                        createOrderAndOrderLineItems(actWithGridMap, accountMap);
                     }
                 }
             }
@@ -90,13 +92,14 @@ public class CreateDefaultOrderUtility {
             Time cutOffTimeVar = accountMap.get(orderRec.accountId).Cut_Off_Time__c ;
             if(orderRec.CreatedDate.date() == system.now().date()){
                 if(orderRec.createdDate.time() < cutOffTimeVar){ 
-                    accountsToExcludeSet.add(orderRec.accountId);
+                    //accountsToExcludeSet.add(orderRec.accountId);
                 }
             }else{
-                    accountsToExcludeSet.add(orderRec.accountId);
+                    //accountsToExcludeSet.add(orderRec.accountId);
             }
             
         }
+        System.debug('accountsToExcludeSet>>>>'+accountsToExcludeSet);
         for(Id act: accountMap.keySet()){
             if(!accountsToExcludeSet.contains(act)){
                 actListToProcess.add(accountMap.get(act));
@@ -114,7 +117,7 @@ public class CreateDefaultOrderUtility {
         Map<Id, Account> accountMap = new Map<Id, Account>(accList);
         Map<Id, list<Order_Grid__c>> accountWithOrderGridsMap = new Map<Id, list<Order_Grid__c>>();
 
-        for(Order_Grid__c orderGrid : [Select Id, Account_Name__c, Account_Name__r.Name, Product__c, Avg_Of_Orders__c, Price__c From Order_Grid__c Where Account_Name__c IN : accountMap.keySet()]){
+        for(Order_Grid__c orderGrid : [Select Id, Account_Name__c, Account_Name__r.Name, Account_Name__r.Tax_Exemption_Account__c, Product__c, Avg_Of_Orders__c, Price__c From Order_Grid__c Where Account_Name__c IN : accountMap.keySet()]){
             if(accountWithOrderGridsMap.containsKey(orderGrid.Account_Name__c)){
                 List<Order_Grid__c> orderGridList = new List<Order_Grid__c>();
                 orderGridList = accountWithOrderGridsMap.get(orderGrid.Account_Name__c);
@@ -128,18 +131,19 @@ public class CreateDefaultOrderUtility {
     /**
      * @Description : 1. Created Order and Order line items for customers using the related Order grids details
      */
-    private static void createOrderAndOrderLineItems(Map<Id,list<Order_Grid__c>> accountWithOrderGridsMap){
+    private static void createOrderAndOrderLineItems(Map<Id,list<Order_Grid__c>> accountWithOrderGridsMap, Map<Id, Account> accountMap){
 
         List<Order> orderList = new List<Order>();
         List<OrderItem> orderItemList = new List<OrderItem>();
         List<sObject> orderWithOrderItemList = new List<SObject>();
         Map<Id,Id> customerWithRelatedStoreMap = getRelatedStoreFrontDetails(accountWithOrderGridsMap.keySet());
-        createOrdersWithOrderDeliveryGroup(accountWithOrderGridsMap);
+        createOrdersWithOrderDeliveryGroup(accountWithOrderGridsMap, accountMap);
     }
 
-    private static void createOrdersWithOrderDeliveryGroup(Map<Id,list<Order_Grid__c>> accountWithOrderGridsMap){
+    private static void createOrdersWithOrderDeliveryGroup(Map<Id,list<Order_Grid__c>> accountWithOrderGridsMap, Map<Id, Account> accountMap){
         
         Map<Id,order> accountWithOrderMap = new Map<Id,Order>();
+        Map<Id,Order> orderMap = new Map<Id,Order>();
         Map<Id,Order> successfullyCreatedOrdersMap = new Map<Id,Order>();
         Map<Id,String> unsuccessfulOrderCreationMap = new Map<Id,String>();
         Map<Id,OrderDeliveryGroup> orderWithDeliveryGroupMap = new Map<Id,OrderDeliveryGroup>();
@@ -163,6 +167,7 @@ public class CreateDefaultOrderUtility {
         for(Integer i=0;i<ordersSaveResults.size();i++){
             if (ordersSaveResults[i].isSuccess()){
                 successfullyCreatedOrdersMap.put(accountWithOrderMap.values()[i].accountId, accountWithOrderMap.values()[i]);              
+                orderMap.put(ordersSaveResults[i].getId(), accountWithOrderMap.values()[i]);
             }else if (!ordersSaveResults[i].isSuccess()){
                 Exception_Log__c exceptionLog = contructExceptionLog(ordersSaveResults[i], String.valueOf(accountWithOrderMap.values()[i].accountId), 'createOrdersWithOrderDeliveryGroup');
                 exceptionLogs.add(exceptionLog);
@@ -258,26 +263,34 @@ public class CreateDefaultOrderUtility {
         System.debug('orderWithLintItemMap>>>>>'+orderWithLintItemMap);
         List<OrderItemTaxLineItem> OrderItemTaxLineItemList = new List<OrderItemTaxLineItem>();
         for(Id ordId : orderWithLintItemMap.keySet()){
-            Decimal totalAmount = 0;
-            Id serviceDeliveryChargeId;
-            for(OrderItem item : orderWithLintItemMap.get(ordId)){
-                if(productMaps.containsKey(item.Product2Id) && productMaps.get(item.Product2Id).Tax_Required__C){
-                    totalAmount = totalAmount + (item.UnitPrice*item.Quantity) ;
-                }    
-                if(item.Product2Id == shippingChargeForDeliveryMethod.Id){
-                    serviceDeliveryChargeId = item.Id;
+            Order orderRec = orderMap.get(ordId);
+            Account accountRec = accountMap.get(orderRec.accountId);
+            if(!accountRec.Tax_Exemption_Account__c){
+                Id serviceDeliveryChargeId;
+                for(OrderItem item : orderWithLintItemMap.get(ordId)){
+                    Decimal totalAmount = (item.UnitPrice*item.Quantity) ;
+                    if(productMaps.containsKey(item.Product2Id) && productMaps.get(item.Product2Id).Tax_Required__C){                    
+                        OrderItemTaxLineItem OrderItemTaxLineItemVar = new OrderItemTaxLineItem();
+                        OrderItemTaxLineItemVar.OrderItemId = item.Id;
+                        OrderItemTaxLineItemVar.Rate = 10;
+                        OrderItemTaxLineItemVar.Type = 'Actual';
+                        OrderItemTaxLineItemVar.Amount = totalAmount/10;
+                        OrderItemTaxLineItemVar.Name = productMaps.get(item.Product2Id).Name;
+                        OrderItemTaxLineItemVar.TaxEffectiveDate = date.today();  
+                        OrderItemTaxLineItemList.add(OrderItemTaxLineItemVar);  
+                    }    
+                    if(item.Product2Id == shippingChargeForDeliveryMethod.Id && totalAmount > 0){
+                        OrderItemTaxLineItem taxLineItemVarForServiceDelivery = new OrderItemTaxLineItem();
+                        taxLineItemVarForServiceDelivery.OrderItemId = serviceDeliveryChargeId;
+                        taxLineItemVarForServiceDelivery.Rate = 10;
+                        taxLineItemVarForServiceDelivery.Type = 'Actual';
+                        taxLineItemVarForServiceDelivery.Amount = totalAmount/10;
+                        taxLineItemVarForServiceDelivery.Name = 'GST';
+                        taxLineItemVarForServiceDelivery.TaxEffectiveDate = date.today();  
+                        OrderItemTaxLineItemList.add(taxLineItemVarForServiceDelivery);  
+                    }
+                    
                 }
-                
-            }
-            if(serviceDeliveryChargeId != null){
-                OrderItemTaxLineItem OrderItemTaxLineItemVar = new OrderItemTaxLineItem();
-                OrderItemTaxLineItemVar.OrderItemId = serviceDeliveryChargeId;
-                OrderItemTaxLineItemVar.Rate = 10;
-                OrderItemTaxLineItemVar.Type = 'Actual';
-                OrderItemTaxLineItemVar.Amount = totalAmount/10;
-                OrderItemTaxLineItemVar.Name = 'GST';
-                OrderItemTaxLineItemVar.TaxEffectiveDate = date.today();  
-                OrderItemTaxLineItemList.add(OrderItemTaxLineItemVar);  
             }
         }
 
@@ -322,7 +335,7 @@ public class CreateDefaultOrderUtility {
     }
     private static Map<Id,Product2> getProductsDetails(Set<Id> productIds){
         Map<Id,Product2> productsMap = new Map<Id,Product2>();
-        for(Product2 productVar : [Select Id, Tax_Required__C From Product2 Where Id IN : productIds]){
+        for(Product2 productVar : [Select Id, Tax_Required__C, Name From Product2 Where Id IN : productIds]){
             productsMap.put(productVar.Id, productVar);
         }
         return productsMap;

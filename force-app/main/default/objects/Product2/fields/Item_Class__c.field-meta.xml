@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Item_Class__c</fullName>
+    <externalId>false</externalId>
+    <label>Item Class</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agistment</fullName>
+                <default>false</default>
+                <label>Agistment</label>
+            </value>
+            <value>
+                <fullName>Ethanol - Beverage Grade</fullName>
+                <default>false</default>
+                <label>Ethanol - Beverage Grade</label>
+            </value>
+            <value>
+                <fullName>Ethanol - Chemical</fullName>
+                <default>false</default>
+                <label>Ethanol - Chemical</label>
+            </value>
+            <value>
+                <fullName>Ethanol - Fuel 100</fullName>
+                <default>false</default>
+                <label>Ethanol - Fuel 100</label>
+            </value>
+            <value>
+                <fullName>Ethanol - Fusal Oil</fullName>
+                <default>false</default>
+                <label>Ethanol - Fusal Oil</label>
+            </value>
+            <value>
+                <fullName>Ethanol - Miscellaneous</fullName>
+                <default>false</default>
+                <label>Ethanol - Miscellaneous</label>
+            </value>
+            <value>
+                <fullName>Ethanol Chemical Resales</fullName>
+                <default>false</default>
+                <label>Ethanol Chemical Resales</label>
+            </value>
+            <value>
+                <fullName>Export Gluten MMC</fullName>
+                <default>false</default>
+                <label>Export Gluten MMC</label>
+            </value>
+            <value>
+                <fullName>Export Hi Protein Gluten - MMC</fullName>
+                <default>false</default>
+                <label>Export Hi Protein Gluten - MMC</label>
+            </value>
+            <value>
+                <fullName>Farm - Crops</fullName>
+                <default>false</default>
+                <label>Farm - Crops</label>
+            </value>
+            <value>
+                <fullName>Flour - Bakery Additives</fullName>
+                <default>false</default>
+                <label>Flour - Bakery Additives</label>
+            </value>
+            <value>
+                <fullName>Flour - Durum Flour</fullName>
+                <default>false</default>
+                <label>Flour - Durum Flour</label>
+            </value>
+            <value>
+                <fullName>Flour - Durum Semolina</fullName>
+                <default>false</default>
+                <label>Flour - Durum Semolina</label>
+            </value>
+            <value>
+                <fullName>Flour - Mixes</fullName>
+                <default>false</default>
+                <label>Flour - Mixes</label>
+            </value>
+            <value>
+                <fullName>Flour - Mixes Altona</fullName>
+                <default>false</default>
+                <label>Flour - Mixes Altona</label>
+            </value>
+            <value>
+                <fullName>Flour - Plain</fullName>
+                <default>false</default>
+                <label>Flour - Plain</label>
+            </value>
+            <value>
+                <fullName>Flour - Plain Bulk</fullName>
+                <default>false</default>
+                <label>Flour - Plain Bulk</label>
+            </value>
+            <value>
+                <fullName>Flour - Rejected</fullName>
+                <default>false</default>
+                <label>Flour - Rejected</label>
+            </value>
+            <value>
+                <fullName>Flour - Retail</fullName>
+                <default>false</default>
+                <label>Flour - Retail</label>
+            </value>
+            <value>
+                <fullName>Flour - Retail Mixes</fullName>
+                <default>false</default>
+                <label>Flour - Retail Mixes</label>
+            </value>
+            <value>
+                <fullName>Flour - White Semolina</fullName>
+                <default>false</default>
+                <label>Flour - White Semolina</label>
+            </value>
+            <value>
+                <fullName>Gemspray</fullName>
+                <default>false</default>
+                <label>Gemspray</label>
+            </value>
+            <value>
+                <fullName>Glucose - 41Be</fullName>
+                <default>false</default>
+                <label>Glucose - 41Be</label>
+            </value>
+            <value>
+                <fullName>Glucose - 41C</fullName>
+                <default>false</default>
+                <label>Glucose - 41C</label>
+            </value>
+            <value>
+                <fullName>Glucose - 43Be</fullName>
+                <default>false</default>
+                <label>Glucose - 43Be</label>
+            </value>
+            <value>
+                <fullName>Gluten - Dry Gluten</fullName>
+                <default>false</default>
+                <label>Gluten - Dry Gluten</label>
+            </value>
+            <value>
+                <fullName>Gluten - Dry Gluten C</fullName>
+                <default>false</default>
+                <label>Gluten - Dry Gluten C</label>
+            </value>
+            <value>
+                <fullName>LIQUID CO2</fullName>
+                <default>false</default>
+                <label>LIQUID CO2</label>
+            </value>
+            <value>
+                <fullName>Manufacturing - Paper Bags</fullName>
+                <default>false</default>
+                <label>Manufacturing - Paper Bags</label>
+            </value>
+            <value>
+                <fullName>Offal - Canola Meal</fullName>
+                <default>false</default>
+                <label>Offal - Canola Meal</label>
+            </value>
+            <value>
+                <fullName>Offal - Offal</fullName>
+                <default>false</default>
+                <label>Offal - Offal</label>
+            </value>
+            <value>
+                <fullName>Offal - Processed</fullName>
+                <default>false</default>
+                <label>Offal - Processed</label>
+            </value>
+            <value>
+                <fullName>Other - Enzyme Termamyl</fullName>
+                <default>false</default>
+                <label>Other - Enzyme Termamyl</label>
+            </value>
+            <value>
+                <fullName>Protein - Protein Isolate</fullName>
+                <default>false</default>
+                <label>Protein - Protein Isolate</label>
+            </value>
+            <value>
+                <fullName>Resale - Bakery Additives</fullName>
+                <default>false</default>
+                <label>Resale - Bakery Additives</label>
+            </value>
+            <value>
+                <fullName>Resale - Bakery Additives ALT</fullName>
+                <default>false</default>
+                <label>Resale - Bakery Additives ALT</label>
+            </value>
+            <value>
+                <fullName>Resale - Beef</fullName>
+                <default>false</default>
+                <label>Resale - Beef</label>
+            </value>
+            <value>
+                <fullName>Resale - Canola Oil</fullName>
+                <default>false</default>
+                <label>Resale - Canola Oil</label>
+            </value>
+            <value>
+                <fullName>Resale - Chemicals</fullName>
+                <default>false</default>
+                <label>Resale - Chemicals</label>
+            </value>
+            <value>
+                <fullName>Resale - Icing sugar</fullName>
+                <default>false</default>
+                <label>Resale - Icing sugar</label>
+            </value>
+            <value>
+                <fullName>Resale - Lamb</fullName>
+                <default>false</default>
+                <label>Resale - Lamb</label>
+            </value>
+            <value>
+                <fullName>Resale - Margarine/Shortening</fullName>
+                <default>false</default>
+                <label>Resale - Margarine/Shortening</label>
+            </value>
+            <value>
+                <fullName>Resale - Sugar</fullName>
+                <default>false</default>
+                <label>Resale - Sugar</label>
+            </value>
+            <value>
+                <fullName>Resale - Vegetable Blended Oil</fullName>
+                <default>false</default>
+                <label>Resale - Vegetable Blended Oil</label>
+            </value>
+            <value>
+                <fullName>Sales - Cattle</fullName>
+                <default>false</default>
+                <label>Sales - Cattle</label>
+            </value>
+            <value>
+                <fullName>Sales - DDG-S Pellets</fullName>
+                <default>false</default>
+                <label>Sales - DDG-S Pellets</label>
+            </value>
+            <value>
+                <fullName>Sales - Finished Goods</fullName>
+                <default>false</default>
+                <label>Sales - Finished Goods</label>
+            </value>
+            <value>
+                <fullName>Sales - Protein Gempro ETG</fullName>
+                <default>false</default>
+                <label>Sales - Protein Gempro ETG</label>
+            </value>
+            <value>
+                <fullName>Sales - Resistant Starch</fullName>
+                <default>false</default>
+                <label>Sales - Resistant Starch</label>
+            </value>
+            <value>
+                <fullName>Starch - Dry Starch</fullName>
+                <default>false</default>
+                <label>Starch - Dry Starch</label>
+            </value>
+            <value>
+                <fullName>Starch - Dry Tapioca</fullName>
+                <default>false</default>
+                <label>Starch - Dry Tapioca</label>
+            </value>
+            <value>
+                <fullName>Starch - Modified Slurry</fullName>
+                <default>false</default>
+                <label>Starch - Modified Slurry</label>
+            </value>
+            <value>
+                <fullName>Starch - Modified Starch</fullName>
+                <default>false</default>
+                <label>Starch - Modified Starch</label>
+            </value>
+            <value>
+                <fullName>Starch - Other Finished Goods</fullName>
+                <default>false</default>
+                <label>Starch - Other Finished Goods</label>
+            </value>
+            <value>
+                <fullName>Starch - Potato Starch</fullName>
+                <default>false</default>
+                <label>Starch - Potato Starch</label>
+            </value>
+            <value>
+                <fullName>Starch - Slurry Starch</fullName>
+                <default>false</default>
+                <label>Starch - Slurry Starch</label>
+            </value>
+            <value>
+                <fullName>Starch - Slurry Tapioca</fullName>
+                <default>false</default>
+                <label>Starch - Slurry Tapioca</label>
+            </value>
+            <value>
+                <fullName>Stillage</fullName>
+                <default>false</default>
+                <label>Stillage</label>
+            </value>
+            <value>
+                <fullName>Stillage - CDS Syrup</fullName>
+                <default>false</default>
+                <label>Stillage - CDS Syrup</label>
+            </value>
+            <value>
+                <fullName>Stockfeed - Horse Rations</fullName>
+                <default>false</default>
+                <label>Stockfeed - Horse Rations</label>
+            </value>
+            <value>
+                <fullName>Stockfeed - Pig Rations</fullName>
+                <default>false</default>
+                <label>Stockfeed - Pig Rations</label>
+            </value>
+            <value>
+                <fullName>Wheat - Wheat</fullName>
+                <default>false</default>
+                <label>Wheat - Wheat</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

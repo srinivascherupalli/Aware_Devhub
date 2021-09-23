@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Id</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <description>Give the B2B Manager profile access to edit the Account object.</description>
+    <name>B2B Manager - Account Edit Access</name>
+    <profiles>B2B Buyer Manager External User</profiles>
+</SharingSet>

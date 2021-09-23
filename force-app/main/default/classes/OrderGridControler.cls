@@ -155,16 +155,9 @@ public with sharing class OrderGridControler {
 
     //Create Required Order from the required quantity field in the Order Grid custom object. 
     @AuraEnabled
-    public static string createOrder(String customerUserId, String accountId, String deliveryDate) {
+    public static string createOrder(String customerUserId, String accountId, String deliveryDate, String paymentMethod) {
         system.debug('createOrder delivery Date:'+deliveryDate);
         system.debug('Account id passed in accountId: '+accountId);
-
-     /*   Id customerUserId = ID.valueof(cuserId);
-        system.debug('The user id is:'+customerUserId);
-        User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
-        Id contactId = communityUser.ContactId;
-        Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
-        ID accountid = contactuser.accountid;*/
         try {
             //Check is the Cat already exists.
             WebCart cart ;//= new WebCart();
@@ -180,6 +173,7 @@ public with sharing class OrderGridControler {
                 cart.AccountId = Id.valueOf(accountid);//get from userid->Contact->Account
                 cart.OwnerId = customerUserId;//get from community userid lwc
                 cart.WebStoreId = id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
+                cart.CreatedDate = Date.valueOf(deliveryDate);
                 insert cart;
                 //insert the Cart Delivery Group. 
                 deliveryGroup.name = 'WYDG';
@@ -198,11 +192,11 @@ public with sharing class OrderGridControler {
                 update deliveryGroup;
                 
             }
-
-            //Get data from Order Grid to Populate the cart.
-            //-quantity is required Order.
-            //-Prive is Price__c
-            //
+            /**
+             *Get data from Order Grid to Populate the cart.
+             *-quantity is required Order.
+             *-Prive is Price__c 
+             */
 
             List<CartItem> newCartItemsList = new List<CartItem>();
             List<Order_Grid__c> orderData = [Select id, Order_Required__c, Price__c ,product__c, product__r.StockKeepingUnit
@@ -216,18 +210,37 @@ public with sharing class OrderGridControler {
                 newCartItem.sku = orderGridObj.product__r.StockKeepingUnit;
                 newCartItem.CartDeliveryGroupid = deliveryGroup.id;
                 newCartItem.CartId = cart.id;
-                newCartItem.Product2Id = orderGridObj.product__c;            
-                newCartItem.Quantity = orderGridObj.Order_Required__c;
+                newCartItem.Product2Id = orderGridObj.product__c;                
+    
+                if(orderGridObj.Order_Required__c != null && orderGridObj.Order_Required__c > 0){        
+                    newCartItem.Quantity = orderGridObj.Order_Required__c;
+                    newCartItem.TotalPrice = orderGridObj.Price__c * orderGridObj.Order_Required__c; 
+                    newCartItem.TotalPriceAfterAllAdjustments = orderGridObj.Price__c * orderGridObj.Order_Required__c;
+                    newCartItem.TotalPromoAdjustmentAmount = 0;
+                   // newCartItem.TotalPromoAdjustmentTaxAmount = 0;
+                    newCartItem.TotalAdjustmentAmount = 0;
+                }
+                else {
+                    newCartItem.Quantity = 0;
+                    newCartItem.TotalPrice = orderGridObj.Price__c * 0; 
+                }
                 newCartItem.TotalLineAmount = orderGridObj.Price__c; //get from Order Grid
-                newCartItem.TotalPrice = orderGridObj.Price__c * orderGridObj.Order_Required__c; //get from Order Grid
+                //get from Order Grid
                 newCartItem.ListPrice = orderGridObj.Price__c;
                 newCartItem.UnitAdjustedPrice = orderGridObj.Price__c;
+
                 if(newCartItem.quantity > 0 ){
                     newCartItemsList.add(newCartItem);
                 }
             }
 
             insert newCartItemsList;
+            //Add discount item for Online Payment.
+            System.debug('Discount Mathod value:'+paymentMethod);
+            if(paymentMethod.equals('payOnline') ){
+                DiscountController.addDiscountItem(cart.id, deliveryGroup.id);
+
+            }
             return cart.Id;
         }
         catch (Exception e) {
@@ -252,4 +265,5 @@ public with sharing class OrderGridControler {
             return 'The following exception has occurred: ' + e.getMessage();
         }
     }
+
 }

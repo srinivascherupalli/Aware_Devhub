@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Name_External_User_Validation</fullName>
+    <active>true</active>
+    <description>This does not allow External Users to change the Account Name when editing the Account Object.</description>
+    <errorConditionFormula>AND (ISCHANGED (Name ), $Profile.Name = &apos;B2B Manager&apos;)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>You cannot update the Account Name.</errorMessage>
+</ValidationRule>

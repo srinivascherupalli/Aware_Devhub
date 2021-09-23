@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>B2B_Storefront_Inquiry_Case_Owner</fullName>
+        <description>Updates the Case Owner of the Storefront Inquiry Case to the Customer Service Team upon creation.</description>
+        <field>OwnerId</field>
+        <lookupValue>B2B_Customer_Service_Team_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Storefront - Inquiry Case Owner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>B2B_Update_Case_Owner_for_Price_Change</fullName>
+        <description>When a case is created with the record type: Price Change, update the owner to queue: Price Editor Queue. This is used due to Assignment Rules not working on Actions.</description>
+        <field>OwnerId</field>
+        <lookupValue>Price_Editor_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Update Case Owner for Price Change</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ChangePriorityToHigh</fullName>
+        <field>Priority</field>
+        <literalValue>High</literalValue>
+        <name>Changes the case priority to high.</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>GP_Update_Case_Owner_Registration</fullName>
+        <field>OwnerId</field>
+        <lookupValue>Grower_s_Portal_Registration_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>GP - Update Case Owner - Registration</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Grower_s_Portal_Inquiry_Case_Owner</fullName>
+        <description>Updates the Case Owner of the Grower&apos;s Portal Inquiry Case to the Grower&apos;s Portal Inquiry Case Queue upon creation.</description>
+        <field>OwnerId</field>
+        <lookupValue>Grower_s_Portal_Inquiry_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Grower&apos;s Portal - Inquiry Case Owner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>B2B - Update Inquiry Case Owner</fullName>
+        <actions>
+            <name>B2B_Storefront_Inquiry_Case_Owner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Storefront Inquiry</value>
+        </criteriaItems>
+        <description>When a case is created with the record type: Storefront Inquiry, update the owner to queue: Customer Service Team Queue Inquiry. This is used due to Assignment Rules not working on Actions.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>B2B Price Change Owner to Queue</fullName>
+        <actions>
+            <name>B2B_Update_Case_Owner_for_Price_Change</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Price Change</value>
+        </criteriaItems>
+        <description>When a case is created with the record type: Price Change, update the owner to queue: Price Editor Queue. This is used due to Assignment Rules not working on Actions.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Grower%27s Portal - Update Inquiry Case Owner</fullName>
+        <actions>
+            <name>Grower_s_Portal_Inquiry_Case_Owner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Grower&apos;s Portal Inquiry</value>
+        </criteriaItems>
+        <description>When a case is created with the record type: Grower&apos;s Portal Inquiry, update the owner to queue: Grower&apos;s Portal Inquiry. This is used due to Assignment Rules not working on Actions.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Grower%27s Portal - Update Registration Case Owner</fullName>
+        <actions>
+            <name>GP_Update_Case_Owner_Registration</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Grower&apos;s Portal Self Registration</value>
+        </criteriaItems>
+        <description>When a case is created with the record type: Grower&apos;s Portal Registration Request, update the owner to queue: Grower&apos;s Portal Registration Queue. This is used due to Assignment Rules not working on Actions.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Preferred Delivery Date Case created</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Update Preferred Delivery Date</value>
+        </criteriaItems>
+        <description>Preferred Delivery Date Case created, email notification to the Buyer Manager of the changes being requested.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

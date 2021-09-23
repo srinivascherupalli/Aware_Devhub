@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>B2B_Notify_Account_Owner_of_Buyer_Account_Status_Change</fullName>
+        <description>Notify Account Owner of Buyer Account Status Change</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>B2B_Commerce_Email_Templates/Account_Suspended_or_Stop_Supply_Internal_Template</template>
+    </alerts>
+    <rules>
+        <fullName>B2B Buyer Account Status%3A Suspended or Stop Supply</fullName>
+        <actions>
+            <name>B2B_Notify_Account_Owner_of_Buyer_Account_Status_Change</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>BuyerAccount.BuyerStatus</field>
+            <operation>equals</operation>
+            <value>S</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>BuyerAccount.CreditStatus</field>
+            <operation>equals</operation>
+            <value>Stop Supply</value>
+        </criteriaItems>
+        <description>Buyer Account Status = Suspended or Account Credit Status = Stop Supply, then notify the Account Owner.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

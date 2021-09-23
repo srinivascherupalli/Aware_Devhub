@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Card_Type__c</fullName>
+    <description>Picklist field to house Grower Card Card Type, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Card Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>100% AWB</fullName>
+                <default>false</default>
+                <label>100% AWB</label>
+            </value>
+            <value>
+                <fullName>100% NGR</fullName>
+                <default>false</default>
+                <label>100% NGR</label>
+            </value>
+            <value>
+                <fullName>CBH</fullName>
+                <default>false</default>
+                <label>CBH</label>
+            </value>
+            <value>
+                <fullName>NGR Payee ID</fullName>
+                <default>false</default>
+                <label>NGR Payee ID</label>
+            </value>
+            <value>
+                <fullName>S/F AWB</fullName>
+                <default>false</default>
+                <label>S/F AWB</label>
+            </value>
+            <value>
+                <fullName>S/F NGR</fullName>
+                <default>false</default>
+                <label>S/F NGR</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

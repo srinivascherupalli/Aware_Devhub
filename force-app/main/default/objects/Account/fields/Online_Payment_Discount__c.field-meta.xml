@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Online_Payment_Discount__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If this is checked, the the customer will be given a discount when online payment is done.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If this is checked, the the customer will be given a discount when online payment is done.</inlineHelpText>
+    <label>Online Payment Discount</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

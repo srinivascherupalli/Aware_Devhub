@@ -15,14 +15,12 @@
         
         <aura:iteration items="{!v.SitesWrapperList}" var="item" indexVar="index">
             
-            <div class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-p-top_xx-large slds-p-right_medium" style="padding-left:10%;">
+            <div class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-p-top_xx-large slds-p-right_large slds-p-left_large" >
                 <b><h2>{!item.Name}</h2></b> <br/>
-                {!item.Address} <br/><br/>
-                
-                PHONE <br/>{!item.Phone} <br/><br/>
-                
+                {!item.Address} <br/><br/>                
                 SITE MANAGER <br/> {!item.SiteManagerName} <br/><br/>
-                SITE MANAGER MOBILE <br/> {!item.SiteManagerMobile} <br/> <br/>
+                SITE MANAGER MOBILE <br/> {!item.SiteManagerMobile} <br/><br/> 
+                SITE PHONE <br/>{!item.Phone} <br/><br/>                
                 
                 <aura:if isTrue="{!item.SiteRelatedAlert != null}">
                     <lightning:icon iconName="utility:alert" size="x-small" variant="error"/>

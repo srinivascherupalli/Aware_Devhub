@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Principal_National_Grower_s_Number__c</fullName>
+    <description>Text field to house the Principal National Grower&apos;s Number of the Farm</description>
+    <externalId>false</externalId>
+    <label>Principal National Grower&apos;s Number</label>
+    <length>20</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

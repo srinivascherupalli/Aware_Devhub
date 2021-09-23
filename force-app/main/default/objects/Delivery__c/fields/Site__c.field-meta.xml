@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site__c</fullName>
+    <description>Master-Detail Relationship with Site, so that, the Site Manager responsible for their Site has access to their related deliveries.</description>
+    <externalId>false</externalId>
+    <label>Site</label>
+    <referenceTo>Site__c</referenceTo>
+    <relationshipLabel>Deliveries</relationshipLabel>
+    <relationshipName>Deliveries</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

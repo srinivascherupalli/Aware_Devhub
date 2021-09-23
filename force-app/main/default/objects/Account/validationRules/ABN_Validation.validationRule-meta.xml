@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_Validation</fullName>
+    <active>true</active>
+    <description>ABN should only have numeric values.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &apos;B2B_Customer&apos;,
+    NOT(ISBLANK(ABN__c)),
+    NOT(ISNUMBER(ABN__c)))</errorConditionFormula>
+    <errorDisplayField>ABN__c</errorDisplayField>
+    <errorMessage>ABN should only have numeric values.</errorMessage>
+</ValidationRule>

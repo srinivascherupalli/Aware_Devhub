@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>B2B_Commerce_Case_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides Read /Write Access to the Customer Service Group if the Case Record Type is &quot;Store Inquiry&quot;.</description>
+        <label>B2B Commerce - Case Sharing Rule</label>
+        <sharedTo>
+            <group>Customer_Service_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Storefront Inquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Grower_s_Portal_Case_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide Read/Write access to all users in the Grain Buying Lead Role and Subordinates if the Case Record Type is &quot;Grower&apos;s Portal Inquiry&quot;</description>
+        <label>Grower&apos;s Portal - Case Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Grain_Buying_Lead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Grower&apos;s Portal Inquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Grower&apos;s Portal Self Registration</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

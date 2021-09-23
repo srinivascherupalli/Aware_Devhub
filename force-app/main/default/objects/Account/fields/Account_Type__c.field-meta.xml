@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Type__c</fullName>
+    <description>Picklist field to indicate whether the Account is a Broker or Grower, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Account Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Broker</fullName>
+                <default>false</default>
+                <label>Broker</label>
+            </value>
+            <value>
+                <fullName>Grower</fullName>
+                <default>false</default>
+                <label>Grower</label>
+            </value>
+            <value>
+                <fullName>Farm</fullName>
+                <default>false</default>
+                <label>Farm</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

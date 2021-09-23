@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <decisions>
+        <description>If Delivery Instruction is Null or not on the Oder Delivery Group Method</description>
+        <name>Delivery_Instructions_Dec</name>
+        <label>Delivery Instructions Dec</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <defaultConnector>
+            <targetReference>Update_Order_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.DeliveryInstructions</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Null</label>
+        </rules>
+    </decisions>
+    <description>Pulls the data from Order Delivery method object onto the Order field: Delivery Instruction. To push to AS400.</description>
+    <interviewLabel>Update Delivery Instruction On Order {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Delivery Instruction On Order</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Get and Update Related Order record with Delivery Instructions</description>
+        <name>Update_Order_Record</name>
+        <label>Update Order Record</label>
+        <locationX>308</locationX>
+        <locationY>455</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OrderId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Delivery_Instructions__c</field>
+            <value>
+                <elementReference>$Record.DeliveryInstructions</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Order</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Delivery_Instructions_Dec</targetReference>
+        </connector>
+        <object>OrderDeliveryGroup</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

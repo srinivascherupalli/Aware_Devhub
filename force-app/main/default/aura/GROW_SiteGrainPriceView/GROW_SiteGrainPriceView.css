@@ -1,0 +1,17 @@
+.THIS table
+{
+    table-layout: fixed;
+    width: 100%;
+}
+.THIS.slds-table thead tr th{
+    background-color:#002169;
+    color:white;
+}
+.THIS th{
+    width: 100px;
+    text-align: center;    
+}
+.THIS td{
+    width: 100px;
+    text-align: center;
+}

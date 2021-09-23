@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grain_Contract_Line_Item_External_ID__c</fullName>
+    <description>Text field to represent Grain Contract Line Item External ID - Grain Contract Line Items do not exist in AGBOSS, therefore, the External ID of the corresponding Grain Contract will be populated in this field.</description>
+    <externalId>false</externalId>
+    <label>Grain Contract Line Item External ID</label>
+    <length>10</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

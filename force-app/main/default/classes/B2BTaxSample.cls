@@ -4,14 +4,11 @@ global with sharing class B2BTaxSample implements sfdc_checkout.CartTaxCalculati
     global sfdc_checkout.IntegrationStatus startCartProcessAsync(sfdc_checkout.IntegrationInfo jobInfo, Id cartId) {
         System.debug('###startCartProcessAsync : started....');
         sfdc_checkout.IntegrationStatus integStatus = new sfdc_checkout.IntegrationStatus();
-//        try {
-            AggregateResult[] groupedResults = [SELECT sum(TotalPrice)CartTotalValue FROM CartItem where cartid=:cartId and type='Product' and product2.Tax_Required__c = true];
-            Decimal CartTotalValue = (Decimal) groupedResults[0].get('CartTotalValue');  
-            Decimal totalTaxAmount = CartTotalValue*0.1; //10% GST
-
-            System.debug('###CartTotalValue : ' + CartTotalValue);
+        try {            
             CartItem taxCartItem = null;
-
+            CartItem deliveryCartItem = new CartItem();
+            Decimal deliveryCartItemPrice = 0;
+            
             List<CartItem> taxCartItemList = [SELECT Id FROM CartItem WHERE CartId=:cartId and Type='Charge' WITH SECURITY_ENFORCED];
             if(taxCartItemList!=null && !taxCartItemList.isEmpty()){
                 taxCartItem = taxCartItemList[0];
@@ -37,17 +34,16 @@ global with sharing class B2BTaxSample implements sfdc_checkout.CartTaxCalculati
                     cartDeliveryGroup = new CartDeliveryGroup(CartId=cartId, Name='Default Delivery', DeliveryMethodId=odm.Id);
                     insert cartDeliveryGroup;    
                 }
-        
-                taxCartItem = new CartItem(
-                    CartId=cartId, 
-                    Sku='SKU_GST', 
-                    Quantity=1, 
-                    Type='Charge', 
-                    Name='GST',
-                    TotalPrice=0, 
-                    CartDeliveryGroupId=cartDeliveryGroup.Id
-                );
-                insert taxCartItem;
+                                
+                deliveryCartItem.CartId=cartId;
+                deliveryCartItem.Sku='SKU_GST'; 
+                deliveryCartItem.Quantity=1;
+                deliveryCartItem.Type='Charge'; 
+                deliveryCartItem.Name='GST';
+                deliveryCartItem.TotalPrice=deliveryCartItemPrice;
+                deliveryCartItem.CartDeliveryGroupId=cartDeliveryGroup.Id;
+                
+                insert deliveryCartItem;
     
             }
 
@@ -57,21 +53,47 @@ global with sharing class B2BTaxSample implements sfdc_checkout.CartTaxCalculati
             
             // For each cart item, insert a new tax line in the CartTax entity.
             // The total tax is automatically rolled up to TotalLineTaxAmount in the corresponding CartItem line.
-            CartTax[] cartTaxestoInsert = new CartTax[]{};
-            CartTax tax = new CartTax( 
-                Amount = totalTaxAmount,
-                CartItemId = taxCartItem.Id,
-                Name = 'GST',
-                TaxCalculationDate = Date.today(),
-                TaxRate = 10,
-                TaxType = 'Actual'
-            );
-            cartTaxestoInsert.add(tax);
-            insert(cartTaxestoInsert);
+            Boolean exemptFromTax = false;
+            webcart cartVar = [Select Id, accountId from webcart where id=:cartId];
+            Account accountRecord = [Select Id, Tax_Exemption_Account__c From Account where Id =: cartVar.accountId];
+            if(!accountRecord.Tax_Exemption_Account__c){
+                CartTax[] cartTaxestoInsert = new CartTax[]{};
+                    for(CartItem item : [Select Id, TotalPrice, product2.Name From CartItem where cartid=:cartId AND (type='Product' and product2.Tax_Required__c = true)]){
+                    
+                        CartTax tax = new CartTax( 
+                        Amount = item.TotalPrice*0.1,
+                        CartItemId = item.Id,
+                        Name = item.product2.Name,
+                        TaxCalculationDate = Date.today(),
+                        TaxRate = 10,
+                        TaxType = 'Actual'
+                    );
+                    cartTaxestoInsert.add(tax);
+                }
+                /*
+                    Since Delivery charge is 0 at present so related tax will also be 0. Hence below code is commented out.
+                    In Future, if delivery charge is applied , then below code needs to be uncommented
+                */ 
+
+                /*if(deliveryCartItemPrice > 0){
+                    CartTax tax = new CartTax( 
+                        Amount = deliveryCartItemPrice,
+                        CartItemId = taxCartItem.Id,
+                        Name = 'GST',
+                        TaxCalculationDate = Date.today(),
+                        TaxRate = 10,
+                        TaxType = 'Actual'
+                    );
+                    cartTaxestoInsert.add(tax);
+                }*/
+                
+                insert(cartTaxestoInsert);
+            }
             integStatus.status = sfdc_checkout.IntegrationStatus.Status.SUCCESS;
-/*        } catch(Exception e) {
-        }
-        */
+       } catch(Exception e) {
+        System.debug('Eror while calculating tax: '+e.getMessage());    
+    }
+        
         return integStatus;
     }
       

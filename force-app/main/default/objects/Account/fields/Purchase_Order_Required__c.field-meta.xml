@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purchase_Order_Required__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>If Y, then a purchase order must be supplied with the order, If N, a purchase order is not required, but may still be supplied.</inlineHelpText>
+    <label>Purchase Order Required</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Yes_or_no</valueSetName>
+    </valueSet>
+</CustomField>

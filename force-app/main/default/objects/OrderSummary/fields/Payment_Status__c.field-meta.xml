@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Status__c</fullName>
+    <description>Updates either the flow: Update Payment Status on Order Summary and Order or through AS400 integration. Visible for the Storefront User.</description>
+    <externalId>false</externalId>
+    <label>Payment Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Payment_Status</valueSetName>
+    </valueSet>
+</CustomField>

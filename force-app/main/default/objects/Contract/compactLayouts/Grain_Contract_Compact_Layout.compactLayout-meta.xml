@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grain_Contract_Compact_Layout</fullName>
+    <fields>AccountId</fields>
+    <fields>Contract_Date__c</fields>
+    <fields>Season__c</fields>
+    <fields>Site__c</fields>
+    <fields>Total_Quantity__c</fields>
+    <label>Grain Contract Compact Layout</label>
+</CompactLayout>

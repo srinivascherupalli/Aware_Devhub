@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Account</object>
+        <objectField>Id</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Case</object>
+        <objectField>Contact</objectField>
+        <userField>Contact</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Grain_Payment__c</object>
+        <objectField>Client__c</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <description>Sharing Set to provide External Users access to Accounts, Contracts, Deliveries and Cases for their respective Farms/Share Farms and access to Grain Payments to their Individual Accounts</description>
+    <name>Grower&apos;s Portal - Sharing Set</name>
+    <profiles>Grower%27s Portal External User</profiles>
+</SharingSet>

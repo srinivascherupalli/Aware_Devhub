@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_Instructions__c</fullName>
+    <description>Information pulled from when the Cart record through the Checkout Flow in the Storefront.</description>
+    <externalId>false</externalId>
+    <label>Delivery Instructions</label>
+    <length>2000</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pricing_UOM__c</fullName>
+    <description>The unit of measure used for pricing, abbreviation as per Selling UOM</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The unit of measure used for pricing, abbreviation as per Selling UOM</inlineHelpText>
+    <label>Pricing UOM</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BG</fullName>
+                <default>false</default>
+                <label>BG</label>
+            </value>
+            <value>
+                <fullName>BL</fullName>
+                <default>false</default>
+                <label>BL</label>
+            </value>
+            <value>
+                <fullName>CTN</fullName>
+                <default>false</default>
+                <label>CTN</label>
+            </value>
+            <value>
+                <fullName>DR</fullName>
+                <default>false</default>
+                <label>DR</label>
+            </value>
+            <value>
+                <fullName>EA</fullName>
+                <default>false</default>
+                <label>EA</label>
+            </value>
+            <value>
+                <fullName>KG</fullName>
+                <default>false</default>
+                <label>KG</label>
+            </value>
+            <value>
+                <fullName>LT</fullName>
+                <default>false</default>
+                <label>LT</label>
+            </value>
+            <value>
+                <fullName>TE</fullName>
+                <default>false</default>
+                <label>TE</label>
+            </value>
+            <value>
+                <fullName>TH</fullName>
+                <default>false</default>
+                <label>TH</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccountReview__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Hidden Field: If the Order came through B2B Storefront with the Status of Accounts Review than True.
+This field is for validation on the Reference Number before progressing the Status to On Hold.</description>
+    <externalId>false</externalId>
+    <label>AccountReview</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statement_Email_Address__c</fullName>
+    <description>the email address statements are sent to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>the email address statements are sent to</inlineHelpText>
+    <label>Statement Email Address</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

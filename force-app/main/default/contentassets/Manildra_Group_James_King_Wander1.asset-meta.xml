@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentAsset xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isVisibleByExternalUsers>false</isVisibleByExternalUsers>
+    <language>en_US</language>
+    <masterLabel>Manildra_Group_James_King_Wander1</masterLabel>
+    <originNetwork>Grower&apos;s Portal</originNetwork>
+    <relationships>
+        <network>
+            <access>VIEWER</access>
+            <name>Grower&apos;s Portal</name>
+        </network>
+    </relationships>
+    <versions>
+        <version>
+            <number>1</number>
+            <pathOnClient>Manildra Group - James King  Wander + Collect-7.jpg</pathOnClient>
+        </version>
+    </versions>
+</ContentAsset>

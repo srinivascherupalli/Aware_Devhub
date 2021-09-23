@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This Custom Metadata will be used to easily control invoking different contexts of Apex Triggers, for example during Data Migration</description>
+    <label>Triggers Configuration</label>
+    <pluralLabel>Triggers Configurations</pluralLabel>
+    <visibility>Protected</visibility>
+</CustomObject>

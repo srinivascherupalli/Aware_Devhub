@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bin_Grade__c</fullName>
+    <description>Picklist field to hold Bin Grade values, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Bin Grade</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Bin_Grade</valueSetName>
+    </valueSet>
+</CustomField>

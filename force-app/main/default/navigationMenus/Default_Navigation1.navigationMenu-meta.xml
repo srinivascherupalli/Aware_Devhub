@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>Grower%27s Portal</container>
+    <containerType>Network</containerType>
+    <label>Default Navigation</label>
+    <navigationMenuItem>
+        <label>Operation Hours</label>
+        <position>1</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/site-operation-hours</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Grain Prices</label>
+        <position>2</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/grain-prices</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>All</defaultListViewId>
+        <label>My Deliveries</label>
+        <menuItemBranding>
+            <tileImage>Screen_Shot_20210812_at_95455_am1</tileImage>
+        </menuItemBranding>
+        <position>3</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Delivery__c</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>AllContracts</defaultListViewId>
+        <label>My Contracts</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Contract</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>All</defaultListViewId>
+        <label>My Payments</label>
+        <position>5</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Grain_Payment__c</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Contact Us</label>
+        <position>6</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/contactsupport</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+</NavigationMenu>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Contact_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>(Lightning Experience) Lets sales reps work with multiple records on one screen</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Sales Console</label>
+    <navType>Console</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Grower</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Grower</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Farm</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Farm</recordType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Growers_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Contract_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Contract</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Contract_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Contract</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Delivery_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Delivery__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Delivery_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Delivery__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Grain_Payment_Record_Page_External</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Grain_Payment__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Grain_Payment_Record_Page_External</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Grain_Payment__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Grower&apos;s Portal External User</profile>
+    </profileActionOverrides>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-Lead</tabs>
+    <tabs>MobileLanding</tabs>
+    <tabs>Daily_Delivery_Summary__c</tabs>
+    <tabs>Delivery__c</tabs>
+    <tabs>Site__c</tabs>
+    <tabs>Order_Grid__c</tabs>
+    <tabs>B2B_Customer_Delivery_Date__c</tabs>
+    <tabs>Public_Holiday__c</tabs>
+    <tabs>Call_Requests__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>LightningSalesConsole_UtilityBar</utilityBar>
+    <workspaceConfig>
+        <mappings>
+            <tab>B2B_Customer_Delivery_Date__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Call_Requests__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Daily_Delivery_Summary__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Delivery__c</tab>
+        </mappings>
+        <mappings>
+            <tab>MobileLanding</tab>
+        </mappings>
+        <mappings>
+            <tab>Order_Grid__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Public_Holiday__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Site__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Contact</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Lead</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Opportunity</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

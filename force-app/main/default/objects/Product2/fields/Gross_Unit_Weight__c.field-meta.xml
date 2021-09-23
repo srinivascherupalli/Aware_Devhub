@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gross_Unit_Weight__c</fullName>
+    <description>The gross weight of the item, including packaging</description>
+    <externalId>false</externalId>
+    <label>Gross Unit Weight</label>
+    <precision>11</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

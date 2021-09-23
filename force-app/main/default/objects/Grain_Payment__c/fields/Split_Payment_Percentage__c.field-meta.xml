@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Split_Payment_Percentage__c</fullName>
+    <description>Percent field to indicate the split payment percentage for a given grain payment, coming in from AGBOSS.</description>
+    <externalId>false</externalId>
+    <label>Split Payment Percentage</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>
