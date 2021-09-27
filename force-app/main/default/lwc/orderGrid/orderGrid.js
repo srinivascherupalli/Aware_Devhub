@@ -2,7 +2,6 @@ import { LightningElement, track, wire, api } from 'lwc';
 import Id from '@salesforce/user/Id';
 import { NavigationMixin } from "lightning/navigation";
 import { CurrentPageReference } from "lightning/navigation";
-import getCustomerDeleiveryDates from "@salesforce/apex/DateController.getDeliveryDaysByUser";
 import getOrderList from '@salesforce/apex/OrderGridControler.getOrderList';
 import setRequiredOrder from '@salesforce/apex/OrderGridControler.setRequiredOrder';
 import updateOrderGrid from '@salesforce/apex/OrderGridControler.updateOrderGrid';
@@ -11,7 +10,6 @@ import saveOrderLineItem from '@salesforce/apex/OrderGridControler.saveOrderLine
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
-import getAllPublicHolidays from '@salesforce/apex/PublicHolidaysController.getAllPublicHolidays';
 
 
 export default class OrderGrid extends NavigationMixin(LightningElement) {
@@ -125,52 +123,6 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
             .catch(error => {
                 console.log(error);
             });
-
-            //Date Picker call.
-        
-            getCustomerDeleiveryDates({
-                accountId: this.effectiveAccountId
-            }).then((result) =>{
-                let daysInAWeek = ['Sunday', 'Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday'];
-                let daysOfWeek = [];
-                let daysOfWeekSplit = (result[0].data).split(',');
-
-
-                for(var i=0; i<daysOfWeekSplit.length; i++) {
-                    if(daysOfWeekSplit[i]!= '') {
-                        let index = daysInAWeek.indexOf(daysOfWeekSplit[i]);
-                        daysOfWeek.push(index.toString());
-                    }
-                }
-
-                this.daysOfWeek = daysOfWeek;
-            }).catch((error) => {
-                console.log(error);
-            })
-
-            //Get all public holidays 
-            getAllPublicHolidays({
-                accountId: this.effectiveAccountId
-            })
-            .then(response => {
-                if(response[0].status == 'success') {
-
-                    let data = JSON.parse(response[0].data);
-                    let publicHolidays = [];
-                    if(data.length>0) {
-                        for(var i=0; i<data.length; i++) {
-                            if(data[i].Date__c) {
-                                publicHolidays.push(data[i].Date__c);
-                            }
-                        }
-                    }
-                    
-                    this.publicHolidays = publicHolidays;
-                }
-            }).catch((error) => {
-                console.log(error);
-            });
-
         } catch(error) {
             console.log(error);
         }
@@ -252,9 +204,9 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
     //Here selected itmes are populated in the Cart. 
     handleNextClick(){
-        let deliveryDate = this.template.querySelector('.delivery-date');
-        if(deliveryDate.reportValidity() && deliveryDate.checkValidity()) {
-            console.log('value of selection: '+this.selection);
+        //let deliveryDate = this.template.querySelector('.delivery-date');
+        //if(deliveryDate.reportValidity() && deliveryDate.checkValidity()) {
+        if(this.pickedDate && (this.pickedDate).length>0 ) {
             createOrder({customerUserId: this.userId , accountId: this.effectiveAccountId, deliveryDate: this.pickedDate, paymentMethod: this.selection})
             .then((result) => {
                 console.log(result);
@@ -345,6 +297,10 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
         console.log('Value of the checkbox: '+this.selection);    
 
+    }
+
+    handleDatePickedFromCalendar(event) {
+        this.pickedDate = event.detail;
     }
     
 }
