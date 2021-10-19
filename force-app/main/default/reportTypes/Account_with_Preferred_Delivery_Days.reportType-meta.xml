@@ -382,11 +382,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CallDay__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Invoice_Emails__c</field>
             <table>Account</table>
         </columns>
@@ -628,6 +623,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Tax_Exemption_Account__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Stripe_Customer_Id__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Account_Status__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>

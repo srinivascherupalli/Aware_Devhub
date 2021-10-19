@@ -46,7 +46,7 @@
             <emailAddress>sf.customerservice@manildra.com.au</emailAddress>
             <emailServicesAddress>sf.customerservice@g-2zjytq0i80vgxe5u8upzs6ovjtkjjm4htr70ayct8ldwqu0jbn.o-53vqjmaq.cs5.case.sandbox.salesforce.com</emailServicesAddress>
             <isVerified>false</isVerified>
-            <routingName>B2B Portal - Customer Service Routing</routingName>
+            <routingName>B2B Portal - General Inquiry Routing</routingName>
             <saveEmailHeaders>false</saveEmailHeaders>
         </routingAddresses>
         <routingAddresses>

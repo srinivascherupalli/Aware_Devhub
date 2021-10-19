@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Use_Stored_Credit_Cards__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Gives access to use Stored Account Credit Cards. Used for Component visibility in the B2B Checkout Flow.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked you allow this User to use Stored Credit Cards to pay for Orders.</inlineHelpText>
+    <label>Use Stored Credit Cards</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

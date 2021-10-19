@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "e3d07e2d-dd1a-40f6-b272-b4e3d4fcc061",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "d5fe25cd-92c6-493e-b6fd-8104e1e491f7",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Product_Detail_Product_Detail_Breadcrumbs_Component",
+  "id" : "4281bb72-573b-463c-8ce8-c84c96b39912",
+  "type" : "experienceVariation"
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Price_Request</fullName>
+    <active>true</active>
+    <businessProcess>Customer Updates</businessProcess>
+    <description>Record Type for when the Storefront Customer needs a Price for a Product</description>
+    <label>Price Request</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Web</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>New problem</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Site__c</picklist>
+        <values>
+            <fullName>Bellata</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bogan Gate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grong Grong</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manildra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stockinbingal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Request Product Price</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

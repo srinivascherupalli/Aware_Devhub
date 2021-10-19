@@ -10,11 +10,16 @@
     <columns>Email__c</columns>
     <filterScope>Queue</filterScope>
     <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Grower_s_Portal_Self_Registration</value>
+    </filters>
+    <filters>
         <field>CASES.STATUS</field>
         <operation>notEqual</operation>
         <value>Closed</value>
     </filters>
-    <label>Grower&apos;s Portal Registration Queue</label>
+    <label>Grower&apos;s Registration Requests</label>
     <queue>Grower_s_Portal_Registration_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>

@@ -36,6 +36,16 @@
                 <label>9:30am</label>
             </value>
             <value>
+                <fullName>9am</fullName>
+                <default>false</default>
+                <label>9am</label>
+            </value>
+            <value>
+                <fullName>8.30am</fullName>
+                <default>false</default>
+                <label>8.30am</label>
+            </value>
+            <value>
                 <fullName>8am</fullName>
                 <default>false</default>
                 <label>8am</label>

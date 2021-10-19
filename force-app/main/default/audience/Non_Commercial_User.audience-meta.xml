@@ -68,10 +68,22 @@
             <targetValue>Product_Detail_Product_Fields_Short_Component</targetValue>
         </target>
         <target>
+            <groupName>b6d11954-0b99-417a-9b36-11b12342450e$#$31952313-94f2-4875-bbff-b4be948128a3</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Bakers_Delight_Home_page_Order_List_1_Component</targetValue>
+        </target>
+        <target>
             <groupName>4c3ef2d9-fab4-45c6-a721-ae322762f14f$#$d5fe25cd-92c6-493e-b6fd-8104e1e491f7</groupName>
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
             <targetValue>Product_Detail_Product_Detail_Breadcrumbs_Component</targetValue>
+        </target>
+        <target>
+            <groupName>c609c9d9-c8fc-45e6-8aae-b12042612af5$#$94a5e17d-2a68-4721-83b9-e438aee85d95</groupName>
+            <priority>2</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Multilevel_Navigation_Menu_1_Component_Properties</targetValue>
         </target>
     </targets>
 </Audience>

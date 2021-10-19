@@ -32,7 +32,7 @@ private class CreateDefaultOrderBatchTest {
         insert preferredDeliveryDay;
 
         product2 deliveryChargeProductVar = TestDataFactory.getProducts(1)[0];
-        deliveryChargeProductVar.Name = 'Shipping Charge for this delivery method';
+        deliveryChargeProductVar.Name = 'Shipping';
 
         List<product2> prodList = TestDataFactory.getProducts(2);
         prodList[0].Tax_Required__C = true;

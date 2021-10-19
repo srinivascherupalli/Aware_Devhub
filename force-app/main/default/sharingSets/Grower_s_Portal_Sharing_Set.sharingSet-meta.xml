@@ -20,5 +20,5 @@
     </accessMappings>
     <description>Sharing Set to provide External Users access to Accounts, Contracts, Deliveries and Cases for their respective Farms/Share Farms and access to Grain Payments to their Individual Accounts</description>
     <name>Grower&apos;s Portal - Sharing Set</name>
-    <profiles>Grower%27s Portal External User</profiles>
+    <profiles>grower&apos;s portal external user</profiles>
 </SharingSet>

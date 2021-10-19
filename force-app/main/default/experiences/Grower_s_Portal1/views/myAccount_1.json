@@ -1,0 +1,195 @@
+{
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "6ba32b5c-3028-44fb-9758-bb1192e04d03",
+  "label" : "MyAccount",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "125f499e-b929-48da-952a-823f46f9509b",
+          "columns" : [ {
+            "UUID" : "18edc99c-d628-4123-89b5-521fc4fdd72d",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "125f499e-b929-48da-952a-823f46f9509b",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "bannerText" : "Manage your Deliveries, Grain Contracts and Grain Payments all in the one spot!",
+            "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType" : "",
+            "showSubTopics" : true,
+            "title" : "Manage Your Account",
+            "uniqueNameOrId" : ""
+          },
+          "componentName" : "forceCommunity:headline",
+          "id" : "18436aa7-8fbf-42a0-9e88-edaec791a9f3",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "tabsetConfig" : {
+              "UUID" : "c2304fc5-0bf0-48da-a9b4-997993d90a8b",
+              "activeTab" : "",
+              "tabs" : [ {
+                "UUID" : "ad7b68d6-61be-40e9-8673-1f4d908f5a80",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "2",
+                "tabName" : "My Grain Contracts"
+              }, {
+                "UUID" : "6ee22e88-c89f-4752-ac1d-48397d1975e7",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "1",
+                "tabName" : "My Deliveries"
+              }, {
+                "UUID" : "ec12a586-07c2-44d8-aaa6-7405ec5db6e0",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "3",
+                "tabName" : "My Grain Payments"
+              } ],
+              "useOverflowMenu" : false
+            }
+          },
+          "componentName" : "forceCommunity:tabset",
+          "id" : "c2304fc5-0bf0-48da-a9b4-997993d90a8b",
+          "regions" : [ {
+            "components" : [ {
+              "componentAttributes" : {
+                "enableInlineEdit" : true,
+                "filterName" : "00BO0000002Y4xVMAS",
+                "layout" : "FULL",
+                "pageSize" : 25,
+                "scope" : "Grain_Contract__c",
+                "showActionBar" : true,
+                "showChartsPanel" : true,
+                "showDisplay" : "showall",
+                "showFilterPanel" : true,
+                "showImageIcon" : true,
+                "showManualRefreshButton" : true,
+                "showObjectName" : true,
+                "showPinnedList" : true,
+                "showSearchBar" : true
+              },
+              "componentName" : "forceCommunity:objectHome",
+              "id" : "4bdf4aae-1950-415d-a04b-f8c68a77d640",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "ad7b68d6-61be-40e9-8673-1f4d908f5a80",
+            "regionLabel" : "My Grain Contracts",
+            "regionName" : "2",
+            "renditionMap" : { },
+            "type" : "region"
+          }, {
+            "components" : [ {
+              "componentAttributes" : {
+                "enableInlineEdit" : true,
+                "filterName" : "00BO0000002Y0WHMA0",
+                "layout" : "FULL",
+                "pageSize" : 25,
+                "scope" : "Delivery__c",
+                "showActionBar" : true,
+                "showChartsPanel" : true,
+                "showDisplay" : "showall",
+                "showFilterPanel" : true,
+                "showImageIcon" : true,
+                "showManualRefreshButton" : true,
+                "showObjectName" : true,
+                "showPinnedList" : true,
+                "showSearchBar" : true
+              },
+              "componentName" : "forceCommunity:objectHome",
+              "id" : "20280dd8-5d58-454e-957d-ddb4413ecbec",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "6ee22e88-c89f-4752-ac1d-48397d1975e7",
+            "regionLabel" : "My Deliveries",
+            "regionName" : "1",
+            "renditionMap" : { },
+            "type" : "region"
+          }, {
+            "components" : [ {
+              "componentAttributes" : {
+                "enableInlineEdit" : true,
+                "filterName" : "00BO0000002Y3U0MAK",
+                "layout" : "FULL",
+                "pageSize" : 25,
+                "scope" : "Grain_Payment__c",
+                "showActionBar" : true,
+                "showChartsPanel" : true,
+                "showDisplay" : "showall",
+                "showFilterPanel" : true,
+                "showImageIcon" : true,
+                "showManualRefreshButton" : true,
+                "showObjectName" : true,
+                "showPinnedList" : true,
+                "showSearchBar" : true
+              },
+              "componentName" : "forceCommunity:objectHome",
+              "id" : "bb3b72f4-1cc1-4a65-9c47-eb9cff16d2bb",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "ec12a586-07c2-44d8-aaa6-7405ec5db6e0",
+            "regionLabel" : "My Grain Payments",
+            "regionName" : "3",
+            "renditionMap" : { },
+            "type" : "region"
+          } ],
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "18edc99c-d628-4123-89b5-521fc4fdd72d",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6b57e40d-fc85-4631-af55-fa94a34ed649",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "MyAccount"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "76a0804f-d879-45c2-a928-5e0a87cda02b",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5e92be4d-8c87-41a0-883e-ae8c3b16e003",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-myaccount"
+}

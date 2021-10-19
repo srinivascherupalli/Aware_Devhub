@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "53b42305-ce5a-4bb2-af64-1d721b189584",
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "configurationTags" : [ ],
+  "id" : "a79db2d6-933f-46a5-b093-e0e7f81cd286",
+  "label" : "Daily Delivery Summary Detail",
+  "objectApiName" : "Daily_Delivery_Summary__c",
+  "routeType" : "detail-a00",
+  "type" : "route",
+  "urlPrefix" : "daily-delivery-summary"
+}

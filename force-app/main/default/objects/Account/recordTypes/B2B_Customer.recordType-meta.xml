@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>B2B_Customer</fullName>
     <active>true</active>
+    <compactLayoutAssignment>B2B_Customer_Compact_Layout</compactLayoutAssignment>
     <description>Record Type for Account to hold B2B Customer&apos;s Data</description>
     <label>B2B Customer</label>
     <picklistValues>
@@ -44,6 +45,33 @@
         </values>
         <values>
             <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Account_Status__c</picklist>
+        <values>
+            <fullName>Credit Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preferences Collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Confirmation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Creation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storefront Ready</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Review</fullName>
             <default>false</default>
         </values>
     </picklistValues>

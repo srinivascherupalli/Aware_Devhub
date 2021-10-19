@@ -4,6 +4,7 @@
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
+    <columns>CASES.TYPE</columns>
     <columns>CASES.STATUS</columns>
     <filterScope>Everything</filterScope>
     <filters>

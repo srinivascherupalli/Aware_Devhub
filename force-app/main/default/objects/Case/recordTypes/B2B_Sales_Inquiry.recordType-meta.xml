@@ -100,15 +100,23 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Feature Request</fullName>
+            <fullName>General Inquiry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Problem</fullName>
+            <fullName>Order Inquiry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Question</fullName>
+            <fullName>Refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request Product Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Inquiry</fullName>
             <default>false</default>
         </values>
     </picklistValues>

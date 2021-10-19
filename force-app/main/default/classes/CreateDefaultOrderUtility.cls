@@ -17,7 +17,7 @@ public class CreateDefaultOrderUtility {
     private static Product2 shippingChargeForDeliveryMethod {
         get {
           if(shippingChargeForDeliveryMethod == null) {
-            shippingChargeForDeliveryMethod = [Select Id, Name From Product2 Where Name ='Shipping Charge for this delivery method' limit 1]; 
+            shippingChargeForDeliveryMethod = [Select Id, Name From Product2 Where Name ='Shipping' limit 1]; 
           }
           return shippingChargeForDeliveryMethod;
         }

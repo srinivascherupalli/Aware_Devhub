@@ -1,0 +1,18 @@
+{
+    "remotes": {
+        "Manildra-Dev": {
+            "name": "Manildra-Dev",
+            "default": false,
+            "username": "srinivas.cherupalli@theawaregroup.com.au.manildra",
+            "password": "Sreezjul01pOv0AexyRgZLEDh4pLUy8A4T7",
+            "serverUrl": "https://manildra--dev.lightning.force.com/"
+        },
+        "Manildra": {
+            "name": "Manildra",
+            "default": false,
+            "username": "srinivas.cherupalli@theawaregroup.com.au",
+            "password": "Sreezjul01HL9xA6bdjDnK0TZ53GuUHoOoz",
+            "serverUrl": "https://manildra--dev.lightning.force.com"
+        }
+    }
+}

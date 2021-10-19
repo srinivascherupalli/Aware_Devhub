@@ -8,11 +8,6 @@
     <columns>ORDERS.STATUS</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>ORDERS.STATUS</field>
-        <operation>equals</operation>
-        <value>Draft</value>
-    </filters>
-    <filters>
         <field>ORDERS.TYPE</field>
         <operation>equals</operation>
         <value>Default Order</value>

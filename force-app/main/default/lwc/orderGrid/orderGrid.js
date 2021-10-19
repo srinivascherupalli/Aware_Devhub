@@ -4,6 +4,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { CurrentPageReference } from "lightning/navigation";
 import getOrderList from '@salesforce/apex/OrderGridControler.getOrderList';
 import setRequiredOrder from '@salesforce/apex/OrderGridControler.setRequiredOrder';
+import setPriceInGrid from '@salesforce/apex/OrderGridControler.setPriceInGrid';
 import updateOrderGrid from '@salesforce/apex/OrderGridControler.updateOrderGrid';
 import createOrder from '@salesforce/apex/OrderGridControler.createOrder';
 import saveOrderLineItem from '@salesforce/apex/OrderGridControler.saveOrderLineItem';
@@ -17,117 +18,177 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
     userId = Id;
 
     @api effectiveAccountId;
+    @api isZeroDollarProductPresent = false;
 
     //Date Picker  variables.
     @track pickedDate;
     @track isModalOpen;
     @track daysOfWeek = [];
     @track publicHolidays = [];
-
-    @wire(getOrderList, {accountId: '$effectiveAccountId'})
-    orders;
-
-    //variable for checkbox
-    selection = 'payOffline'; 
     
-   //this for Column Actions
 
-    
-   columns = [
-        { label: 'Code', fieldName: 'Code__c', hideDefaultActions:true },
-        { label: 'Product Name', fieldName: 'Product_Name__c', initialWidth :130, hideDefaultActions:true, wrapText:true},
-        { label: 'Price', fieldName: 'Price__c', type: 'currency', hideDefaultActions:true, initialWidth :70 },
-        { label: 'Pack Size', fieldName: 'Pack_Size__c', hideDefaultActions:true, cellAttributes: { alignment: 'center' }},
+    columns = [
+        { label: 'Code', fieldName: 'Code__c', hideDefaultActions:true, cellAttributes: {
+            class:{
+                fieldName: 'styleClass'
+            }
+        } },
+        { label: 'Product Name', fieldName: 'Product_Name__c', initialWidth :130, hideDefaultActions:true, wrapText:true, cellAttributes: {
+            class:{
+                fieldName: 'styleClass'
+            }
+        }},
+        { label: 'Price', fieldName: 'Price__c', type: 'currency', hideDefaultActions:true, initialWidth :70, cellAttributes: {
+            class:{
+                fieldName: 'styleClass'
+            }
+        } },
+        { label: 'Pack Size', fieldName: 'Pack_Size__c', hideDefaultActions:true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } }},
         {label: 'Default Order', type: 'button', fieldName: 'Avg_Of_Orders__c', sortable: true,
-            cellAttributes: { alignment: 'center' }, 
+            cellAttributes: { alignment: 'center', class:{
+                fieldName: 'styleClass'
+            } }, 
             typeAttributes:{ label: { fieldName: 'Avg_Of_Orders__c'}, ref:'Avg_Of_Orders__c'}
         },
-        {label: 'Order_1', type: 'button', fieldName: 'Order1__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Order_1', type: 'button', fieldName: 'Order1__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             actions: [{ label: 'Select All', checked: true, name:'Select All' }],  
             typeAttributes:{ label: { fieldName: 'Order1__c'}, ref:' Order1__c'}
         },
-        {label: 'Order_2', type: 'button', fieldName: 'Order2__c', sortable: true,cellAttributes: { alignment: 'center' },
+        {label: 'Order_2', type: 'button', fieldName: 'Order2__c', sortable: true,cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             actions: [{ label: 'Select All', checked: true, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order2__c'}, ref:'Order2__c'}
         },
-        {label: 'Order_3', type: 'button', fieldName: 'Order3__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Order_3', type: 'button', fieldName: 'Order3__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order3__c'}, ref:'Order3__c'}
         },
-        {label: 'Order_4', type: 'button', fieldName: 'Order4__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Order_4', type: 'button', fieldName: 'Order4__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             actions: [{ label: 'Select All', checked: false, name:'Select All' }],
             typeAttributes:{ label: { fieldName: 'Order4__c'}, ref:'Order4__c'}
         },
-        {label: 'Order_5', type: 'button', fieldName: 'Order5__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Order_5', type: 'button', fieldName: 'Order5__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             typeAttributes:{ label: { fieldName: 'Order5__c'}, ref:'Order5__c'}
         },
-        {label: 'Order_6', type: 'button', fieldName: 'Order6__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Order_6', type: 'button', fieldName: 'Order6__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             typeAttributes:{ label: { fieldName: 'Order6__c'}, ref:'Order6__c'}
         },
-        {label: 'Pending', type: 'button', fieldName: 'OrderPending__c', sortable: true, cellAttributes: { alignment: 'center' },
+        {label: 'Pending', type: 'button', fieldName: 'OrderPending__c', sortable: true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } },
             typeAttributes:{ label: { fieldName: 'OrderPending__c'}, ref:'OrderPending__c'}
         },
-        { label: 'Order Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'right' }  },
-        { label: 'Price', fieldName: 'Total_Price_Formula__c',hideDefaultActions:true, type: 'currency', initialWidth :70},
-        { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true, cellAttributes: { alignment: 'center' } },
+        { label: 'Order Required', fieldName: 'Order_Required__c', hideDefaultActions:true, editable: true, cellAttributes: { alignment: 'right', class:{
+            fieldName: 'styleClass'
+        } }  },
+        { label: 'Price', fieldName: 'Total_Price_Formula__c',hideDefaultActions:true, type: 'currency', initialWidth :70, cellAttributes: { alignment: 'right', class:{
+            fieldName: 'styleClass'
+        } }},
+        { label: 'Weight', fieldName: 'Total_Weight_Formula__c', hideDefaultActions:true, cellAttributes: { alignment: 'center', class:{
+            fieldName: 'styleClass'
+        } } },
     ];
+    
+    @wire(getOrderList, {accountId: '$effectiveAccountId'})
+    orderList(result) {
+        this.orders = result;
+        if (result.data) {
+            this.styleGridRows();
+            this.populateGridColumnLabels();
+        } else if (result.error) {
+          //do nothing
+        }
+    }
+
+    //variable for checkbox
+    selection = 'payOffline'; 
     newLabel = '';
-    async connectedCallback() {
+    
+    styleGridRows() {
+        if(this.orders) {
+            let orders = this.orders.data;
+            this.isZeroDollarProductPresent = false;
+            this.orders.data = orders.map(item=>{
+                let styleClass = 'temp';
 
-
-        try{
-            getOrderList({
-                accountId: this.effectiveAccountId
+                if(item.Price__c == 0) {
+                    styleClass = 'zero-product';
+                    this.isZeroDollarProductPresent = true;
+                } 
+                return {...item, 
+                    "styleClass":styleClass
+                }
             })
-            .then(result => {
-                if(result && result.length>0) {
-                    let orders = result;
-                    let columns = this.columns;
-                    let orderLablesFound = [];
+        }
+        
+    }
 
-                    console.log(orders);
-                    if(orders) {
-                        for(let orderIndex=0; orderIndex<orders.length; orderIndex++) {
-                            let order = orders[orderIndex];
-                            for(let prevOrderIndex=1; prevOrderIndex<=6; prevOrderIndex++) {
-                                if(order.hasOwnProperty('Order'+prevOrderIndex+'_Date__c')) {
-                                    for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
-                                        if(columns[columnIndex].label == 'Order_'+prevOrderIndex) {
-                                            if(orderLablesFound.indexOf(columns[columnIndex].label) == -1 && (columns[columnIndex].label).indexOf('Order_')!= -1) {
-                                                orderLablesFound.push(columns[columnIndex].label);
-                                            }
-                                            
-                                            let dateString = order['Order'+prevOrderIndex+'_Date__c'];
-                                            let dateSplit = dateString.split('-');
-                                            columns[columnIndex].label = dateSplit[2]+'/'+dateSplit[1];
+    populateGridColumnLabels() {
+        if(this.orders) {
+            let orders = this.orders.data;
+            let columns = this.columns;
+            let orderLablesFound = [];
+
+            if(orders) {
+                for(let orderIndex=0; orderIndex<orders.length; orderIndex++) {
+                    let order = orders[orderIndex];
+                    for(let prevOrderIndex=1; prevOrderIndex<=6; prevOrderIndex++) {
+                        if(order.hasOwnProperty('Order'+prevOrderIndex+'_Date__c')) {
+                            for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+                                if(columns[columnIndex].label == 'Order_'+prevOrderIndex) {
+                                    if(orderLablesFound.indexOf(columns[columnIndex].label) == -1 && (columns[columnIndex].label).indexOf('Order_')!= -1) {
+                                        orderLablesFound.push(columns[columnIndex].label);
+                                    }
+                                    
+                                    if(order['Order'+prevOrderIndex+'_Date__c']) {
+                                        let dateString = new Date(order['Order'+prevOrderIndex+'_Date__c']);
+                                        let day = (dateString.getDate()).toString();
+                                        let month = dateString.getMonth();
+                                        month = (month+1).toString();
+                                        
+                                        if(day.length == 1) {
+                                            day = '0'+day;
                                         }
+                                        
+                                        
+                                        if(month.length == 1) {
+                                            month = '0'+month;
+                                        }
+                                        columns[columnIndex].label = day+'/'+month;
                                     }
                                 }
                             }
                         }
                     }
+                }
+            }
 
-                    for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
-                        if((columns[columnIndex].label).indexOf('Order_')!= -1) {
-                            for(let i=0; i<=6; i++) {
-                                if(orderLablesFound.indexOf(columns[columnIndex].label) == -1 && (columns[columnIndex].label).indexOf('Order_'+i)!= -1) {
-                                    columns = columns.filter(col => col.label !== columns[columnIndex].label);
-                                }
-                            }
+            for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+                if((columns[columnIndex].label).indexOf('Order_')!= -1) {
+                    for(let i=0; i<=6; i++) {
+                        if(orderLablesFound.indexOf(columns[columnIndex].label) == -1 && (columns[columnIndex].label).indexOf('Order_'+i)!= -1) {
+                            columns = columns.filter(col => col.label !== columns[columnIndex].label);
                         }
                     }
-                    //Hide all other previous order columns when there is no previous data
-                    this.columns = [...columns];
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        } catch(error) {
-            console.log(error);
+            }
+            //Hide all other previous order columns when there is no previous data
+            this.columns = [...columns];
         }
-     }
-
+    }
      
     handleKeyValueChange(event) {
         this.isModalOpen = false;
@@ -301,6 +362,16 @@ export default class OrderGrid extends NavigationMixin(LightningElement) {
 
     handleDatePickedFromCalendar(event) {
         this.pickedDate = event.detail;
+        //Call the method to Set Price in the Grid. 
+        setPriceInGrid({ accountId: this.effectiveAccountId, deliveryDate: this.pickedDate })
+            .then((result) => {
+              refreshApex(this.orders);
+              console.log('In the success after date selection: ' +result);
+            })
+            .catch((error) => {
+                console.log('In the Error Function section'+error);
+            });
+
     }
     
 }

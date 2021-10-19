@@ -2,13 +2,19 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CardPaymentMethod</fullName>
     <columns>Name</columns>
+    <columns>Account</columns>
+    <columns>CreatedDate</columns>
+    <columns>stripe_card_id__c</columns>
     <columns>CardHolderName</columns>
     <columns>DisplayCardNumber</columns>
     <columns>CardType</columns>
     <columns>CardCategory</columns>
-    <columns>Account</columns>
     <columns>Status</columns>
-    <columns>CreatedDate</columns>
+    <columns>GatewayToken</columns>
+    <columns>Id</columns>
+    <columns>GatewayResultCode</columns>
+    <columns>GatewayTokenDetails</columns>
+    <columns>PaymentGateway</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

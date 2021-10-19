@@ -1,0 +1,131 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsTwoCol48Layout",
+  "id" : "fe5e40d3-57e6-41da-84db-bae757b599ba",
+  "label" : "Home",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "bannerBackgroundColor" : "",
+        "bannerPosition" : "top",
+        "bannerSizePercent" : 35,
+        "borderRadius" : 20,
+        "boxShadow" : true,
+        "haveBanner" : false,
+        "iconBackgroundColor" : "rgb(255,255,255)",
+        "iconSize" : "medium",
+        "noImageColor" : "rgb(212, 212, 212)",
+        "overlay" : "rgba(0,0,0,0.01)",
+        "templateType" : "default",
+        "tileMenuEditor" : "Product_Tile_Menu",
+        "titleColor" : "",
+        "titleFontSize" : "medium",
+        "titleHorizontalAlign" : "center"
+      },
+      "componentName" : "community_navigation:tileMenu",
+      "id" : "15f05594-615a-49cd-9466-ccc1c8c55934",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8b70541b-08d7-4734-9396-ec9fa0b5dc53",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "effectiveAccountId" : "{!CurrentUser.effectiveAccountId}"
+      },
+      "componentName" : "c:productDeliveryDatePicker",
+      "id" : "6ba537f6-5123-49ce-8553-43f9717c2f04",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "noOrderMessageText" : "After you place an order, you’ll find it here.",
+        "noResultsText" : "To view orders, adjust your filters.",
+        "orderSummaryFieldMapping" : "[{\"entity\":\"OrderSummary\",\"name\":\"OrderNumber\",\"label\":\"Order Summary Number\",\"type\":\"Text(255)\"},{\"entity\":\"OrderSummary\",\"name\":\"OrderedDate\",\"label\":\"Ordered Date\",\"type\":\"Date/Time\"},{\"entity\":\"OrderSummary\",\"name\":\"Status\",\"label\":\"Status\",\"type\":\"Picklist\"}]",
+        "ordersListCount" : 3,
+        "ordersListFilter" : false,
+        "ordersListSortBy" : false,
+        "ordersListTitle" : "Recent Orders",
+        "reOrder" : false,
+        "reOrderLabel" : "START REORDER",
+        "showMoreLabel" : "Go to Order List",
+        "viewDetails" : true,
+        "viewDetailsLabel" : "View Details",
+        "viewMoreOrderBehaviour" : "GO_TO_LIST_UI"
+      },
+      "componentName" : "b2b_buyer_builder:ordersList",
+      "id" : "f415e50b-a58a-486a-8bae-91bfe04ed1cb",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "accountId" : "",
+        "noOrderMessageText" : "After you place an order, you’ll find it here.",
+        "noResultsText" : "To view orders, adjust your filters.",
+        "numberOfMonthsForFilter" : 12,
+        "orderSummaryFieldMapping" : "[{\"entity\":\"OrderSummary\",\"name\":\"OrderNumber\",\"label\":\"Order Summary Number\",\"type\":\"Text(255)\"},{\"entity\":\"OrderSummary\",\"name\":\"OrderedDate\",\"label\":\"Ordered Date\",\"type\":\"Date/Time\"},{\"entity\":\"OrderSummary\",\"name\":\"Status\",\"label\":\"Status\",\"type\":\"Picklist\"}]",
+        "ordersListCount" : 3,
+        "ordersListFilter" : true,
+        "ordersListSortBy" : true,
+        "ordersListTitle" : "Recent Orders",
+        "reOrder" : false,
+        "reOrderLabel" : "START REORDER",
+        "showMoreLabel" : "Show More",
+        "viewDetails" : true,
+        "viewDetailsLabel" : "View Details",
+        "viewMoreOrderBehaviour" : "SHOW_MORE"
+      },
+      "componentName" : "b2b_buyer_builder:ordersList",
+      "id" : "d42ec693-9b82-49a5-80df-677c61ac7871",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c06308d1-4cb3-4ac0-91a7-69acb3e669be",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "[{\"label\":\"CurrentUser_AccountId\",\"dataType\":\"String\",\"supportsRecordId\":false,\"value\":\"{!CurrentUser.effectiveAccountId}\"}]",
+        "flowLayout" : "twoColumn",
+        "flowName" : "Display_Credit_Status_in_Storefront"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "d9d8c762-067e-403d-a8f3-bbcdcc744e06",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f3ed4d65-2c83-4c20-a239-ff0bf1246f9f",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "2d7ee15d-4be7-470a-bf98-36560fd38edd",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Home"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "5da1d3ad-21fe-40a2-a599-9e6d3a60b00c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "bb88de3a-ce78-4218-b821-7bf8d239d755",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Home",
+  "type" : "view",
+  "viewType" : "home"
+}

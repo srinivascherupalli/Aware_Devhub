@@ -1,7 +1,4 @@
 public with sharing class CancelOrder {
-    public CancelOrder() {
-
-    }
 
     @InvocableMethod(label='Cancel Order' description='Cancel the order summary.' category='B2B Commerce')
     public static void cancelOrder(List<String> orderSumaryIds) {
@@ -24,9 +21,8 @@ public with sharing class CancelOrder {
             ba.CurrentBalance = ba.CurrentBalance - os.GrandTotalAmount;
             update ba;
 
-        } catch (DmlException e) {
-            String errorMessage = e.getMessage();
-            System.debug('Error Message: ' + e);
+        } catch (Exception e) {
+            System.debug('Error Message: ' + e.getMessage());
         }
     }
 }

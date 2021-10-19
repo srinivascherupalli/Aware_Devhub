@@ -8,59 +8,5 @@
         <plural>true</plural>
         <value>Knowledge</value>
     </caseValues>
-    <layouts>
-        <layout>FAQ - Author</layout>
-        <sections>
-            <label></label>
-            <section>Article Details</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Properties</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>FAQ - Reader</layout>
-        <sections>
-            <label></label>
-            <section>Article Details</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Properties</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Procedure - Author</layout>
-        <sections>
-            <label></label>
-            <section>Article Details</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Properties</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Procedure - Reader</layout>
-        <sections>
-            <label></label>
-            <section>Article Details</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Properties</section>
-        </sections>
-    </layouts>
-    <recordTypes>
-        <description></description>
-        <label></label>
-        <name>FAQ</name>
-    </recordTypes>
-    <recordTypes>
-        <description></description>
-        <label></label>
-        <name>Procedure</name>
-    </recordTypes>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

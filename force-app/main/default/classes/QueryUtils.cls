@@ -208,6 +208,7 @@ public class QueryUtils
          * @change
          *
          */
+        /*
         public SelectClause addField(SObjectField field)
         {
             Schema.DescribeFieldResult describeFieldResultInstance = field.getDescribe();
@@ -218,10 +219,11 @@ public class QueryUtils
             }
             return this;
         }
-
+        */
         /**
           * Convenience method to add several fields expressed as Schema.SObjectField
           */
+          /*
         public SelectClause addFields(Schema.SObjectField[] fields)
         {
             for (Schema.SObjectField field : fields)
@@ -230,7 +232,7 @@ public class QueryUtils
             }
             return this;
         }
-
+        */
         public SelectClause addField(String field, Boolean translatable)
         {
             if (!existing.contains(field.toLowerCase())) {
@@ -251,6 +253,7 @@ public class QueryUtils
         /*
         * To test if field is translatable in the SOQL
         */
+        /*
         public Boolean toTranslate(Schema.SObjectField field )
         {
             Set<Schema.DisplayType> translatableTypeList = new Set<Schema.DisplayType>
@@ -261,6 +264,7 @@ public class QueryUtils
 
             return translatableTypeList.contains(field.getDescribe().getType());
         }
+        */
     }
 
     /**

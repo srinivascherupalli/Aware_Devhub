@@ -17,6 +17,9 @@
  package.json
  scripts/
  sfdx-project.json
+ manifest/
+ mdapipkg/
+ package/
 
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json

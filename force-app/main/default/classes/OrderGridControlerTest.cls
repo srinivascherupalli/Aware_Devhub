@@ -7,6 +7,9 @@ public class OrderGridControlerTest {
         BuyerGroup buyerGroupVar = TestDataFactory.getBuyerGroup();
         insert buyerGroupVar;
 
+        User userObj = TestDataFactory.getUser();
+        insert userObj;
+
         Account act = TestDataFactory.getAccounts(1)[0];
         act.Default_Order_Enabled__C = true;
         act.Lead_Time_In_Days__C = 0;
@@ -345,5 +348,44 @@ public class OrderGridControlerTest {
         Test.StartTest();
         OrderGridControler.updateOrderGrid(objectVar);
         Test.StopTest();
+    }
+
+    static testMethod void setDeliveryDateTest(){
+
+        //String customerUserId, String accountId, String deliveryDate
+        String deliveryDate = '2021-01-01';
+        List<Account> accList = [Select id from account where  name = 'TestAccount0'];
+        List<User> userList = [select id from User where Alias = 'standt'];
+        String accountId = accList[0].id;
+        String userId = userList[0].id;
+        Test.startTest();
+        OrderGridControler.setDeliveryDate(userId,  accountId, deliveryDate);
+        List<CartDeliveryGroup> cDeliveryGroupList = [Select id,DesiredDeliveryDate from CartDeliveryGroup Limit  1 ];
+        System.assertEquals(2021, cDeliveryGroupList[0].DesiredDeliveryDate.year());
+        Test.stopTest();
+
+    }
+
+    static testMethod void setPriceInGridTest(){
+        String deliveryDate = '2021-01-01';
+        List<Account> accList = [Select id from account where  name = 'TestAccount0'];
+        String accountId = accList[0].id;
+        Test.startTest();
+        OrderGridControler.setPriceInGrid(accountId, deliveryDate);
+        List<Order_Grid__c> orderGridList = [Select id,price__c from Order_Grid__c Limit  1 ];
+        System.assertNotEquals(null, orderGridList[0].Price__c);
+        Test.stopTest();
+
+    }
+
+    static testMethod void getDeliveryDaysByUserTest(){
+        List<Map<String, String>> response = new List<Map<String, String>>();
+        List<Account> accList = [Select id from account where  name = 'TestAccount0'];
+        String accountId = accList[0].id;
+        Test.startTest();
+        response = DateController.getDeliveryDaysByUser(accountId);
+        //List<Order_Grid__c> orderGridList = [Select id,price__c from Order_Grid__c Limit  1 ];
+        System.assertNotEquals(null, response);
+        Test.stopTest();
     }
 }

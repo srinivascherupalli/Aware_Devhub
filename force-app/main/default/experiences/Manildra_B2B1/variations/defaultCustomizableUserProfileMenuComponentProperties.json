@@ -1,0 +1,15 @@
+{
+  "componentVariants" : [ {
+    "id" : "2fca58ae-32f9-4847-9258-9c230024b6f9",
+    "propertyOverrides" : {
+      "componentAttributes" : {
+        "customizableUserProfileMenuEditor" : "Buyer_Managers_Menu"
+      }
+    },
+    "targetId" : "c94706ab-6e8c-4b8c-9a65-f54318efa8da",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Default_Customizable_User_Profile_Menu_Component_Properties",
+  "id" : "941da18e-6a49-4f9f-902a-d09daf909c36",
+  "type" : "experienceVariation"
+}

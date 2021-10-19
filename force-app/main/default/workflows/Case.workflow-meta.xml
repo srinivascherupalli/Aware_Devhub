@@ -69,6 +69,11 @@
             <operation>equals</operation>
             <value>Storefront Inquiry</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.Type</field>
+            <operation>notEqual</operation>
+            <value>Request Product Price</value>
+        </criteriaItems>
         <description>When a case is created with the record type: Storefront Inquiry, update the owner to queue: Customer Service Team Queue Inquiry. This is used due to Assignment Rules not working on Actions.</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
@@ -112,20 +117,9 @@
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Grower&apos;s Portal Self Registration</value>
+            <value>Grower&apos;s Portal Self Registration,Grower&apos;s Portal Broker Registration</value>
         </criteriaItems>
         <description>When a case is created with the record type: Grower&apos;s Portal Registration Request, update the owner to queue: Grower&apos;s Portal Registration Queue. This is used due to Assignment Rules not working on Actions.</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Preferred Delivery Date Case created</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Update Preferred Delivery Date</value>
-        </criteriaItems>
-        <description>Preferred Delivery Date Case created, email notification to the Buyer Manager of the changes being requested.</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

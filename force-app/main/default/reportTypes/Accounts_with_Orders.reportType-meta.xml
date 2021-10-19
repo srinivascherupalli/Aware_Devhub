@@ -382,11 +382,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CallDay__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Invoice_Emails__c</field>
             <table>Account</table>
         </columns>
@@ -628,6 +623,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Cut_Off_Time__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Stripe_Customer_Id__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Account_Status__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
@@ -1041,6 +1046,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Delivery_Tracking__c</field>
+            <table>Account.Orders</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Payment_Type__c</field>
             <table>Account.Orders</table>
         </columns>
         <masterLabel>Orders</masterLabel>

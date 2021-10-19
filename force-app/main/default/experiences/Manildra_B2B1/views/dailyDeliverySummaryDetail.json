@@ -1,0 +1,64 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "53b42305-ce5a-4bb2-af64-1d721b189584",
+  "label" : "Daily Delivery Summary Detail",
+  "regions" : [ {
+    "id" : "75bafddd-2cf3-4187-bb84-1a92504abd3c",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "fa851186-c133-484c-8221-e26f6661c5b8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "detailsTabLabel" : "Details",
+        "discussionsTabLabel" : "Feed",
+        "recordId" : "{!recordId}",
+        "relatedTabLabel" : "Related",
+        "tab1Type" : "details",
+        "tab2Type" : "related",
+        "tab3Type" : "chatter",
+        "tab4Type" : "none",
+        "timelineTabLabel" : "Activity"
+      },
+      "componentName" : "forceCommunity:recordHomeTabs",
+      "id" : "465a32ad-ae26-4f48-a413-7da181e9c284",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "cf35cd8e-0d02-42a2-90e4-3bbbc1ae7f47",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "f97628bc-f983-467b-b8a4-1aabc7a09f81",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "c49b0915-0de3-4d46-9d54-495819a50cb5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "738f1c4b-5974-4ad0-8af5-77402ff8efc9",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-a00"
+}

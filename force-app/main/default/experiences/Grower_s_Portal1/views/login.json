@@ -1,0 +1,62 @@
+{
+  "appPageId" : "f84a310b-ea51-48df-aa01-8ac82a0da35a",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "d0bf2eab-7e56-48d6-b670-d476238f5b56",
+  "label" : "Login",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "salesforceIdentity:communityLogo2",
+      "id" : "f77a76ce-b659-454a-bb2c-deff287392ca",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "forgotPasswordLabel" : "Forgot your password?",
+        "forgotPasswordUrl" : "/ForgotPassword",
+        "loginButtonLabel" : "Log in",
+        "passwordLabel" : "Password",
+        "selfRegisterLabel" : "Not a member?",
+        "selfRegisterUrl" : "/SelfRegister",
+        "startUrl" : "",
+        "usernameLabel" : "Username"
+      },
+      "componentName" : "salesforceIdentity:loginForm2",
+      "id" : "8735fa45-03cd-405d-9f34-5384ab4c462b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<p><a href=\"/growersportal/s/create-case\" rel=\"noopener noreferrer\" target=\"_self\" style=\"color: rgb(255, 255, 255);\"><b>Not a member? Register Here</b></a></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "87763450-31c5-49fb-b187-6fb9b91e8b73",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c76e159a-53c1-4170-989d-0c69b82370e5",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Login"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "42eeaed0-64b3-45f5-b26b-92ba979282b8",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7ed2f894-da6f-4813-9a0d-18671edf0bf0",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Login",
+  "type" : "view",
+  "viewType" : "login-home"
+}

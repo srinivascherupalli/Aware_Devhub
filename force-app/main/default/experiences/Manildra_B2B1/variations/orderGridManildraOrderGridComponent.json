@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "dfe14ea6-ac4e-4ecc-bbc9-92fbd26767d9",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "28becad5-a7c3-46b8-a825-6b6b5879519c",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Order_Grid_Manildra_Order_Grid_Component",
+  "id" : "248afb62-7ff8-49b4-93e1-bd7b6db5afc2",
+  "type" : "experienceVariation"
+}

@@ -1,4 +1,4 @@
-public with sharing class PendingOrderGridBatch implements Database.Batchable<sObject>{
+public with sharing class PendingOrderGridBatch implements Database.Batchable<sObject>, schedulable{
 
     List<Order_Grid__c> orderGridtobeUpserted = new List<Order_Grid__c>();
 
@@ -8,13 +8,17 @@ public with sharing class PendingOrderGridBatch implements Database.Batchable<sO
                         'FROM Orders '+
                         'WHERE Order.status = \'On Hold\' '+
                         'Order by OrderedDate Asc limit 1)'+
-						'FROM Account where id= \'001O000001oY5js\'';
+						'FROM Account ';
 		return Database.getQueryLocator(query);
 	}
 
 	public void execute(Database.BatchableContext context, List<Account> accountList){
 		processOrdersForAccounts(accountList);
 	}
+
+    public void execute(SchedulableContext SC) {
+        database.executebatch(new CreateDefaultOrderBatch(), integer.valueOf(Label.PenddingOrderGridBatchSize));
+    }
 
 	public void finish(Database.BatchableContext context){
 		//

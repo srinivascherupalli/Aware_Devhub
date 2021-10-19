@@ -5,36 +5,33 @@
 
 @isTest
 private class GROW_SiteGrainPriceViewCtrlTest {
-    
-    
+
     @testSetup
     static void setup() {
+
+        // Insert Site
+        Site__c testSite = TestDataFactory.getSite('New Test Site');
+        insert testSite;
         
-        // Insert Lead
-        Lead testLead = TestDataFactory.getLead();
-        testLead.Delivery_Window_Start__c = system.now().addHours(2).time();
-        testLead.Delivery_Window_End__c = system.now().addHours(5).time();
-        testLead.Delivery_Dates__c = 'Monday;Tuesday';
+        Grain_Price__c grainPrice = new Grain_Price__c();
+        grainPrice.Site__c = testSite.Id;
+        grainPrice.Bin_Grade__c = 'binGrade';
+        grainPrice.Price_Per_Metric_Tonne__c = 10;
+        insert grainPrice;
+
+        grainPrice = new Grain_Price__c();
+        grainPrice.Site__c = testSite.Id;
+        grainPrice.Bin_Grade__c = 'binGrade1';
+        grainPrice.Price_Per_Metric_Tonne__c = 0;
+        insert grainPrice;
         
-        insert testLead;
     }
+     
     
     @isTest
-    static void testMethodcreatePrefDelDateOnLeadConvert(){
-        
-        Lead testLead = [SELECT Id FROM Lead WHERE LastName = 'test lead' LIMIT 1];
-        
-        Database.LeadConvert lc = new Database.LeadConvert();
-        lc.setLeadId(testLead.Id);
+    static void testPositive(){
+        GROW_SiteGrainPriceViewCtrl.getGrainPrices();
+    }    
 
-        test.startTest();
 
-        LeadStatus convertStatus = [Select Id, MasterLabel FROM LeadStatus WHERE IsConverted=true LIMIT 1];
-        lc.setConvertedStatus(convertStatus.MasterLabel);
-
-        Database.LeadConvertResult lcr = Database.convertLead(lc);
-        System.assert(lcr.isSuccess());
-        
-        test.stopTest();
-    }
 }

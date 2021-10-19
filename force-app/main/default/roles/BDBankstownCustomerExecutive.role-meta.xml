@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>BD (Bankstown) Customer Executive</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>System_Administrator</parentRole>
+    <parentRole>NSW_Sales_Rep</parentRole>
 </Role>

@@ -8,20 +8,5 @@
         <plural>true</plural>
         <value>Deliveries</value>
     </caseValues>
-    <layouts>
-        <layout>Delivery Layout</layout>
-        <sections>
-            <label></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Delivery Information</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Record Information</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

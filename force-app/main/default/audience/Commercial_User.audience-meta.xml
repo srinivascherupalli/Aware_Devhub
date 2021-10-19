@@ -26,10 +26,10 @@
     <isDefaultAudience>false</isDefaultAudience>
     <targets>
         <target>
-            <groupName>3edf443e-6793-4943-805c-36dbce291838$#$f790a2ff-55eb-440d-9116-268b50225e1f</groupName>
+            <groupName>4c3ef2d9-fab4-45c6-a721-ae322762f14f$#$9b942252-b043-4cb5-a377-6b5765f40729</groupName>
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
-            <targetValue>Order_Summary_Detail_Order_Summary_Details_Header_Component</targetValue>
+            <targetValue>Product_Detail_Contact_Support_Button_Component</targetValue>
         </target>
         <target>
             <groupName>7aa4b089-3470-4ab4-ad83-c2ba74080d96$#$ea5fb38d-fd5b-4523-9fa2-85f41a8fb660</groupName>
@@ -74,10 +74,34 @@
             <targetValue>Product_Detail_B2B_Cross_Sell_Component</targetValue>
         </target>
         <target>
+            <groupName>b6d11954-0b99-417a-9b36-11b12342450e$#$515272c3-a0f0-479c-b8b1-d67abbd8a943</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Bakers_Delight_Home_page_Order_List_Component</targetValue>
+        </target>
+        <target>
+            <groupName>b6d11954-0b99-417a-9b36-11b12342450e$#$a22d8b15-0851-408b-97dd-88e69dbb4e92</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Bakers_Delight_Home_page_Manildra_Order_Grid_Component</targetValue>
+        </target>
+        <target>
+            <groupName>4cb09bc1-98b9-4cf9-b465-480295ea4328$#$bbb6feb4-d5bf-4028-ae38-0a578fdf695e</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Category_Detail_Rich_Content_Editor_Component</targetValue>
+        </target>
+        <target>
             <groupName>3edf443e-6793-4943-805c-36dbce291838$#$1f0dada7-fd85-4834-86e6-f0784d6a9a65</groupName>
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
             <targetValue>Order_Summary_Detail_Order_Summary_Products_Component</targetValue>
+        </target>
+        <target>
+            <groupName>fe5e40d3-57e6-41da-84db-bae757b599ba$#$15f05594-615a-49cd-9466-ccc1c8c55934</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Tile_Menu_Component</targetValue>
         </target>
     </targets>
 </Audience>

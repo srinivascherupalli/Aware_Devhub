@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "5e1654f3-1128-4947-8ee0-22748e1207a1",
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "configurationTags" : [ ],
+  "id" : "7ca75301-bef7-46d5-946c-8069efc51a1a",
+  "label" : "Site Operation Hours",
+  "pageAccess" : "Public",
+  "routeType" : "custom-site-operation-hours",
+  "type" : "route",
+  "urlPrefix" : "site-operation-hours"
+}

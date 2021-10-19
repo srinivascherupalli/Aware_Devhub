@@ -2,24 +2,25 @@
  * @Description : Batch process looks for last six completed orders for each customer
  *                and create/update the Order grids details base on last six completed orders
  */
-global class OrderGridBatchProcess implements Database.Batchable<sObject>{
+global class OrderGridBatchProcess implements Database.Batchable<sObject>, Schedulable {
 	private static Product2 shippingChargeForDeliveryMethod {
         get {
           if(shippingChargeForDeliveryMethod == null) {
-            shippingChargeForDeliveryMethod = [Select Id, Name From Product2 Where Name ='Shipping Charge for this delivery method' limit 1]; 
+            shippingChargeForDeliveryMethod = [Select Id, Name From Product2 Where Name ='Shipping' limit 1]; 
           }
           return shippingChargeForDeliveryMethod;
         }
         private set;
     }
     public Database.QueryLocator start(Database.BatchableContext context){
-		String query = 'SELECT Id, Name,' + 
-                        '(Select Id, Accountid, OrderedDate, orderNumber '+
-                        'FROM Orders '+
-                        'WHERE Order.status = \'Completed\' '+
-                        'Order by OrderedDate Asc limit 6)'+
-						'FROM Account ' ;
-		return Database.getQueryLocator(query);
+        String query = 'SELECT Id, Name,' + 
+        '(Select Id, Accountid, OrderedDate, orderNumber '+
+        'FROM Orders '+
+        'WHERE Order.status = \'Completed\' '+
+        'Order by OrderedDate Desc limit 6)'+
+        'FROM Account ' ;
+
+		return Database.getQueryLocator(query); 
 	}
 
 	public void execute(Database.BatchableContext context, List<Account> accountList){
@@ -34,6 +35,7 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
 
     public void processOrdersForAccounts(List<Account> accountWithOrdersList){
         try{
+            
             Set<Id> orderIdSet = new Set<Id>();
             List<id> orderGridDatatoDelete = new List<id>(); 
             Map<Id,List<OrderItem>> orderWithLineItems = new Map<Id,List<OrderItem>>();
@@ -44,11 +46,12 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
                     orderIdSet.add(o.Id);
                 }
             }
+            System.debug('orderIdSet>>>>'+orderIdSet);
             for(OrderItem items: [
                                 SELECT Id, Order.Id,ListPrice, Weight_kg__c, Product_Name__c, Product_Code__c, Quantity, TotalPrice, Order.OrderedDate, Product2Id, Order.Accountid
                                 FROM OrderItem
                                 WHERE Order.id IN :orderIdSet and Order.status = 'Completed'
-                                ORDER BY Order.OrderedDate Asc
+                                ORDER BY Order.OrderedDate Desc
                             ]){
                 if(items.Product_Name__c != shippingChargeForDeliveryMethod.Name){                
                     if(orderWithLineItems.containsKey(items.Order.Id) ){
@@ -59,43 +62,36 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
                     }
                 }               
             }
+            System.debug('orderWithLineItems>>>>'+orderWithLineItems);
+            System.debug('accountWithOrdersList>>>>'+accountWithOrdersList);
             Map<string, Order_Grid__c> productWithGridItem ;
             List<Order_Grid__c> gridList = new List<Order_Grid__c>();
-            Map<Date,integer> orderDateMap = new Map<Date,integer>();
+
             for(Account acc : accountWithOrdersList){
                 productWithGridItem = new Map<String, Order_Grid__c>();
-                integer i = 0;
                 for(Order o : acc.Orders){
                     System.debug('order>>>'+o);
-                    System.debug('i>>>'+i);
-                    System.debug('productWithGridItem>>>'+productWithGridItem);
-                    if(orderWithLineItems.containsKey(o.Id)){
+                    if(orderWithLineItems.containsKey(o.Id)){ 
+                        System.debug('orderItems>>>'+orderWithLineItems.get(o.Id));                       
                         for(OrderItem itm: orderWithLineItems.get(o.Id)){
                             Order_Grid__c orderGridItem ;
+                            System.debug('productWithGridItem>>>'+productWithGridItem);
                             if(productWithGridItem.containsKey(itm.Product2Id)){
                                 orderGridItem = productWithGridItem.get(itm.Product2Id);
-                                System.debug('ExistingorderGridItem>>>'+orderGridItem);
                                 integer k = 0 ;
-                                System.debug('orderDateMap>>>'+orderDateMap);
-                                System.debug('itm>>>'+itm);
-                                if(orderDateMap.containsKey(itm.Order.OrderedDate.date())){
-                                    k =  orderDateMap.get(itm.Order.OrderedDate.date());
-                                }else{
-                                    if(orderGridItem.Order2__c == null){
-                                        k = 2;
-                                    }else if(orderGridItem.Order3__c == null){
-                                        k = 3;
-                                    }else if(orderGridItem.Order4__c == null){
-                                        k = 4;
-                                    }else if(orderGridItem.Order5__c == null){
-                                        k = 5;
-                                    }else{
-                                        k = 6;
-                                    }
+                                System.debug('orderGridItem>>>'+orderGridItem);
+                                if(orderGridItem.Order2__c == null){
+                                    k = 2;
+                                }else if(orderGridItem.Order3__c == null){
+                                    k = 3;
+                                }else if(orderGridItem.Order4__c == null){
+                                    k = 4;
+                                }else if(orderGridItem.Order5__c == null){
+                                    k = 5;
+                                }else if(orderGridItem.Order6__c == null){
+                                    k = 6;
                                 }
-                                System.debug('K>>>'+k);
                                 orderGridItem = updateOrderGrid(k, orderGridItem, itm);
-                                orderDateMap.put(itm.Order.OrderedDate.date(),k);
                             }else{
                                 orderGridItem = new Order_Grid__c();                            
                                 orderGridItem.Product_Name__c = itm.Product_Name__c;
@@ -117,26 +113,17 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
                                 orderGridItem.Order5_Date__c = null ;
                                 orderGridItem.Order6__c = null;
                                 orderGridItem.Order6_Date__c = null ;
-                                i++;
-                                if(orderDateMap.containsKey(itm.Order.OrderedDate.date())){
-                                    integer k =  orderDateMap.get(itm.Order.OrderedDate.date());
-                                    orderGridItem = updateOrderGrid(k, orderGridItem, itm);
-                                }else{
-                                    orderGridItem = updateOrderGrid(i, orderGridItem, itm);
-                                }
-                                System.debug('NeworderGridItem>>>'+orderGridItem);
-                                orderDateMap.put(itm.Order.OrderedDate.date(),i);
+
+                                orderGridItem = updateOrderGrid(1, orderGridItem, itm);
+
                             }
-                            
                             productWithGridItem.put(itm.Product2Id, orderGridItem);
-                            System.debug('gridData>>>>'+productWithGridItem);
-                            
                         }
                     }
-                
                 }
                 gridList.addAll(productWithGridItem.values());
-            }
+            }           
+            
             System.debug('gridList>>>>>'+gridList);
             Schema.SObjectField uniqueField = Order_Grid__c.Fields.Unique_Key__c;
             if(!gridList.isEmpty()){
@@ -152,31 +139,31 @@ global class OrderGridBatchProcess implements Database.Batchable<sObject>{
         switch on i {
             when 1 {
                 orderGridItem.Order1__c = itm.Quantity;
-                orderGridItem.Order1_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order1_Date__c = itm.Order.OrderedDate;
             }                                
             when 2 {
                 orderGridItem.Order2__c = itm.Quantity;
-                orderGridItem.Order2_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order2_Date__c = itm.Order.OrderedDate;
             }
             
             when 3 {
                 orderGridItem.Order3__c = itm.Quantity;
-                orderGridItem.Order3_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order3_Date__c = itm.Order.OrderedDate;
             }
             
             when 4 {
                 orderGridItem.Order4__c = itm.Quantity;
-                orderGridItem.Order4_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order4_Date__c = itm.Order.OrderedDate;
             }
             
             when 5 {
                 orderGridItem.Order5__c = itm.Quantity;
-                orderGridItem.Order5_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order5_Date__c = itm.Order.OrderedDate;
             }
             
             when 6 {
                 orderGridItem.Order6__c = itm.Quantity;
-                orderGridItem.Order6_Date__c = itm.Order.OrderedDate.date();
+                orderGridItem.Order6_Date__c = itm.Order.OrderedDate;
             }
         }
         return orderGridItem;

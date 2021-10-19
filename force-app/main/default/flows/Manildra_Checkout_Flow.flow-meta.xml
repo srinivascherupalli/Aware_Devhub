@@ -4,8 +4,8 @@
     <assignments>
         <name>Assign_CartDesiredDate</name>
         <label>Assign CartDesiredDate</label>
-        <locationX>347</locationX>
-        <locationY>720</locationY>
+        <locationX>357</locationX>
+        <locationY>719</locationY>
         <assignmentItems>
             <assignToReference>CartDesiredDate</assignToReference>
             <operator>Assign</operator>
@@ -20,7 +20,7 @@
     <assignments>
         <name>Assign_Order_Id_to_Collection</name>
         <label>Assign Order Id to Collection</label>
-        <locationX>607</locationX>
+        <locationX>694</locationX>
         <locationY>493</locationY>
         <assignmentItems>
             <assignToReference>ListofOrderswithSameAddress</assignToReference>
@@ -34,9 +34,25 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Screen_Cart_Delivery_Date</name>
+        <label>Assign Screen Cart Delivery Date</label>
+        <locationX>400</locationX>
+        <locationY>925</locationY>
+        <assignmentItems>
+            <assignToReference>CartDesiredDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Desired_Delivery_DateDatePicker</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Orders</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>AssignCurrentUserAccountId</name>
         <label>AssignCurrentUserAccountId</label>
-        <locationX>489</locationX>
+        <locationX>576</locationX>
         <locationY>556</locationY>
         <assignmentItems>
             <assignToReference>CurrentUserAccountId</assignToReference>
@@ -53,7 +69,7 @@
         <description>The loop node is here for cosmetic purposes. It helps make the flow easier to read, but is not a necessary technical component.</description>
         <name>Loop</name>
         <label>Loop</label>
-        <locationX>1677</locationX>
+        <locationX>1764</locationX>
         <locationY>1132</locationY>
         <assignmentItems>
             <assignToReference>cartId</assignToReference>
@@ -70,8 +86,8 @@
         <description>In place so it doesn&apos;t continue the loop. if removed then the DuplicateOrderScreen will loop through each time the Session is Refetched (Subflow = Refetch Session).</description>
         <name>Skip_Decision_Outcome</name>
         <label>Skip Decision Outcome</label>
-        <locationX>1421</locationX>
-        <locationY>531</locationY>
+        <locationX>1533</locationX>
+        <locationY>530</locationY>
         <assignmentItems>
             <assignToReference>SkipOrderDecision</assignToReference>
             <operator>Assign</operator>
@@ -93,8 +109,8 @@
     <decisions>
         <name>Account_on_Stop_Supply</name>
         <label>Account on Stop Supply</label>
-        <locationX>185</locationX>
-        <locationY>507</locationY>
+        <locationX>190</locationX>
+        <locationY>450</locationY>
         <defaultConnector>
             <targetReference>Get_Cart_delivery_Group</targetReference>
         </defaultConnector>
@@ -119,7 +135,7 @@
         <description>The Debug Screen Decision node determines whether to show the debug screen. The default is no.</description>
         <name>Debug_Screen_Decision</name>
         <label>Show Debug Screen?</label>
-        <locationX>575</locationX>
+        <locationX>662</locationX>
         <locationY>168</locationY>
         <defaultConnector>
             <targetReference>Skip_Stop_Supply_and_Duplicate_Validation</targetReference>
@@ -145,8 +161,8 @@
         <description>If there is already an Order with the Same Desired Delivery Date then show Screen. If not, then default out come.</description>
         <name>Decision_Order_Collection</name>
         <label>Decision Order Collection</label>
-        <locationX>777</locationX>
-        <locationY>720</locationY>
+        <locationX>865</locationX>
+        <locationY>717</locationY>
         <defaultConnector>
             <targetReference>Skip_Decision_Outcome</targetReference>
         </defaultConnector>
@@ -175,9 +191,34 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Desired_delivery_Date_is_Null</name>
+        <label>Desired delivery Date is Null</label>
+        <locationX>186</locationX>
+        <locationY>721</locationY>
+        <defaultConnector>
+            <targetReference>Assign_CartDesiredDate</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>True_Desired_delivery_Date_is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Cart_delivery_Group.DesiredDeliveryDate</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Delivery_Date_Screen</targetReference>
+            </connector>
+            <label>True</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>DuplicateOrderScreenDecision</name>
         <label>DuplicateOrderScreenDecision</label>
-        <locationX>988</locationX>
+        <locationX>1075</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Skip_Decision_Outcome</targetReference>
@@ -213,7 +254,7 @@ Note: The nextState is passed into the subflow and the nextState value is set to
 Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</description>
         <name>Main_Decision_Hub</name>
         <label>Main Decision Hub</label>
-        <locationX>805</locationX>
+        <locationX>892</locationX>
         <locationY>889</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -408,7 +449,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         <description>Skip Decision for Stop Supply and Order Duplication has been done. This to remove the dml actions after it has already been done in the flow.</description>
         <name>Skip_Stop_Supply_and_Duplicate_Validation</name>
         <label>Skip Stop Supply and Duplicate Validation</label>
-        <locationX>736</locationX>
+        <locationX>823</locationX>
         <locationY>402</locationY>
         <defaultConnector>
             <targetReference>Skip_Decision_Outcome</targetReference>
@@ -434,7 +475,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         <description>The Wait Debug Decision node determines whether to show the debug screen. The default is no.</description>
         <name>Wait_Debug_Decision</name>
         <label>Show Wait Debug?</label>
-        <locationX>1152</locationX>
+        <locationX>1239</locationX>
         <locationY>894</locationY>
         <defaultConnector>
             <targetReference>Wait_Screen</targetReference>
@@ -456,14 +497,14 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
             <label>Wait Debug Outcome</label>
         </rules>
     </decisions>
-    <description>Flow used in B2B Storefront - Adding Desired Delivery Date on Duplicate Delivery Date Screen</description>
+    <description>Flow used in B2B Storefront - Date Picker if Desired Delivery Date equals Null</description>
     <interviewLabel>Manildra Checkout Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Manildra Checkout Flow</label>
     <loops>
         <description>Loops through each Order record related to the Account that the B2B User is currently logged into and with the Same Delivery Date.</description>
         <name>Loop_Order_Records</name>
         <label>Loop Order Records</label>
-        <locationX>609</locationX>
+        <locationX>696</locationX>
         <locationY>721</locationY>
         <collectionReference>Get_Orders</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -496,7 +537,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <recordLookups>
         <name>Get_AccountId</name>
         <label>Get AccountId</label>
-        <locationX>335</locationX>
+        <locationX>422</locationX>
         <locationY>556</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -519,11 +560,11 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <recordLookups>
         <name>Get_Cart_delivery_Group</name>
         <label>Get CartDeliveryGroup</label>
-        <locationX>190</locationX>
-        <locationY>716</locationY>
+        <locationX>195</locationX>
+        <locationY>589</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_CartDesiredDate</targetReference>
+            <targetReference>Desired_delivery_Date_is_Null</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -538,13 +579,13 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         <queriedFields>Id</queriedFields>
         <queriedFields>DesiredDeliveryDate</queriedFields>
         <queriedFields>CartId</queriedFields>
-        <queriedFields>Desired_Delivery_Date_Formula__c</queriedFields>
+        <queriedFields>DesiredDeliveryDate_Formula__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Cart_Record</name>
         <label>Get Cart Record</label>
-        <locationX>489</locationX>
+        <locationX>576</locationX>
         <locationY>405</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -565,8 +606,8 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <recordLookups>
         <name>Get_Orders</name>
         <label>Get Orders</label>
-        <locationX>475</locationX>
-        <locationY>720</locationY>
+        <locationX>562</locationX>
+        <locationY>719</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Order_Records</targetReference>
@@ -577,6 +618,13 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_AccountId.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>DesiredDeliveryDate__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <elementReference>False</elementReference>
             </value>
         </filters>
         <filters>
@@ -594,8 +642,8 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <screens>
         <name>Debug_Screen</name>
         <label>Debug</label>
-        <locationX>33</locationX>
-        <locationY>892</locationY>
+        <locationX>50</locationX>
+        <locationY>1046</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -641,9 +689,35 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <description>Used to captured the Desired delivery Date if Cart Desired Delivery Date is Null</description>
+        <name>Delivery_Date_Screen</name>
+        <label>Delivery Date Screen</label>
+        <locationX>194</locationX>
+        <locationY>926</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Assign_Screen_Cart_Delivery_Date</targetReference>
+        </connector>
+        <fields>
+            <name>Desired_Delivery_DateDatePicker</name>
+            <dataType>Date</dataType>
+            <fieldText>Desired Delivery Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Please Choose a Weekday&lt;/p&gt;</errorMessage>
+                <formulaExpression>NOT(OR(MOD({!Desired_Delivery_DateDatePicker} - DATE( 1900, 1, 7 ), 7 ) == 0, MOD({!Desired_Delivery_DateDatePicker} - DATE( 1900, 1, 7 ), 7 ) == 6))</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Duplicate_Order_Screen</name>
         <label>Duplicate Order Screen</label>
-        <locationX>884</locationX>
+        <locationX>971</locationX>
         <locationY>568</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -658,7 +732,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         </fields>
         <fields>
             <name>DiplayDate</name>
-            <fieldText>&lt;p&gt;Delivery Date: {!Get_Cart_delivery_Group.Desired_Delivery_Date_Formula__c}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Delivery Date: {!Get_Cart_delivery_Group.DesiredDeliveryDate_Formula__c}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -674,7 +748,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <screens>
         <name>RedirctPage</name>
         <label>RedirctPage</label>
-        <locationX>117</locationX>
+        <locationX>204</locationX>
         <locationY>274</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -705,7 +779,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <screens>
         <name>RedirectScreenforOrders</name>
         <label>RedirectScreenforOrders</label>
-        <locationX>995</locationX>
+        <locationX>1082</locationX>
         <locationY>231</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -730,7 +804,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
     <screens>
         <name>Screen_Stop_Supply</name>
         <label>Screen Stop Supply</label>
-        <locationX>304</locationX>
+        <locationX>391</locationX>
         <locationY>274</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -750,7 +824,7 @@ Asynchronous invocable actions set mainCheckoutSession.isProcess = True.</descri
         <description>The Wait Debug Screen node displays a version of the wait screen with debug information.</description>
         <name>Wait_Debug_Screen</name>
         <label>Wait Debug</label>
-        <locationX>1592</locationX>
+        <locationX>1679</locationX>
         <locationY>886</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -811,7 +885,7 @@ Async subflows set session.isProcessing = true before calling async invocable ac
 When async invocable actions complete, they change session.isProcessing to false and set session.state to session.nextState, not the flow variable nextState.</description>
         <name>Wait_Screen</name>
         <label>Wait</label>
-        <locationX>1512</locationX>
+        <locationX>1599</locationX>
         <locationY>747</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -840,7 +914,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>276</locationX>
+        <locationX>363</locationX>
         <locationY>21</locationY>
         <connector>
             <targetReference>Get_Or_Create_Session_Subflow</targetReference>
@@ -851,7 +925,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>Calls the cartToOrderAction invocable action to convert a cart to a draft order.</description>
         <name>Cart_To_Order_Subflow</name>
         <label>Cart To Order</label>
-        <locationX>1092</locationX>
+        <locationX>1179</locationX>
         <locationY>1646</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -886,7 +960,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>Calls the priceCart invocable action to confirm item pricing in the cart, perform complex pricing logic, and integrate with external pricing services.</description>
         <name>Confirm_Price_Subflow</name>
         <label>Confirm Price</label>
-        <locationX>637</locationX>
+        <locationX>724</locationX>
         <locationY>1404</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -920,7 +994,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>Delivery_Method</name>
         <label>Delivery Method</label>
-        <locationX>812</locationX>
+        <locationX>899</locationX>
         <locationY>1501</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -950,7 +1024,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>Shows the error message from the CartValidationOutput</description>
         <name>Error_Subflow</name>
         <label>Error</label>
-        <locationX>604</locationX>
+        <locationX>691</locationX>
         <locationY>817</locationY>
         <flowName>sfdc_checkout__Error</flowName>
         <inputAssignments>
@@ -964,7 +1038,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>The Get or Create Session node retrieves or creates the CartCheckoutSession for a given cart ID. There is only one valid session for a cart at a time. The most likely scenarios are Session.isArchived=false and Session.state is not Error or Completed.</description>
         <name>Get_Or_Create_Session_Subflow</name>
         <label>Get Or Create Session</label>
-        <locationX>663</locationX>
+        <locationX>750</locationX>
         <locationY>39</locationY>
         <connector>
             <targetReference>Debug_Screen_Decision</targetReference>
@@ -984,7 +1058,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>M_Checkout_Summary</name>
         <label>M Checkout Summary</label>
-        <locationX>999</locationX>
+        <locationX>1086</locationX>
         <locationY>1609</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1012,7 +1086,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>M_Payment_and_Billing_Address</name>
         <label>M Payment and Billing Address</label>
-        <locationX>1182</locationX>
+        <locationX>1269</locationX>
         <locationY>1691</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1046,7 +1120,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>Manildra_Activate_Order</name>
         <label>Manildra Activate Order</label>
-        <locationX>1274</locationX>
+        <locationX>1361</locationX>
         <locationY>1748</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1084,7 +1158,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>Manildra_Order_Confirmation</name>
         <label>Manildra Order Confirmation</label>
-        <locationX>1372</locationX>
+        <locationX>1459</locationX>
         <locationY>1799</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1131,7 +1205,7 @@ When async invocable actions complete, they change session.isProcessing to false
     <subflows>
         <name>Manildra_Shipping_Address</name>
         <label>Manildra Shipping Address</label>
-        <locationX>522</locationX>
+        <locationX>609</locationX>
         <locationY>1343</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1160,7 +1234,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>The Refetch Session node retrieves the current checkout session without creating a new one.</description>
         <name>Refetch_Session_Subflow</name>
         <label>Refetch Session</label>
-        <locationX>1665</locationX>
+        <locationX>1752</locationX>
         <locationY>166</locationY>
         <connector>
             <targetReference>Debug_Screen_Decision</targetReference>
@@ -1181,7 +1255,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>Calls the calcCartShipmentAction invocable action to calculate shipping costs. You can integrate with an external shipment vendor using Apex.</description>
         <name>Shipping_Cost_Subflow</name>
         <label>Shipping Cost</label>
-        <locationX>728</locationX>
+        <locationX>815</locationX>
         <locationY>1460</locationY>
         <connector>
             <targetReference>Loop</targetReference>
@@ -1216,7 +1290,7 @@ When async invocable actions complete, they change session.isProcessing to false
         <description>Calls the calcCartTaxesAction invocable action to calculate taxes. You can integrate with external tax services using Apex.</description>
         <name>Taxes_Subflow</name>
         <label>Taxes</label>
-        <locationX>905</locationX>
+        <locationX>992</locationX>
         <locationY>1568</locationY>
         <connector>
             <targetReference>Loop</targetReference>

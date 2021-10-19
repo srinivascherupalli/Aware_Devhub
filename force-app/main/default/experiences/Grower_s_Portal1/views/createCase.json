@@ -1,0 +1,84 @@
+{
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "45e252e8-47c8-471a-a9c8-90b0b40ea26e",
+  "label" : "Create Case",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "01d985c1-5291-45d7-a31d-fd3139433d0a",
+          "columns" : [ {
+            "UUID" : "c8eed779-be6a-4721-a173-c496589126aa",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "01d985c1-5291-45d7-a31d-fd3139433d0a",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "attachFiles" : false,
+            "authenticatedActionName" : "Grower_s_Portal_Customer_Access_Request",
+            "confirmationMessageDescription" : "You'll hear back from us soon.",
+            "confirmationMessageTitle" : "Your request was submitted successfully.",
+            "deflectionCategoryGroupName" : "",
+            "deflectionNotHelpful" : "",
+            "deflectionNumberOfArticles" : "",
+            "deflectionParentCategory" : "",
+            "deflectionSubHeader" : "",
+            "deflectionTitle" : "",
+            "hasDeflection" : false,
+            "headerTitle" : "Grower's Portal Registration Request",
+            "isReCaptchaEnabled" : false,
+            "reCaptchaPrivateKey" : "",
+            "reCaptchaPublicKey" : "",
+            "unauthenticatedActionName" : "Grower_s_Portal_Customer_Access_Request"
+          },
+          "componentName" : "selfService:caseCreate",
+          "id" : "20afa8c6-a89f-46ea-a2ec-cf54bc9758a6",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "c8eed779-be6a-4721-a173-c496589126aa",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c942b77a-52de-4e3a-b066-a8addd5f07bd",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Create Case"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "bcae6d9b-f8c8-4038-8c42-e837bacc8a0d",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "995f488c-cfe1-47e1-885b-309bb6f74d16",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-create-case"
+}

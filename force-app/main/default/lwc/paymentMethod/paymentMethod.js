@@ -1,11 +1,16 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import { FlowNavigationNextEvent, FlowNavigationBackEvent } from 'lightning/flowSupport';
 import * as Constants from './constants';
 
 import getPaymentInfo from '@salesforce/apex/B2BPaymentController.getPaymentInfo';
 import setPayment from '@salesforce/apex/B2BPaymentController.setPayment';
 //import addDiscountItem from '@salesforce/apex/DiscountController.addDiscountItem';
-import isDiscountItemIncluded from '@salesforce/apex/DiscountController.isDiscountItemIncluded';
+//import isDiscountItemIncluded from '@salesforce/apex/DiscountController.isDiscountItemIncluded';
+
+
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import USE_SAVED_CARDS from "@salesforce/schema/User.Contact.B2B_Use_Stored_Credit_Cards__c";
+import USER_ID from "@salesforce/user/Id";
 
 const columns = [
     { label: 'Card Number', fieldName: 'DisplayCardNumber' },
@@ -22,6 +27,19 @@ const columns = [
  * @fires PaymentMethod#submitpayment
  */
 export default class PaymentMethod extends LightningElement {
+
+    @wire(getRecord, { recordId: USER_ID, fields: [USE_SAVED_CARDS] })
+    user;
+  
+    _useSavedCardsFlag = 'false';
+
+    get useSavedCards() {
+        var bRet = getFieldValue(this.user.data, USE_SAVED_CARDS);
+        this._useSavedCardsFlag = bRet + '';
+        console.log("#### useSavedCardsFlag : " + this._useSavedCardsFlag);
+        return bRet;
+    }
+
     // Private attributes
     @track hasPreviousCards;
 
@@ -166,6 +184,11 @@ export default class PaymentMethod extends LightningElement {
         this._purchaseOrderNumber = newNumber;
     }
 
+    @api
+    get paymentType() {
+        return this._selectedPaymentType;
+    }
+    
     /**
      * The address data. Used to pass the user's addresses to the child billing address components.
      * @type {Address[]}
@@ -349,6 +372,7 @@ export default class PaymentMethod extends LightningElement {
     handlePaymentTypeSelected(event) {
         this._selectedPaymentType = event.currentTarget.value;
 
+        /*
         if (
             event.currentTarget.value === Constants.PaymentTypeEnum.CARDPAYMENT
         ) {
@@ -360,6 +384,7 @@ export default class PaymentMethod extends LightningElement {
                 this._purchaseOrderErrorMessage = error.body.message;
             });
         }
+        */
     }
 
     /**
@@ -455,9 +480,16 @@ export default class PaymentMethod extends LightningElement {
                 );
 
                 debugger;
-                creditCardData.saveCard = this.selectedValues;
+                if(this._useSavedCardsFlag==='true'){
+                    creditCardData.saveCard = this.selectedValues;
+                }else{
+                    creditCardData.saveCard = 'false';
+                }
 
             }
+
+            debugger;
+            console.log("## useSavedCards : " + this._useSavedCardsFlag);
 
             console.log("## creditCardData : " + JSON.stringify(creditCardData));
             setPayment({

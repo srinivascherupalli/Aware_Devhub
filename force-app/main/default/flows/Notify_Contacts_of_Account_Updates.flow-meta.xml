@@ -39,7 +39,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>53.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <assignments>
         <description>Assign all email addresses to Collection.</description>
         <name>Assign_Contact_Email_Address</name>

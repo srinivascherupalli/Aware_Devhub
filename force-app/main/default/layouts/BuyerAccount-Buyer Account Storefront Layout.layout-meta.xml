@@ -8,10 +8,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CurrentBalance</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Due_by_end_of_Current_Period__c</field>
             </layoutItems>
             <layoutItems>

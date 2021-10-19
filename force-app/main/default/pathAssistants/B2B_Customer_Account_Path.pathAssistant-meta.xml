@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <entityName>Account</entityName>
+    <fieldName>Account_Status__c</fieldName>
+    <masterLabel>B2B Customer Account Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Confirmation_Emails__c</fieldNames>
+        <fieldNames>Delivery_Track_Emails__c</fieldNames>
+        <fieldNames>Docket_Emails__c</fieldNames>
+        <fieldNames>Invoice_Emails__c</fieldNames>
+        <info>&lt;p&gt;This stage of the Account is for a Customer Service Representative to carry out the necessary tasks to enable a customer in the B2B storefront and acquire customer preferences such as preferred call day/delivery addresses, as well as creating the buyer group and enable the portal users. &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Preferences Collection</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;This stage of the Account is for a Sales Representative to finalise the products the customer is interested in purchasing, as well as the negotiated price. &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Utilise the &amp;quot;Update Pricing&amp;quot; button on the top right of the screen&lt;/p&gt;</info>
+        <picklistValueName>Pricing Confirmation</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;AS400 Setup, Entitlement policy creation&lt;/p&gt;</info>
+        <picklistValueName>Pricing Creation</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Terms_Code__c</fieldNames>
+        <fieldNames>Terms_Code_Description__c</fieldNames>
+        <info>&lt;p&gt;This stage of the Account is for an Accounts Receivable Representative to assess the Account&amp;#39;s credit illegibility to determine if the Account should be enabled in the B2B Storefront.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Utilise the &amp;quot;Email&amp;quot; function on the right panel to send and store emails send to the customer to obtain the credit application form and trade references. If the Customer has met the necessary requirements, update the &amp;quot;Terms Code&amp;quot; and &amp;quot;Terms Code Description Fields&amp;quot; on the left and the &amp;quot;Buyer Status&amp;quot; to &amp;quot;A&amp;quot; and &amp;quot;Credit Rating/Status&amp;quot; to &amp;quot;Available&amp;quot;, located in the &amp;quot;Buyer Account Details&amp;quot; Sub-tab.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;For illegible Accounts,  update the Account status to &amp;quot;Preferences Collection&amp;quot;, otherwise, if the Account does not meet the necessary requirements, update the status to &amp;quot;Credit Declined&amp;quot;.&lt;/p&gt;</info>
+        <picklistValueName>Under Review</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>B2B_Customer</recordTypeName>
+</PathAssistant>

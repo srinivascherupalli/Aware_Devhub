@@ -1,0 +1,10 @@
+{
+  "activeViewId" : "c80c3831-f4de-453c-86b0-2d8ff0849f1e",
+  "appPageId" : "e47a36d0-7c9b-4dd1-a318-ab20386f862b",
+  "configurationTags" : [ ],
+  "id" : "289e8b8b-9dc8-43f8-a8cb-21ecc13e9c97",
+  "label" : "My Lists",
+  "routeType" : "wishlist",
+  "type" : "route",
+  "urlPrefix" : "mylists"
+}

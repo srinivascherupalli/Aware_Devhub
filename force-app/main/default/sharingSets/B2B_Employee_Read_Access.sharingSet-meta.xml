@@ -14,5 +14,5 @@
     </accessMappings>
     <description>Allows Access to view Orders and Cases for the their Account.</description>
     <name>B2B Employee -  Read Access</name>
-    <profiles>B2B Employee External User</profiles>
+    <profiles>b2b employee external user</profiles>
 </SharingSet>

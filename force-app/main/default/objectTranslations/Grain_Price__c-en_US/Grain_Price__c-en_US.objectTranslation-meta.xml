@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>Grain Prices</value>
     </caseValues>
-    <layouts>
-        <layout>Cash Price Layout</layout>
-        <sections>
-            <label></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -33,7 +33,18 @@ public class TestDataFactory {
             actList.add(act);
         }
         return actList;        
-    } 
+    }
+    
+    public static User getUser(){
+
+        Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
+        User user = new User(Alias = 'standt', Email='manilrdaTest@testorg.com', 
+        EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+        LocaleSidKey='en_US', ProfileId = p.Id, 
+        TimeZoneSidKey='America/Los_Angeles', UserName='manilrdaTest@testorg.com');
+
+        return user;        
+    }
     public static Pricebook2 getCustomPricebook(String priceBookName){
         return new Pricebook2(Name = priceBookName, isActive = true, PricebookExternalID__c = string.valueOf(System.now()));
     }
@@ -45,6 +56,9 @@ public class TestDataFactory {
             i++;
         }
         return entryList;
+    }
+    public static BuyerGroupPricebook getBuyerGroupPricebook(Id buyerGroupId, ID pricebook2Id ){
+        return new BuyerGroupPricebook(BuyerGroupId = buyerGroupId, IsActive = true, Pricebook2Id=pricebook2Id );
     }
     public static List<Order> getOrders(integer numOrders, Id accountId, Id priceBookId){
         List<Order> orderList = new List<Order>();
@@ -101,7 +115,7 @@ public class TestDataFactory {
         return new BuyerAccount(BuyerId = actRecordId, IsActive= true, Name= 'TestName');
     }
     public static webStore getWebStore(){
-        return new webStore(name = 'TestName', DefaultLanguage='en_US');
+        return new webStore(name = 'Manildra B2B', DefaultLanguage='en_US');
     }
     public static WebStoreBuyerGroup getWebStoreBuyerGroup(Id webStoreId, Id BuyerGroupId){
         return new WebStoreBuyerGroup(WebStoreId = webStoreId, BuyerGroupId = BuyerGroupId);
@@ -164,4 +178,5 @@ public class TestDataFactory {
         testLead.Buyer_Group__c = 'Bakers Delight';
         return testLead;
     }
+
 }

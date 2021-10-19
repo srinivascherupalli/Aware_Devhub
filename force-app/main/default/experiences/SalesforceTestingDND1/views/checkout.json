@@ -1,0 +1,32 @@
+{
+  "appPageId" : "ce7626bd-b238-46e8-8e80-26b2b5f466d7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "1218ed08-bb49-422d-921a-1559f2026778",
+  "label" : "Checkout",
+  "regions" : [ {
+    "id" : "5af4cd27-bba7-427a-8f9d-0420db776702",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "checkoutFlowName" : "Manildra_Checkout_Flow"
+      },
+      "componentName" : "forceCommunity:checkoutFlow",
+      "id" : "377cdac3-801a-498f-b78d-69546e4be96a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "184330f6-b8ad-4d1f-9c33-e497013ef9ca",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "f6d7105c-a2e2-48a4-828b-9dc9bcccccbe",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Checkout",
+  "type" : "view",
+  "viewType" : "checkout"
+}

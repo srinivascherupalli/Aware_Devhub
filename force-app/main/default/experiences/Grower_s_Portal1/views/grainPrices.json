@@ -1,0 +1,82 @@
+{
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "77922836-db8d-42c9-8819-953e89429a7d",
+  "label" : "Grain Prices",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "a5767c22-761e-49b5-a111-e18177f4780d",
+          "columns" : [ {
+            "UUID" : "7fb2e8e7-6055-4351-9bb4-f090b27bfbe6",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "a5767c22-761e-49b5-a111-e18177f4780d",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "bannerText" : "View Grain Prices, by Site, by Bin Grade",
+            "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType" : "",
+            "showSubTopics" : true,
+            "title" : "Site Grain Prices",
+            "uniqueNameOrId" : ""
+          },
+          "componentName" : "forceCommunity:headline",
+          "id" : "c3106ab4-f72c-4422-a0c3-1e643d4fdf9b",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : { },
+          "componentName" : "c:GROW_SiteGrainPriceView",
+          "id" : "d28bb45c-f7bb-46fa-8c91-d9297a710f17",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "7fb2e8e7-6055-4351-9bb4-f090b27bfbe6",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e8586be5-5f88-4735-9a08-c28760d9d04f",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Grain Prices"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8517ed96-d8b8-438b-824a-2f86e81e9a49",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f9e76f48-316c-493c-a8ab-4fd03d0d0c0e",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-grain-prices"
+}

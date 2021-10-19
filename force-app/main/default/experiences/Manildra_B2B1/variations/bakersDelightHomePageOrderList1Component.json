@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "3963bd0a-ee2a-49c3-93f3-c2ad824a5689",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "31952313-94f2-4875-bbff-b4be948128a3",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Bakers_Delight_Home_page_Order_List_1_Component",
+  "id" : "6e086d66-f491-4e27-9f61-93bfb0fda15e",
+  "type" : "experienceVariation"
+}

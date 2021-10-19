@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Broker_s_Registration_Requests</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Grower_s_Portal_Broker_Registration</value>
+    </filters>
+    <filters>
+        <field>CASES.TYPE</field>
+        <operation>equals</operation>
+        <value>Grower&apos;s Portal - Broker Access</value>
+    </filters>
+    <label>Broker&apos;s Registration Requests</label>
+    <queue>Grower_s_Portal_Registration_Queue</queue>
+</ListView>

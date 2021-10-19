@@ -11,7 +11,7 @@ private class TriggerHandler_Test {
         handler = new TriggerHandler_Test.TestHandler();
         // override its internal trigger detection
         handler.isTriggerExecuting = true;
-    }
+    }    
     
     /***************************************
 * unit tests

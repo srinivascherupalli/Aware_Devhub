@@ -1,0 +1,34 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "138c8bab-62a9-4399-a7c1-608c9393ec36",
+  "label" : "Update Preferred Delivery Dates",
+  "regions" : [ {
+    "id" : "88c300ee-33c7-47d3-884f-5f9c857115fb",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "[{\"label\":\"CurrentUserAccountId\",\"dataType\":\"String\",\"supportsRecordId\":false,\"value\":\"{!CurrentUser.effectiveAccountId}\"}]",
+        "flowLayout" : "oneColumn",
+        "flowName" : "Update_Preferred_Delivery_Dates_in_Storefront"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "a95d0a5a-877c-4fd9-a49c-5b975699b4ca",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2a4df8f5-3598-43e6-84a3-f2453f5f3964",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "cc4fa157-3487-40f7-948a-8fe41d6185fb",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "flow"
+}

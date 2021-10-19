@@ -17,6 +17,7 @@ public with sharing class B2BUtils {
    * @example
    * String webStoreId = B2BUtils.resolveCommunityIdToWebstoreId('0DB2D0000004Xz7');
    */
+  /*
   public static String resolveCommunityIdToWebstoreId(String communityId) {
     if (communityIdToWebStoreIdCache.containsKey(communityId)) {
       return communityIdToWebStoreIdCache.get(communityId);
@@ -33,7 +34,7 @@ public with sharing class B2BUtils {
       return webStoreId;
     }
   }
-
+*/
   /**
    * @description Given a sortParam string, return null or the relavent ConnectApi.CartItemSortOrder enum value
    * See https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/connectAPI_enums.htm#cartItemSortOrderEnum for the enum values
@@ -42,6 +43,7 @@ public with sharing class B2BUtils {
    * @example
    * ConnectApi.CartItemSortOrder sortParam = B2BUtils.resolveSortParam('CreatedDateAsc');
    */
+  /*
   public static ConnectApi.CartItemSortOrder resolveSortParam(
     String sortParam
   ) {
@@ -54,7 +56,7 @@ public with sharing class B2BUtils {
       }
       return sortOrderCache.get(sortParam);
   }
-    
+    */
   public static String getUserAccountID() {
       String userId = UserInfo.getUserId();
       String contactId = [SELECT ContactId FROM User WHERE Id = :userId].ContactId;

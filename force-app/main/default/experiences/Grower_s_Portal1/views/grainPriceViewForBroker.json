@@ -1,0 +1,89 @@
+{
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "ed86ad49-046e-42d4-acff-598bdbb3f8e9",
+  "label" : "Grain Price View for Broker",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "63fbfe7a-1296-4ca0-9f9a-bbac2d4735b6",
+          "columns" : [ {
+            "UUID" : "65c35662-911f-441f-8190-02bf45d7d6ce",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "63fbfe7a-1296-4ca0-9f9a-bbac2d4735b6",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "allowAttachments" : false,
+            "attachmentLabel" : "Upload File",
+            "buttonAlignment" : "center",
+            "buttonBgColor" : "",
+            "buttonBgHoverColor" : "",
+            "buttonBorderColor" : "",
+            "buttonMaxWidth" : 10,
+            "buttonRadius" : 0,
+            "buttonTextColor" : "",
+            "buttonTextHoverColor" : "",
+            "callToAction" : false,
+            "callToActionButtonText" : "",
+            "callToActionText" : "",
+            "callToActionUrl" : "",
+            "confirmationSubtext" : "We’ll get back to you soon.",
+            "confirmationText" : "Your request was submitted. ",
+            "guestQuickActionName" : "Grower_s_Portal_Request_for_Registration",
+            "headerSubtitle" : "Please submit an access request below",
+            "headerTitle" : "You do not have permission to view Grain Prices",
+            "quickActionName" : "Grower_s_Portal_Broker_Access_Request",
+            "requestSummaryText" : "Request Summary"
+          },
+          "componentName" : "forceCommunity:contactSupportForm",
+          "id" : "412bf51d-62b7-4bad-b4c4-5a7aed693b54",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "65c35662-911f-441f-8190-02bf45d7d6ce",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d92a3c12-6e9d-4ddb-944f-0cd2fe9d3775",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Grain Prices"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "5aae24f3-f320-40cd-9ce1-95c45096703c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "00ce595b-db80-4fb8-af73-15233c34e75e",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-grain-prices"
+}

@@ -37,7 +37,7 @@ public virtual class TriggerHandler {
         }
         
         addToLoopCount();
-        
+        System.debug('handlerName>>>>'+handlerName);
         Triggers_Configuration__mdt triggerConfiguration = [
             SELECT
             Before_Insert__c, Before_Update__c, Before_Delete__c, After_Insert__c, After_Update__c, After_Delete__c, After_Undelete__c

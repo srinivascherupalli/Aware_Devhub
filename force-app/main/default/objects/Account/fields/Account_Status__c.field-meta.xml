@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Account Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Under Review</fullName>
+                <default>false</default>
+                <label>Under Review</label>
+            </value>
+            <value>
+                <fullName>Pricing Confirmation</fullName>
+                <default>false</default>
+                <label>Pricing Confirmation</label>
+            </value>
+            <value>
+                <fullName>Pricing Creation</fullName>
+                <default>false</default>
+                <label>Pricing Creation</label>
+            </value>
+            <value>
+                <fullName>Preferences Collection</fullName>
+                <default>false</default>
+                <label>Preferences Collection</label>
+            </value>
+            <value>
+                <fullName>Credit Declined</fullName>
+                <default>false</default>
+                <label>Credit Declined</label>
+            </value>
+            <value>
+                <fullName>Storefront Ready</fullName>
+                <default>false</default>
+                <label>Storefront Ready</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

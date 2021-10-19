@@ -1,4 +1,4 @@
-public with sharing class OrderGridControler {
+public without sharing class OrderGridControler {
 
     @AuraEnabled(cacheable=true)
     public static List<Order_Grid__c> getOrderList(String accountId) {
@@ -12,13 +12,6 @@ public with sharing class OrderGridControler {
     @AuraEnabled
     public static void setRequiredOrder(String  selectedColumn, String accountId ) {
 
-    /*    Id customerUserId = ID.valueof(cuserId);
-        system.debug('The user id is:'+customerUserId);
-        User communityUser =  [Select id, ContactId From User where id =:customerUserId Limit 1];
-        Id contactId = communityUser.ContactId;
-        Contact contactuser = [Select id, Accountid from COntact where id =: contactId Limit 1];
-        ID accountid = contactuser.accountid;
-*/
         String column = '';
         column = selectedColumn;
         Double orderQuantity = 0.0;
@@ -163,17 +156,21 @@ public with sharing class OrderGridControler {
             WebCart cart ;//= new WebCart();
             CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
             List<WebCart> cartList = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = :customerUserId and status = 'Active' and accountid=:accountId Limit 1];
-    
-            if (cartList.size() > 0)
-            cart = cartList[0];
+            List<CartItem> cartItemToDel = new List<CartItem>();
+            WebStore	store = [select id from WebStore where name = 'Manildra B2B' Limit 1];  
+            if (cartList.size() > 0){
+                cart = cartList[0];
+                cartItemToDel = [Select id from CartItem where cartid =: cart.id ];
+                delete cartItemToDel;
+            }
             //If cart does not exist then create a new Cart. 
             if(cart == null){          
                 cart = new WebCart();  
                 cart.name = 'CartX';                
                 cart.AccountId = Id.valueOf(accountid);//get from userid->Contact->Account
                 cart.OwnerId = customerUserId;//get from community userid lwc
-                cart.WebStoreId = id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
-                cart.CreatedDate = Date.valueOf(deliveryDate);
+                cart.WebStoreId =store.id;//id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
+              
                 insert cart;
                 //insert the Cart Delivery Group. 
                 deliveryGroup.name = 'WYDG';
@@ -229,7 +226,7 @@ public with sharing class OrderGridControler {
                 newCartItem.ListPrice = orderGridObj.Price__c;
                 newCartItem.UnitAdjustedPrice = orderGridObj.Price__c;
 
-                if(newCartItem.quantity > 0 ){
+                if(newCartItem.quantity > 0 && newCartItem.ListPrice >0){
                     newCartItemsList.add(newCartItem);
                 }
             }
@@ -265,5 +262,137 @@ public with sharing class OrderGridControler {
             return 'The following exception has occurred: ' + e.getMessage();
         }
     }
+
+    @AuraEnabled
+    public static string setDeliveryDate(String customerUserId, String accountId, String deliveryDate){
+        try {
+                  //Check is the Cat already exists.
+                  WebCart cart ;//= new WebCart();
+                  CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
+                  List<WebCart> cartList = [select id , name , CreatedDate,status, ownerid  from webcart where ownerid = :customerUserId and status = 'Active' and accountid=:accountId Limit 1];
+                  WebStore	store = [select id from WebStore where name = 'Manildra B2B' Limit 1];  
+                  if (cartList.size() > 0)
+                  cart = cartList[0];
+                  //If cart does not exist then create a new Cart. 
+                  if(cart == null){          
+                      cart = new WebCart();  
+                      cart.name = 'CartX';                
+                      cart.AccountId = Id.valueOf(accountid);//get from userid->Contact->Account
+                      cart.OwnerId = customerUserId;//get from community userid lwc
+                      cart.WebStoreId = store.id;//id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now.               
+                      insert cart;
+                      //insert the Cart Delivery Group. 
+                      deliveryGroup.name = 'WYDG';
+                      deliveryGroup.cartid = cart.id;
+                      deliveryGroup.DeliverToName = 'WY';
+                      system.debug('Setting the delivery Date: '+Date.valueOf(deliveryDate));
+                      deliveryGroup.DesiredDeliveryDate = Date.valueOf(deliveryDate);
+                      insert deliveryGroup;
+                  }else{
+                      ID cartId = cart.id;
+                      cart.IsRepricingNeeded = true;
+                      update cart;
+                      deliveryGroup = [select id,DesiredDeliveryDate   from CartDeliveryGroup where cartid =: cartId  Limit 1];
+                      system.debug('Setting the delivery Date in else loop: '+Date.valueOf(deliveryDate));
+                      deliveryGroup.DesiredDeliveryDate = Date.valueOf(deliveryDate);
+                      update deliveryGroup;
+                      
+                  }
+                  return 'Success: DesiredDeliveryDate updated successfully';
+            
+        } catch (Exception e) {
+            //throw new AuraHandledException(e.getMessage());
+            return 'The following exception has occurred: ' + e.getMessage();
+        }
+    }
+    /**
+    * @Description : Batch process populated the Price for each Item. 
+    *  step1 get all the items in grid and the Priductid
+    *  step2 Get the Price books based on Delivery Date
+    *  step3 get the Price book entry based on ProdcutId
+    *  step4 get the Price from Price Book entry and Populate the Grid Item. 
+    */
+
+    @AuraEnabled
+    public static string setPriceInGrid(String accountId, String deliveryDate){
+        try {
+            //Adding time value to make it compatable with DateTime field. 
+            String dDateTimeStr = deliveryDate + ' 00:00:00';
+            system.debug('The value accountId: '+accountId);
+            system.debug('The value dDateTimeStr: '+dDateTimeStr);
+
+            Datetime deliveryDateTime = Datetime.valueOfGMT(dDateTimeStr);
+            List<Order_Grid__c> updateOrderGridList = new List<Order_Grid__c>();
+            Map<Id, Order_Grid__c> productIDtoOrderGridObjMap = new Map<Id, Order_Grid__c>();
+            List<Order_Grid__c> orderGridList = [select id, Product__c, Price__c from Order_Grid__c where Account_Name__c =:accountId];
+            List<ID> productIds = new List<ID>();
+            for(Order_Grid__c orderGridObj :orderGridList ){
+                productIds.add(orderGridObj.Product__c);
+            }
+
+            //carete Productid to Order grid Map.
+            for(Order_Grid__c orderObj:orderGridList ){
+                productIDtoOrderGridObjMap.put(orderObj.Product__c, orderObj);
+            }
+            List<BuyerGroupMember>  buyerGroupMemList = [select id, buyerGroupId from BuyerGroupMember where buyerId =: accountId];
+            system.debug('The value buyerGroupMemList: '+buyerGroupMemList);
+            ID buyerGroupId = buyerGroupMemList[0].buyerGroupId;
+            List<BuyerGroupPricebook>  buyerGroupPricebookList = [select id, Pricebook2Id, buyerGroupId from BuyerGroupPricebook where buyerGroupId =: buyerGroupId];
+            List<ID> priceBookIds = new List<ID>();
+            List<ID> validPriceBookIds = new List<ID>();
+            for(BuyerGroupPricebook buyerGroupPricebookObj :buyerGroupPricebookList ){
+                priceBookIds.add(buyerGroupPricebookObj.Pricebook2Id);
+            }
+            system.debug('The value priceBookIds: '+priceBookIds);
+            system.debug('The value deliveryDateTime: '+deliveryDateTime);
+            List<Pricebook2> priceBookList = [Select id from Pricebook2 where id in: (priceBookIds) and ValidFrom	<=: deliveryDateTime and  ValidTo >=: deliveryDateTime ];
+            system.debug('The value priceBookList size: '+priceBookList.size());
+            Map<id,Order_Grid__c> checkDuplicate = new Map<Id, Order_Grid__c>();
+            if(priceBookList.size() > 0 ){
+                for(Pricebook2 pbookObj: priceBookList){
+                    validPriceBookIds.add(pbookObj.id);
+                }
+                system.debug('The value validPriceBookIds: '+validPriceBookIds);
+                // ID priceBookId = priceBookList[0].id;
+                List<PricebookEntry> priceBookEntryList = [select id, product2Id, UnitPrice, IsActive 
+                                                                from PriceBookEntry 
+                                                                where Pricebook2Id in: validPriceBookIds 
+                                                                        and Product2Id in: productIds];
+
+                system.debug('The value priceBookEntryList: '+priceBookEntryList);
+
+                for(PricebookEntry pBookentry: priceBookEntryList){
+                    if(checkDuplicate.get(pBookentry.Product2Id) == null){
+                        Order_Grid__c orderGrid =  productIDtoOrderGridObjMap.get(pBookentry.product2Id); 
+                        if(!pBookentry.IsActive){
+                            orderGrid.price__c = 0;    
+                        }else{
+                            orderGrid.price__c =  pBookentry.UnitPrice;
+                            
+                        }
+                        checkDuplicate.put(pBookentry.product2Id,orderGrid);
+                        updateOrderGridList.add(orderGrid);
+                    }
+
+                }
+
+            }
+            //Set 0 for all Products which do not have a Price Book Entry.
+            for(Order_Grid__c oGridObj: orderGridList){
+                if(checkDuplicate.size() == 0 || checkDuplicate.get(oGridObj.Product__c) == null){
+                    oGridObj.Price__c = 0;
+                    updateOrderGridList.add(oGridObj);
+                }
+            }
+            system.debug('The value id updateOrderGridList: '+updateOrderGridList);
+            update updateOrderGridList;
+                
+            return 'Success: updateOrderGridList: ' +updateOrderGridList;
+            
+        } catch (Exception e) {
+            //throw new AuraHandledException(e.getMessage());
+            return 'The following exception has occurred: ' + e.getMessage();
+        }
+    }  
 
 }

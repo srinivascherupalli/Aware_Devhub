@@ -1,0 +1,35 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "c783dd51-1b3b-4fca-b97b-2019bde66f6a",
+  "label" : "Badge Received Related List",
+  "regions" : [ {
+    "id" : "0ddd8bb4-5cfe-48bf-858a-e39269655cc0",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "earnedBadgesName" : "Earned Badges",
+        "parentRecordId" : "{!recordId}",
+        "showUnearnedBadges" : false,
+        "unearnedBadgesName" : "Unearned Mission Badges"
+      },
+      "componentName" : "communitySetup:userRecognitionList",
+      "id" : "dd1c304d-9899-41d9-996d-21b9286dbe44",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b00d8755-8cef-4d97-a4f2-98f674c8b615",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "f61b024b-c816-4804-bc44-4d90013f046a",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-0W2"
+}

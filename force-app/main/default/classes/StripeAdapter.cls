@@ -55,7 +55,10 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
 
         HttpResponse response = doPost('tokens', params);
         String body = response.getBody();
+        System.debug('### cardInfo body >> ' + body);
+
         Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(body);
+        System.debug('### tokenizeResponse >> ' + results);
         Integer sc = response.getStatusCode();
 		commercepayments.PaymentMethodTokenizationResponse tokenizeResponse = new commercepayments.PaymentMethodTokenizationResponse();
 		
@@ -65,6 +68,14 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
         	tokenizeResponse.setGatewayToken((String) results.get('id'));
         	tokenizeResponse.setGatewayResultCode('success');
         	tokenizeResponse.setSalesforceResultCodeInfo(RC_SUCCESS);
+
+            Map<String, Object> cardInfo = (Map<String, Object>) results.get('card');
+
+            if(cardInfo!=null && cardInfo.keySet()!=null){
+                String StripeCardId = (String) cardInfo.get('id');
+                tokenizeResponse.setGatewayResultCodeDescription(StripeCardId);
+            }
+
         }
         else {
 			// TODO: lots of error mapping/handling
@@ -86,91 +97,110 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
 		
         return tokenizeResponse;
     }
+
+    public static void linkCardToCustomer(String gatewayToken,String StripeCustomerId, String salesforceConsent){
+        try{
+
+            Map<String, String> params = new Map<String, String>();
+            HttpResponse response = null;
+            String body = null;
+/*
+            response = doGET('customers/'+ StripeCustomerId + '/sources/' + gatewayToken, params);
+            body = response.getBody();
+            System.debug('customer cards response >>>>'+body);
+*/
+//            if(!body.contains(gatewayToken)){
+                params = new Map<String, String>();
+                params.put('source', gatewayToken);
+                params.put('metadata[salesforce_consent]', salesforceConsent);
     
-    public commercepayments.GatewayResponse createAuthResponseOld(commercepayments.AuthorizationRequest authRequest) {
-        // API: https://stripe.com/docs/api/charges/create        
+                response = doPost('customers/'+ StripeCustomerId + '/sources', params);
+                body = response.getBody();
+                System.debug('link card to customer response >>>>'+body);    
+//            }
 
-        commercepayments.AuthApiPaymentMethodRequest paymentMethod = authRequest.paymentMethod;
-        System.debug('>>>> authRequest: ' + System.JSON.serializePretty(authRequest));
-        System.debug('>>>> paymentMethod: ' + System.JSON.serializePretty(paymentMethod));
-        // get the cardPaymentMethod object with the token
-        String gatewayToken;
-        if(paymentMethod.id !=null) {
-            QueryUtils q = new QueryUtils(CardPaymentMethod.SObjectType);
-            q.getSelectClause().addField('GatewayToken', false);
-            q.setWhereClause(' WHERE Id =' + '\'' + paymentMethod.id + '\'');
-            String query = q.buildSOQL();
-            System.debug('>>>> query: ' + query);
-            CardPaymentMethod cardPaymentMethod = (CardPaymentMethod)Database.query(query)[0];
-            gatewayToken = cardPaymentMethod.GatewayToken;
+
+        }catch(Exception e){
+            //token_already_used
         }
-        
-        String currencyIsoCodeLC = authRequest.currencyIsoCode.toLowercase();
-        Long amount = toStripeCurrencyUnits(currencyIsoCodeLC, authRequest.amount);
-        
+
+    }
+
+    public static String createCustomer(Id AccountId) {
+        String StripeCustomerId = null;
+
+        Account acc = [select Name, Customer_Number__c, Stripe_Customer_Id__c from Account where id=:AccountId];
+
         Map<String, String> params = new Map<String, String>();
-        params.put('amount', String.valueOf(amount));
-        params.put('currency', currencyIsoCodeLC);
-        if (gatewayToken != null) {
-            // TODO - handle other scenarios
-            params.put('source', urlEncode(gatewayToken)); 
-        }
-        params.put('capture', 'false'); // TODO - how is charge captured?
-        params.put('source','tok_visa'); // TODO - other payment methods
-        // params.put('customer','cus_K6l1oSM3m3JXQd'); // TODO - this should come from Account
+        params.put('name', acc.Name);
+        params.put('metadata[customer_number]', acc.Customer_Number__c);
 
-        HttpResponse response = doPost('charges', params);
+        HttpResponse response = doPost('customers', params);
         String body = response.getBody();
+        System.debug('body>>>>'+body);
         Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(body);
+        System.debug('results>>>>'+results);
         Integer sc = response.getStatusCode();
-        commercepayments.AuthorizationResponse authResponse = new commercepayments.AuthorizationResponse();
-        
-        authResponse.setGatewayDate(system.now());
-        
-        // map: https://stripe.com/docs/api/errors
-        // to: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_enum_commercepayments_SalesforceResultCode.htm
+        System.debug('sc>>>>'+sc);
         
         if (sc >= 200 && sc < 300) {
-            authResponse.setGatewayResultCode((String) results.get('status'));
-            authResponse.setGatewayResultCodeDescription((String) results.get('status'));
-            authResponse.setGatewayAuthCode((String) results.get('id')); // "ch_..."
-            authResponse.setSalesforceResultCodeInfo(RC_SUCCESS);
-            authResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
-        } else {
-            // TODO: lots of error mapping/handling
-            Map<String, Object> error = (Map<String, Object>) results.get('error');
-            String errorType = (String) error.get('type');
-            String errorCode = (String) error.get('code');
-            
-            if (errorType.equals('card_error') && DECLINE_CODES.contains(errorCode) ) {
-                authResponse.setGatewayResultCode(errorCode);
-                authResponse.setGatewayResultCodeDescription((String) error.get('decline_code'));
-                authResponse.setGatewayMessage((String) error.get('message'));
-                authResponse.setSalesforceResultCodeInfo(RC_DECLINE);
-            } else {
-                return new commercepayments.GatewayErrorResponse(String.valueOf(sc), 'ERROR: ' + body);
-            }
+            StripeCustomerId = (String) results.get('id');
         }
        
-        return authResponse;
+        return StripeCustomerId;
     }
 
     public commercepayments.GatewayResponse createAuthResponse(commercepayments.AuthorizationRequest authRequest) {
         // API: https://stripe.com/docs/api/charges/create        
 
+        Id AccountId = authRequest.accountId;
+        String StripeCustomerId = null;
+
+        if(AccountId!=null){
+            Account customer = [select Id, Stripe_Customer_Id__c from Account where id=:AccountId];
+            StripeCustomerId = customer.Stripe_Customer_Id__c;
+            if(StripeCustomerId==null || StripeCustomerId==''){
+                StripeCustomerId = createCustomer(AccountId);
+            }
+            System.debug('## StripeCustomerId : ' + StripeCustomerId);
+        }
+        
         commercepayments.AuthApiPaymentMethodRequest paymentMethod = authRequest.paymentMethod;
         System.debug('>>>> authRequest: ' + System.JSON.serializePretty(authRequest));
         System.debug('>>>> paymentMethod: ' + System.JSON.serializePretty(paymentMethod));
         // get the cardPaymentMethod object with the token
         String gatewayToken;
+        String stripeCardId;
+        String salesforceConsent;
         if(paymentMethod.id !=null) {
             QueryUtils q = new QueryUtils(CardPaymentMethod.SObjectType);
             q.getSelectClause().addField('GatewayToken', false);
+            q.getSelectClause().addField('stripe_card_id__c', false);
+            
             q.setWhereClause(' WHERE Id =' + '\'' + paymentMethod.id + '\'');
             String query = q.buildSOQL();
             System.debug('>>>> query: ' + query);
             CardPaymentMethod cardPaymentMethod = (CardPaymentMethod)Database.query(query)[0];
             gatewayToken = cardPaymentMethod.GatewayToken;
+            stripeCardId = cardPaymentMethod.stripe_card_id__c;
+        }
+
+        if (authRequest.additionalData != null) {
+            if(stripeCardId==null){
+                stripeCardId = authRequest.additionalData.get('StripeCardId');
+            }
+
+            if(gatewayToken==null){
+                gatewayToken = authRequest.additionalData.get('GatewayToken');
+            }
+
+            if(salesforceConsent==null){
+                salesforceConsent = authRequest.additionalData.get('saveCard');
+            }            
+        }
+
+        if (gatewayToken != null && StripeCustomerId!=null && salesforceConsent!=null) {
+            linkCardToCustomer(gatewayToken,StripeCustomerId,salesforceConsent);
         }
         
         String currencyIsoCodeLC = authRequest.currencyIsoCode.toLowercase();
@@ -179,18 +209,25 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
         Map<String, String> params = new Map<String, String>();
         params.put('amount', String.valueOf(amount));
         params.put('currency', currencyIsoCodeLC);
-        if (gatewayToken != null) {
-            // TODO - handle other scenarios
-            params.put('source', urlEncode(gatewayToken)); 
+        if(StripeCustomerId!=null){
+            params.put('customer',StripeCustomerId);
         }
-        params.put('capture', 'false'); // TODO - how is charge captured?
-        params.put('source','tok_visa'); // TODO - other payment methods
+
+        if (stripeCardId != null) {
+            params.put('source', stripeCardId); 
+        }
+
+        //params.put('capture', 'false'); // TODO - how is charge captured?
+        //params.put('source','tok_visa'); // TODO - other payment methods
         // params.put('customer','cus_K6l1oSM3m3JXQd'); // TODO - this should come from Account
 
         HttpResponse response = doPost('charges', params);
         String body = response.getBody();
+        System.debug('body>>>>'+body);
         Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(body);
+        System.debug('results>>>>'+results);
         Integer sc = response.getStatusCode();
+        System.debug('sc>>>>'+sc);
         commercepayments.AuthorizationResponse authResponse = new commercepayments.AuthorizationResponse();
         
         authResponse.setGatewayDate(system.now());
@@ -200,13 +237,16 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
         
         if (sc >= 200 && sc < 300) {
             authResponse.setGatewayResultCode((String) results.get('status'));
-            authResponse.setGatewayResultCodeDescription((String) results.get('status'));
+            //authResponse.setGatewayResultCodeDescription((String) results.get('status'));
+            authResponse.setGatewayResultCodeDescription(StripeCustomerId);            
             authResponse.setGatewayAuthCode((String) results.get('id')); // "ch_..."
             authResponse.setSalesforceResultCodeInfo(RC_SUCCESS);
-            authResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+            //authResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+            authResponse.setAmount(double.valueOf(((Long) integer.valueOf(results.get('amount')))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
         } else {
             // TODO: lots of error mapping/handling
             Map<String, Object> error = (Map<String, Object>) results.get('error');
+            System.debug('results>>'+results);
             String errorType = (String) error.get('type');
             String errorCode = (String) error.get('code');
             
@@ -248,7 +288,8 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
         Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(body);
     
         commercepayments.CaptureResponse captureResponse = new commercepayments.CaptureResponse();
-        captureResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+        //captureResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+        captureResponse.setAmount(double.valueOf(((Long) integer.valueOf(results.get('amount')))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
         captureResponse.setGatewayDate(system.now());
         captureResponse.setGatewayResultCode((String) results.get('balance_transaction'));
         captureResponse.setGatewayResultCodeDescription((String) results.get('receipt_url'));
@@ -290,13 +331,47 @@ global class StripeAdapter implements commercepayments.PaymentGatewayAdapter {
         Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(body);
 
         commercepayments.ReferencedRefundResponse refundResponse = new commercepayments.ReferencedRefundResponse();
-        refundResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+        //refundResponse.setAmount(double.valueOf(((Long) results.get('amount'))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
+        refundResponse.setAmount(double.valueOf(((Long) integer.valueOf(results.get('amount')))/100.00)); // TODO: use reverse of toStripeCurrencyUnits
         refundResponse.setGatewayDate(system.now());
         refundResponse.setGatewayResultCode((String) results.get('balance_transaction'));
         refundResponse.setGatewayResultCodeDescription((String) results.get('receipt_url'));
         refundResponse.setSalesforceResultCodeInfo(RC_SUCCESS);
         return refundResponse;
     }
+
+/*
+    public static HttpResponse doHTTPPost(String path, Map<String, String> params) {
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('callout:Stripe/v1/');
+        // The Stripe Secret API key should be stored as the password in Named Credentials. Username could be anything
+        String authorizationHeader = 'Bearer ' + '{!$Credential.Password}';
+        request.setHeader('Authorization', authorizationHeader);
+        
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setBody(urlEncodedParams(params));
+
+        Http http = new Http();
+        return http.send(request);
+    }
+
+    private static HttpResponse doGET(String path, Map<String, String> params) {
+        commercepayments.PaymentsHttp http = new commercepayments.PaymentsHttp();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('/v1/' + path);
+
+        // The Stripe Secret API key should be stored as the password in Named Credentials. Username could be anything
+        String authorizationHeader = 'Bearer ' + '{!$Credential.Password}';
+        request.setHeader('Authorization', authorizationHeader);
+        
+        request.setMethod('GET');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setBody(urlEncodedParams(params));
+        
+        return http.send(request);
+    }
+*/    
 
     private static HttpResponse doPost(String path, Map<String, String> params) {
         commercepayments.PaymentsHttp http = new commercepayments.PaymentsHttp();

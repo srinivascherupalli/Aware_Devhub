@@ -52,4 +52,11 @@
         <target>Logout</target>
         <type>Event</type>
     </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Storefront Categories</label>
+        <position>8</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>StorefrontCategories</target>
+        <type>DataSourceDriven</type>
+    </navigationMenuItem>
 </NavigationMenu>

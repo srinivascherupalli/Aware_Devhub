@@ -81,12 +81,13 @@
         <div class="slds-p-top_medium" if:true={isCardPaymentSelected}>
 
             <lightning-accordion class="example-accordion" active-section-name="B">
+                <template if:true={useSavedCards}>
                 <lightning-accordion-section name="A" label="Pay with a previously Used Card" if:true={previousCards.length}>
                     <lightning-card if:true={previousCards.length}>
                         <lightning-datatable key-field="Id" data={previousCards} columns={columns} max-row-selection="1"></lightning-datatable>
                     </lightning-card>
                 </lightning-accordion-section>
-
+                </template>
                 <lightning-accordion-section name="B" label="Pay with a new Card">
                     <lightning-card  title="Card Details">
                         <c-card-payment-method
@@ -105,14 +106,15 @@
                             >
                         </c-card-payment-method>
 
-                        <p slot="footer" style="text-align:left">
-                            <lightning-checkbox-group name="Save Card"
-                                            label=""
-                                            options={options}
-                                            value={value}
-                                            onchange={handleChange}></lightning-checkbox-group>
-                        </p>
-
+                        <template if:true={useSavedCards}>
+                            <p slot="footer" style="text-align:left">
+                                <lightning-checkbox-group name="Save Card"
+                                                label=""
+                                                options={options}
+                                                value={value}
+                                                onchange={handleChange}></lightning-checkbox-group>
+                            </p>
+                        </template>
                     </lightning-card>
                 </lightning-accordion-section>
         </lightning-accordion>

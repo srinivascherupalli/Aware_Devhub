@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "77922836-db8d-42c9-8819-953e89429a7d",
+  "appPageId" : "ea823092-d7ff-4b56-8170-b65bacafac95",
+  "configurationTags" : [ ],
+  "id" : "b238be78-4e6e-4a44-b5a2-e56bd1071914",
+  "label" : "Grain Prices",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-grain-prices",
+  "type" : "route",
+  "urlPrefix" : "grain-prices"
+}

@@ -35,6 +35,14 @@
             <template if:false={orders.data} >
                 No data exists. Please contact the administrator
             </template>
+
+            <template if:true={isZeroDollarProductPresent} >
+                <span class="slds-text-color_destructive small">
+                    (Products highlighted in red do not have a contracted price and will not be added to the cart, please get in touch with a Manildra Sales Rep if you wish to submit an order of that product.)
+                </span>
+            </template>
+
+            
         </div>
         <template if:true={orders.data} >
             <lightning-layout>

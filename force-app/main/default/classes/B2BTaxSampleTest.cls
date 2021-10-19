@@ -16,7 +16,7 @@ public class B2BTaxSampleTest {
         insert Pricebook2Var;
 
         List<product2> productList = TestDataFactory.getProducts(2);
-        productList[0].Name = 'Shipping Charge for this delivery method';
+        productList[0].Name = 'Shipping';
         productList[1].Tax_Required__c = true;
         insert productList ;
 

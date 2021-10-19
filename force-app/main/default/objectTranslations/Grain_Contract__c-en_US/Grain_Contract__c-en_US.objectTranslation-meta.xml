@@ -8,20 +8,5 @@
         <plural>true</plural>
         <value>Grain Contracts</value>
     </caseValues>
-    <layouts>
-        <layout>Grain Contract Layout</layout>
-        <sections>
-            <label></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Grain Contract Information</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Record Information</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -8,16 +8,5 @@
         <plural>true</plural>
         <value>Sites</value>
     </caseValues>
-    <layouts>
-        <layout>Site Layout</layout>
-        <sections>
-            <label></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>System Information</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

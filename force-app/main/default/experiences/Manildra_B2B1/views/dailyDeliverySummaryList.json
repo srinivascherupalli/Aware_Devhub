@@ -1,0 +1,32 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "e674f4e0-9712-4f9e-8bc1-93533feb66a8",
+  "label" : "Daily Delivery Summary List",
+  "regions" : [ {
+    "id" : "49a36487-7e10-48bf-83f6-821d8ad9a195",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "effectiveAccountId" : "{!CurrentUser.effectiveAccountId}"
+      },
+      "componentName" : "c:orderGrid",
+      "id" : "94d868f8-ad7f-41ff-a9cc-a145b85de71b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6b0b2fb8-bf5f-4441-8dd2-936447e45986",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "39026e54-7492-4226-b52b-7a4d5d16ac21",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-a00"
+}

@@ -4,7 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>Used for Audience in the Storefront</description>
     <externalId>false</externalId>
-    <inlineHelpText>Allows user to see finical information in the Storefront</inlineHelpText>
+    <inlineHelpText>Allows user to see financial information in the Storefront</inlineHelpText>
     <label>See Commercial Information</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

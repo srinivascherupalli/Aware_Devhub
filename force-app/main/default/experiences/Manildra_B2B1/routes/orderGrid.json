@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "9867440f-efd8-45e0-ac3d-2ca66da92d73",
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "configurationTags" : [ ],
+  "id" : "712b06bb-8411-444f-b74b-e3d2477449d8",
+  "label" : "Order Grid",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-order-grid",
+  "type" : "route",
+  "urlPrefix" : "order-grid"
+}

@@ -4,7 +4,32 @@ public class B2BPaymentControllerTest {
         // Account and Contact are related
         Account account = new Account(Name='TestAccount');
         insert account;
-        Contact contact = new Contact(LastName='TestContact', AccountId=account.Id);
+
+        CardPaymentMethod cObj = new CardPaymentMethod();
+        cObj.status = 'Active';
+        cObj.ProcessingMode = 'External';
+        cObj.AccountId = account.id;
+        cObj.CardLastFour =  1234;
+        cObj.ExpiryYear = 2025;
+        cObj.ExpiryMonth = 12;
+        cObj.CardType = 'Visa';
+        //cObj.stripe_card_id__c= 'samplestripecardid';                    
+        insert cObj;
+
+        cObj = new CardPaymentMethod();
+        cObj.status = 'Active';
+        cObj.ProcessingMode = 'External';
+        cObj.AccountId = account.id;
+        cObj.CardLastFour =  1234;
+        cObj.ExpiryYear = 2025;
+        cObj.ExpiryMonth = 12;
+        cObj.CardType = 'Visa';
+        cObj.stripe_card_id__c= 'samplestripecardid';                    
+        insert cObj;        
+
+        Id contactRTypeId = [select Id from RecordType where DeveloperName='B2B_Customer_Contact' limit 1].Id;
+
+        Contact contact = new Contact(LastName='TestContact', AccountId=account.Id, RecordTypeId=contactRTypeId);
         insert contact;
 
         WebStore webStore = new WebStore(Name='TestWebStore', DefaultLanguage='en_US');
@@ -32,7 +57,7 @@ public class B2BPaymentControllerTest {
         
         // This profile name is the name of the buyer profile. The name specified here is what is installed using
         // SFDX and may be different for you.
-        Profile profile = [SELECT Id FROM Profile WHERE Name='B2B User' LIMIT 1];
+        Profile profile = [SELECT Id FROM Profile WHERE Name='B2B Employee External User' LIMIT 1];
         User user = new User(Alias='buyer', Email='buyer@example.com', LastName='Buyer',
                 TimeZoneSidKey='GMT', LocaleSidKey='en_US', Username='buyer@example.com',
                 EmailEncodingKey='UTF-8', ProfileId=profile.Id, LanguageLocaleKey='en_US',
@@ -207,13 +232,71 @@ public class B2BPaymentControllerTest {
         String cartId = webCart.Id;
         Map<String, Object> billingAddress = createBillingMapFromAddress(cpa1.Address);
         Map<String, Object> paymentInfo = new Map<String, Object>();
-        
+        paymentInfo.put('saveCard','true');
         Test.startTest();
         
         try {
             B2BPaymentController.setPayment(paymentType, cartId, billingAddress, paymentInfo);
             // Exception should have been thrown
             System.assert(false, 'Expected an exception because no Payment Gateway is setup');
+        } catch (AuraHandledException e) {
+            System.assertEquals('Script-thrown exception', e.getMessage());
+            // The string we'd expect is: 'This store is not authorized to process payments.'
+            // However, the way the auraHandledException is thrown, this isn't available unless we call setMessage() prior to
+            // throwing the exception. So, we'll make due with a generic exception message for this reference
+        }
+        
+        Test.stopTest();
+
+    }
+
+    // Tests credit card but without providing a payment gateway
+    @isTest static void testCreditCardPayment() {
+        WebCart webCart = [SELECT Id FROM WebCart WHERE Name='Cart' LIMIT 1];
+        ContactPointAddress cpa1 = [SELECT Id, Name, Street, City, Country, PostalCode, IsDefault, ParentId, Address
+                                    FROM ContactPointAddress WHERE Name='CPA1'];
+
+        String paymentType = 'CreditCard';
+        String cartId = webCart.Id;
+        Map<String, Object> billingAddress = createBillingMapFromAddress(cpa1.Address);
+        Map<String, Object> paymentInfo = new Map<String, Object>();
+        paymentInfo.put('saveCard','true');
+        paymentInfo.put('cardPaymentMethodId','test');
+        Test.startTest();
+        
+        try {
+            B2BPaymentController.setPayment(paymentType, cartId, billingAddress, paymentInfo);
+            // Exception should have been thrown
+            System.assert(false, 'Expected an exception because no Payment Gateway is setup');
+        } catch (AuraHandledException e) {
+            System.assertEquals('Script-thrown exception', e.getMessage());
+            // The string we'd expect is: 'This store is not authorized to process payments.'
+            // However, the way the auraHandledException is thrown, this isn't available unless we call setMessage() prior to
+            // throwing the exception. So, we'll make due with a generic exception message for this reference
+        }
+        
+        Test.stopTest();
+
+    }
+
+    // Tests credit card but without providing a payment gateway
+    @isTest static void testPostCalloutSteps() {
+
+        
+        CardPaymentMethod cpm = [select Id from CardPaymentMethod where stripe_card_id__c= 'samplestripecardid' and status='Active' limit 1];
+        Account acc = [select Id from Account limit 1];
+
+        Test.startTest();
+        
+        try {
+            B2BPaymentController.deactivateSavedCard(cpm.Id);
+
+            cpm = [select Id from CardPaymentMethod where status='Active' and stripe_card_id__c='' limit 1];
+                        
+            B2BPaymentController.updateStripeCardId('samplecardId', cpm.Id +'');   
+
+            B2BPaymentController.updateCustomerId('StripeCustomerId', acc.Id );           
+
         } catch (AuraHandledException e) {
             System.assertEquals('Script-thrown exception', e.getMessage());
             // The string we'd expect is: 'This store is not authorized to process payments.'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>53.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <description>Pulls data from the Account onto the Buyer Account Object</description>
     <interviewLabel>Update Buyer Account fields {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Update Buyer Account fields</label>

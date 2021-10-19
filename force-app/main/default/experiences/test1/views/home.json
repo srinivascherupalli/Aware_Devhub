@@ -1,0 +1,63 @@
+{
+  "appPageId" : "fb59a151-8e4e-4f84-bbaf-2125bc65da07",
+  "componentName" : "siteforce:sldsTwoCol84SidebarFeaturedLayout",
+  "id" : "b55a0801-68d9-4444-82ec-6d53f1cfc7e0",
+  "label" : "Home",
+  "regions" : [ {
+    "id" : "60dd7013-dd40-4679-8705-b0d4c72c0384",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "e70c9fca-3200-44cf-9df5-2943f951d203",
+    "regionName" : "featured",
+    "type" : "region"
+  }, {
+    "id" : "33039e03-3422-4010-a3cc-5a5695ac57e6",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "display" : "LEVELS_POINTS",
+        "excludeInternalUsers" : false,
+        "knowledgeLabel" : "Knows about",
+        "numberOfUsers" : 5,
+        "showContextUser" : false,
+        "showTooltip" : false,
+        "showUserRank" : false,
+        "title" : "Leaderboard",
+        "tooltipText" : "Earn points and climb to new levels when you contribute in the experience!"
+      },
+      "componentName" : "forceCommunity:reputationLeaderboard42",
+      "id" : "e8404bba-b842-404e-86f2-f138d957680d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5996c0c8-3922-4124-9ed6-ed35748ada89",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "aca35490-4a67-4c2d-86d2-61482db547d4",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Home"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "d57bb2db-f4e1-4580-9d97-6b37d7f1153d",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4e1de757-6c4f-44f9-94f3-5d6c805b662c",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Home",
+  "type" : "view",
+  "viewType" : "home"
+}

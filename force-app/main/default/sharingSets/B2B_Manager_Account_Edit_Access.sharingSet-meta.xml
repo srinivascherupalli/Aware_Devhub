@@ -8,5 +8,5 @@
     </accessMappings>
     <description>Give the B2B Manager profile access to edit the Account object.</description>
     <name>B2B Manager - Account Edit Access</name>
-    <profiles>B2B Buyer Manager External User</profiles>
+    <profiles>b2b buyer manager external user</profiles>
 </SharingSet>

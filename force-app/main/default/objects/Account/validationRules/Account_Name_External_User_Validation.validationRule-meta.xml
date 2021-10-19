@@ -3,7 +3,7 @@
     <fullName>Account_Name_External_User_Validation</fullName>
     <active>true</active>
     <description>This does not allow External Users to change the Account Name when editing the Account Object.</description>
-    <errorConditionFormula>AND (ISCHANGED (Name ), $Profile.Name = &apos;B2B Manager&apos;)</errorConditionFormula>
+    <errorConditionFormula>AND (ISCHANGED (Name), OR($Profile.Name = &apos;B2B Buyer Manager External User&apos;, $Profile.Name = &apos;B2B Employee External User&apos;))</errorConditionFormula>
     <errorDisplayField>Name</errorDisplayField>
     <errorMessage>You cannot update the Account Name.</errorMessage>
 </ValidationRule>

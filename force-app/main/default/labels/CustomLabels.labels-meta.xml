@@ -15,4 +15,25 @@
         <shortDescription>OrderGridBatchProcessBatchSize</shortDescription>
         <value>100</value>
     </labels>
+    <labels>
+        <fullName>PenddingOrderGridBatchSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PenddingOrderGridBatchSize</shortDescription>
+        <value>100</value>
+    </labels>
+    <labels>
+        <fullName>SyncStripeCardsBatchSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SyncStripeCardsBatchSize</shortDescription>
+        <value>10</value>
+    </labels>
+    <labels>
+        <fullName>SyncStripeIdsBatchSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SyncStripeIdsBatchSize</shortDescription>
+        <value>1</value>
+    </labels>
 </CustomLabels>

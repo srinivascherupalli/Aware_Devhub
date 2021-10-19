@@ -4,17 +4,17 @@
     <containerType>Network</containerType>
     <label>Non Commercial Navigational Menu</label>
     <navigationMenuItem>
-        <label>Bakery Information</label>
+        <label>Contact Us</label>
         <position>1</position>
         <publiclyAvailable>false</publiclyAvailable>
-        <target>/comm-my-account</target>
+        <target>/contactsupport</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Contact Us</label>
+        <label>Bakery Information</label>
         <position>2</position>
         <publiclyAvailable>false</publiclyAvailable>
-        <target>/contactsupport</target>
+        <target>/comm-my-account</target>
         <type>InternalLink</type>
     </navigationMenuItem>
 </NavigationMenu>

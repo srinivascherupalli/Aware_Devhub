@@ -32,6 +32,7 @@
             <!-- OUTPUT only fields-->
             <property name="selectedBillingAddress" label="Selected Billing Address ID" type="String" description="The address ID" role="outputOnly"/>
             <property name="purchaseOrderNumber" label="Purchase Order Number" type="String" description="The entered purchase order number" role="outputOnly" />
+            <property name="paymentType" label="Selected Payment Type" type="String" description="The selected payment type" role="outputOnly" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

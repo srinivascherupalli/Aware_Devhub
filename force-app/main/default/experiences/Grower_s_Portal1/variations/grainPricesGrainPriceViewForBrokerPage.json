@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "3b7b13b4-e5fd-45e1-9027-87b85185dae5",
+    "propertyOverrides" : {
+      "activeViewId" : "ed86ad49-046e-42d4-acff-598bdbb3f8e9"
+    },
+    "targetId" : "b238be78-4e6e-4a44-b5a2-e56bd1071914",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Grain_Prices_Grain_Price_View_for_Broker_Page",
+  "id" : "bc69938a-80be-4af7-a829-80fa10473f9d",
+  "type" : "experienceVariation"
+}

@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "345f00b2-f6b1-4446-b04d-65e9a687332c",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "9bc30fc8-aa91-4386-9e31-1e4e78d1f1b1",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Product_Detail_B2B_Cross_Sell_Component",
+  "id" : "bfa41ee6-7e9f-4f64-8fc6-1f366f0fe238",
+  "type" : "experienceVariation"
+}

@@ -1,0 +1,24 @@
+{
+  "forgotPasswordRouteId" : "067f42ae-8045-42f0-9464-4505c02302f2",
+  "isAvailableToGuests" : true,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "61f3885b-4dd5-4e3e-a3f6-3dd8ffde87fc",
+  "mainAppPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "preferredDomain" : "none",
+  "selfRegistrationRouteId" : "34564448-4db6-4645-8c32-81c34c7b5761",
+  "trustedSitesForScript" : [ {
+    "id" : "e0f88a9e-4c7c-4b4b-81af-4bfee45a3ec2",
+    "isActive" : true,
+    "trustedSiteName" : "Manildra",
+    "trustedSiteUrl" : "https://www.manildra.com.au",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "30a7dc8f-da22-4f6d-ae5f-10dfb2fed904",
+    "isActive" : true,
+    "trustedSiteName" : "Manildra Dev",
+    "trustedSiteUrl" : "https://manildra--dev.lightning.force.com/",
+    "type" : "trustedSitesForScripts"
+  } ],
+  "type" : "site"
+}

@@ -1,0 +1,76 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "58daa21f-c653-411d-bb3e-4e894717de50",
+  "label" : "Products Added",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "4a3d9051-c78d-4c11-ad2e-cfe12112d1dd",
+          "columns" : [ {
+            "UUID" : "a3fd1c52-251a-43df-84ad-00ffca176a4a",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "4a3d9051-c78d-4c11-ad2e-cfe12112d1dd",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "effectiveAccountId" : "{!CurrentUser.effectiveAccountId}"
+          },
+          "componentName" : "c:test1",
+          "id" : "89ef693b-c840-489d-9575-ba89ef5bce80",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : { },
+          "componentName" : "c:calendar",
+          "id" : "b5a3d85f-3f1e-4715-867a-b362696dff50",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "a3fd1c52-251a-43df-84ad-00ffca176a4a",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "46a54e4b-85a6-407f-84e6-df2ff06f93b1",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Products Added"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "e7cd0b47-4e48-4400-b1f3-f28bda113916",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "64c23603-3c25-4356-8ec4-af15f0865e9a",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-products-added"
+}

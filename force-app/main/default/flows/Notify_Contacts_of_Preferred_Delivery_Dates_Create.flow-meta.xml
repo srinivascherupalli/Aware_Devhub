@@ -33,7 +33,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>53.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <assignments>
         <name>Assign_Contacts_to_Collection</name>
         <label>Assign Contacts email addresses to Collection</label>

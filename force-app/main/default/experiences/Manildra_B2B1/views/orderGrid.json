@@ -1,0 +1,56 @@
+{
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "9867440f-efd8-45e0-ac3d-2ca66da92d73",
+  "label" : "Order Grid",
+  "regions" : [ {
+    "id" : "f2cdaaac-34af-4c1b-bcd2-bc94b882586f",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "effectiveAccountId" : "{!CurrentUser.effectiveAccountId}"
+      },
+      "componentName" : "c:orderGrid",
+      "id" : "28becad5-a7c3-46b8-a825-6b6b5879519c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<p><span style=\"color: rgb(230, 0, 0); font-size: 14px;\">You do not have access to view the Order Grid. Please Contact your Buyer Manager or Manildra Customer Service Team to give you access.</span></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "341de49a-76c0-40a7-9d3a-fe3d245fa2ce",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "48a580b7-5672-45cb-99c2-2ceb8ee16c1b",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "2c0944d6-e3d1-4ea4-850a-d48be1e1e5c9",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Order Grid"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8af02654-d246-4058-a466-70bcd08e0538",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "731d651a-681b-4935-b1c9-5b3f24235336",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-order-grid"
+}

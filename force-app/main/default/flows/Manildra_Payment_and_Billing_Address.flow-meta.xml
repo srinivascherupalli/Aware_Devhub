@@ -166,7 +166,11 @@
             <label>Purchase Order</label>
         </rules>
     </decisions>
-    <description>Using Custom LWC for Payments</description>
+    <description>Always use LWC
+
+Using Custom LWC for Payments
+
+Added new paymentType attribute to LWC</description>
     <interviewLabel>Manildra Payment and Billing Address {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Manildra Payment and Billing Address</label>
     <processMetadataValues>
@@ -191,8 +195,8 @@
     <recordLookups>
         <name>Get_Account_Records</name>
         <label>Get Account Records</label>
-        <locationX>412</locationX>
-        <locationY>829</locationY>
+        <locationX>642</locationX>
+        <locationY>784</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_PaymentGatewayId_From_StoreIntegratedService</targetReference>
@@ -218,7 +222,7 @@
         <locationY>948</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Account_Records</targetReference>
+            <targetReference>Get_Contact_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -232,6 +236,30 @@
         <object>BuyerAccount</object>
         <queriedFields>Id</queriedFields>
         <queriedFields>BuyerStatus</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get the Current User&apos;s Contact</description>
+        <name>Get_Contact_Record</name>
+        <label>Get Contact Record</label>
+        <locationX>642</locationX>
+        <locationY>948</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Account_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.ContactId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>B2B_Use_Stored_Credit_Cards__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -291,8 +319,8 @@
     <recordLookups>
         <name>Get_PaymentGatewayId_From_StoreIntegratedService</name>
         <label>Get PaymentGatewayId From StoreIntegratedService</label>
-        <locationX>554</locationX>
-        <locationY>750</locationY>
+        <locationX>352</locationX>
+        <locationY>784</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>paymentMethodScreen</targetReference>
@@ -557,7 +585,7 @@
         <description>Choose between Purchase Order and Credit Card to pay for your order. Also enter or select a billing address.</description>
         <name>paymentMethodScreen</name>
         <label>paymentMethodScreen</label>
-        <locationX>350</locationX>
+        <locationX>351</locationX>
         <locationY>557</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -569,47 +597,6 @@
             <name>DisplayAccountsHelpText</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;Note: If you are paying with your Account, please select Purchase Order and add purchase number, if you don&apos;t use a purchase number, please leave as blank.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>paymentMethod</name>
-            <extensionName>forceCommunity:commercePayment</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>cartId</name>
-                <value>
-                    <elementReference>cartId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>paymentGatewayId</name>
-                <value>
-                    <elementReference>paymentGatewayId</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <outputParameters>
-                <assignToReference>contactPointAddressId</assignToReference>
-                <name>contactPointAddressId</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>enteredPoNumberValue</assignToReference>
-                <name>purchaseOrderNumber</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>paymentType</assignToReference>
-                <name>paymentType</name>
-            </outputParameters>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>cartId</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>null</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
         <fields>
             <name>paymentMethodNew</name>
@@ -674,6 +661,10 @@
             <outputParameters>
                 <assignToReference>enteredPoNumberValue</assignToReference>
                 <name>purchaseOrderNumber</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>paymentType</assignToReference>
+                <name>paymentType</name>
             </outputParameters>
         </fields>
         <helpText>&lt;p&gt;If you don&apos;t have a purchase number, please leave it as blank&lt;/p&gt;</helpText>

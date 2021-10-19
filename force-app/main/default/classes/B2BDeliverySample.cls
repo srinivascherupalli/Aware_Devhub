@@ -143,7 +143,7 @@ global with sharing class B2BDeliverySample implements sfdc_checkout.CartShippin
         // In this example we will name the product representing shipping charges 'Shipping Charge for this delivery method'.
         // Check to see if a Product2 with that name already exists.
         // If it doesn't exist, create one.
-        String shippingChargeProduct2Name = 'Shipping Charge for this delivery method';
+        String shippingChargeProduct2Name = 'Shipping';
         List<Product2> shippingChargeProducts = [SELECT Id FROM Product2 WHERE Name = :shippingChargeProduct2Name WITH SECURITY_ENFORCED];
         if (shippingChargeProducts.isEmpty()) {
             Product2 shippingChargeProduct = new Product2(

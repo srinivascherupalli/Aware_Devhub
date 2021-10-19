@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccountCreditStatus__c</fullName>
-    <description>Hidden text field. Use to pull the Account credit status onto the Account through Flow:
+    <description>Used to pull the Account credit status onto the Account through Flow:
 Used for audiences on the Storefront.</description>
     <externalId>false</externalId>
-    <label>AccountCreditStatus</label>
+    <label>Account Credit Status</label>
     <length>100</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

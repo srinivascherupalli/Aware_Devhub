@@ -100,8 +100,12 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Problem</fullName>
-            <default>true</default>
+            <fullName>Grower%27s Portal - Broker Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grower%27s Portal - Customer Access</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
 </RecordType>

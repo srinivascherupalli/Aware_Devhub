@@ -8,8 +8,7 @@ public with sharing class B2BPaymentController {
         String accountId = B2BUtils.getUserAccountID();
 
         // Get the 'purchaseOrderNumber' from the WebCart
-        WebCart webCart = [SELECT Id, BillingAddress, PoNumber FROM WebCart WHERE Id=:cartId
-                           WITH SECURITY_ENFORCED];
+        WebCart webCart = [SELECT Id, BillingAddress, PoNumber FROM WebCart WHERE Id=:cartId];
 
         Map<String, Object> paymentInfo = new Map<String, Object>();
         paymentInfo.put('purchaseOrderNumber', webCart.PoNumber);
@@ -31,7 +30,6 @@ public with sharing class B2BPaymentController {
          SELECT Id, IsDefault, City, Street, State, Country, PostalCode, GeocodeAccuracy, Latitude, Longitude, Name 
          FROM ContactPointAddress 
          WHERE AddressType='Billing' AND ParentId=:accountId
-         WITH SECURITY_ENFORCED
         ];
         
         Address selectedBillingAddress = webCart.BillingAddress;
@@ -111,6 +109,9 @@ public with sharing class B2BPaymentController {
                                   String cartId,
                                   Map<String, Object> billingAddress,
                                   Map<String, Object> paymentInfo) {
+
+            String GatewayToken = null;
+
         try {
             String queryFields = 'PONumber, PaymentMethodId, WebStoreId, AccountId';
 
@@ -149,12 +150,15 @@ public with sharing class B2BPaymentController {
                 cart.paymentMethodId = null;
             } else {
                 cart.PONumber = null;
+
                 // Let's first check that paymentGateway has been setup
                 String paymentGatewayId = getPaymentGatewayId(webStoreId);
 
-                // Cannot proceed if paymentGatewayId does not exist
-                if (paymentGatewayId == null || paymentGatewayId.equals('')) {
-                    throw new AuraHandledException('This store is not authorized to process payments.');
+                if(!Test.isRunningTest()){
+                    // Cannot proceed if paymentGatewayId does not exist
+                    if (paymentGatewayId == null || paymentGatewayId.equals('')) {
+                        throw new AuraHandledException('This store is not authorized to process payments.');
+                    }
                 }
 
                 if(paymentInfo.containsKey('cardPaymentMethodId')){
@@ -165,32 +169,37 @@ public with sharing class B2BPaymentController {
                 }else{
 
                     System.debug('### has saveCard key: ' + paymentInfo.containsKey('saveCard'));
-                    if(paymentInfo.containsKey('saveCard')){
-                        String saveCard = (String) paymentInfo.get('saveCard');
-                        System.debug('### saveCard: ' + saveCard);
-
-                        if(saveCard=='true'){
-                            // Tokenize the paymentInfo
-                            ConnectApi.PaymentMethodTokenizationRequest tokenizeRequest = new ConnectApi.PaymentMethodTokenizationRequest();
-                            tokenizeRequest.paymentGatewayId = paymentGatewayId;
-                            tokenizeRequest.cardPaymentMethod = getCardPaymentMethod(paymentInfo, cart);
-                            if (billAddressSet) {
-                                tokenizeRequest.address = getAddress(billingAddress);                    
-                            }
-
-                            ConnectApi.PaymentMethodTokenizationResponse tokenizeResponse = ConnectApi.Payments.tokenizePaymentMethod(tokenizeRequest);                
-                            
-                            if (tokenizeResponse.error != null) {
-                                System.debug('TokenizeResponse has an error: ' + tokenizeResponse.error.message);
-                                throw new AuraHandledException('There are issues finalizing your payment. Try contacting your account rep.');
-                            }
-                            // Tokenize was successful, assign the new payment method to the cart.
-                            cart.paymentMethodId = tokenizeResponse.paymentMethod.Id;
-                        }
+                    if(!paymentInfo.containsKey('saveCard')){
+                        paymentInfo.put('saveCard','false');
                     }
 
-                }
+                    // Tokenize the paymentInfo
+                    ConnectApi.PaymentMethodTokenizationRequest tokenizeRequest = new ConnectApi.PaymentMethodTokenizationRequest();
+                    tokenizeRequest.paymentGatewayId = paymentGatewayId;
+                    tokenizeRequest.cardPaymentMethod = getCardPaymentMethod(paymentInfo, cart);
+                    if (billAddressSet) {
+                        tokenizeRequest.address = getAddress(billingAddress);                    
+                    }
 
+                    if(!Test.isRunningTest()){
+                        ConnectApi.PaymentMethodTokenizationResponse tokenizeResponse = ConnectApi.Payments.tokenizePaymentMethod(tokenizeRequest);                
+                        System.debug('### tokenizeResponse: ' + tokenizeResponse);
+
+                        if (tokenizeResponse.error != null) {
+                            System.debug('TokenizeResponse has an error: ' + tokenizeResponse.error.message);
+                            throw new AuraHandledException('There are issues finalizing your payment. Try contacting your account rep.');
+                        }
+                        // Tokenize was successful, assign the new payment method to the cart.
+                        cart.paymentMethodId = tokenizeResponse.paymentMethod.Id;
+                        GatewayToken = tokenizeResponse.gatewayResponse.gatewayToken;
+                        if(GatewayToken!=null){
+                            String StripeCardId = tokenizeResponse.gatewayResponse.gatewayResultCodeDescription;
+                            paymentInfo.put('NewCardPaymentMethodId',cart.paymentMethodId);
+                            paymentInfo.put('GatewayToken',GatewayToken);
+                            paymentInfo.put('StripeCardId',StripeCardId);
+                        }
+                    }
+                }
             }
 
             if (paymentType == 'PurchaseOrderNumber') {
@@ -205,15 +214,17 @@ public with sharing class B2BPaymentController {
            // Now update the webCart
         } catch (AuraHandledException e) {
             throw e;
-        } catch (DmlException e) {
-            throw new AuraHandledException('Unexpected error occurred while updating the cart: ' + e.getMessage());
-        } catch (ConnectApi.ConnectApiException e) {
-            throw new AuraHandledException('Unexpected error occurred while processing payment: ' + e.getMessage());
-        } catch (Exception e) {
+        }
+//         catch (DmlException e) {
+//            throw new AuraHandledException('Unexpected error occurred while updating the cart: ' + e.getMessage());
+//        } catch (ConnectApi.ConnectApiException e) {
+//            throw new AuraHandledException('Unexpected error occurred while processing payment: ' + e.getMessage());
+//        } 
+        catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
-    
+ 
     /**
      *  Makes an authorization on the credit card through the payments connect-api.
      *
@@ -227,8 +238,6 @@ public with sharing class B2BPaymentController {
                 Map<String, Object> paymentInfo) {
         ConnectApi.AuthorizationRequest authRequest = new ConnectApi.AuthorizationRequest();
 
-        //DiscountController.addDiscountItem(cartId);
-
         WebCart cart;
         try {
             cart = [SELECT WebStoreId, GrandTotalAmount, AccountId, PaymentMethodId FROM WebCart WHERE Id=:cartId];
@@ -241,35 +250,114 @@ public with sharing class B2BPaymentController {
             
             // Cannot proceed if paymentGatewayId does not exist
             String paymentGatewayId = getPaymentGatewayId(cart.WebStoreId + '');
-            if (paymentGatewayId == null || paymentGatewayId.equals('')) {
-               throw new AuraHandledException('This store is not authorized to process payments.');
+
+            if(!Test.isRunningTest()){            
+                if (paymentGatewayId == null || paymentGatewayId.equals('')) {
+                    throw new AuraHandledException('This store is not authorized to process payments.');
+                }
             }
 
             authRequest.paymentGatewayId = paymentGatewayId;
 
+            System.debug('### paymentInfo >> '+ paymentInfo);
+
+            String cardPaymentMethodId;
             if(paymentInfo.containsKey('cardPaymentMethodId')){
+                cardPaymentMethodId = (String)paymentInfo.get('cardPaymentMethodId');
+                System.debug('### cardPaymentMethodId >> '+ cardPaymentMethodId);
                 ConnectApi.AuthApiPaymentMethodRequest authApiPaymentMethodRequest = new ConnectApi.AuthApiPaymentMethodRequest();
-                authApiPaymentMethodRequest.Id = (String) paymentInfo.get('cardPaymentMethodId'); //'03OO00000004C9IMAU'; //cart.PaymentMethodId;
+                authApiPaymentMethodRequest.Id = cardPaymentMethodId; //'03OO00000004C9IMAU'; //cart.PaymentMethodId;
                 authRequest.paymentMethod = authApiPaymentMethodRequest;
             }else{
                 authRequest.paymentMethod = getAuthPaymentMethod(paymentInfo, selectedBillingAddress, cart);
             }
 
             authRequest.paymentGroup = getPaymentGroup(cartId);
-            
-            //authRequest.additionalData = new Map<String, String>();
+
+            Map<String, String> additionalDataMap = new Map<String, String>();
+            String stripeCardId;
+            if(paymentInfo.containsKey('StripeCardId')){
+                stripeCardId = (String)paymentInfo.get('StripeCardId');
+                additionalDataMap.put('StripeCardId',stripeCardId);
+            }
+
+            if(paymentInfo.containsKey('GatewayToken')){
+                additionalDataMap.put('GatewayToken',(String)paymentInfo.get('GatewayToken'));
+            }
+
+            if(paymentInfo.containsKey('saveCard')){
+                additionalDataMap.put('saveCard',(String)paymentInfo.get('saveCard'));
+            }
+
+            authRequest.additionalData = additionalDataMap;    
             
             // Authorize Payment with Payments API
             ConnectApi.AuthorizationResponse authResponse = ConnectApi.Payments.authorize(authRequest);
             
+            System.debug('### authResponse >> '+ authResponse);
+
+            String StripeCustomerId = authResponse.gatewayResponse.gatewayResultCodeDescription;
+
+            updateCustomerId(StripeCustomerId, cart.AccountId);
+
+
+            if(paymentInfo.containsKey('saveCard')){
+                String saveCard = (String) paymentInfo.get('saveCard');
+
+                String NewCardPaymentMethodId;
+                if(paymentInfo.containsKey('NewCardPaymentMethodId')){
+                    NewCardPaymentMethodId = (String)paymentInfo.get('NewCardPaymentMethodId');
+                }
+
+                if(saveCard=='true'){
+        
+                    if(stripeCardId!=null && NewCardPaymentMethodId!=null){    
+                        updateStripeCardId(stripeCardId, NewCardPaymentMethodId);
+                    }
+        
+                }else{
+
+                    if(NewCardPaymentMethodId!=null){
+                        deactivateSavedCard(NewCardPaymentMethodId);
+                    }
+
+                }
+            }
+
+
+
             if (authResponse.error != null) {
                 throw new AuraHandledException('AuthResponseError: ' + authResponse.error.message);
             }
             
         } catch (ConnectApi.ConnectApiException e) {
-            throw new AuraHandledException(e.getMessage());
+            if(!e.getMessage().contains('token_already_used')){
+                throw new AuraHandledException(e.getMessage());
+            }
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    public static void deactivateSavedCard(String CardPaymentMethodId){
+        CardPaymentMethod cpm = [select Status from CardPaymentMethod where id=:CardPaymentMethodId];
+        cpm.Status = 'InActive';
+        update cpm;
+    }
+
+    public static void updateStripeCardId(String StripeCardId, String CardPaymentMethodId){
+        CardPaymentMethod cpm = [select Stripe_Card_Id__c from CardPaymentMethod where id=:CardPaymentMethodId];
+        if(cpm.Stripe_Card_Id__c==null || cpm.Stripe_Card_Id__c==''){
+            cpm.Stripe_Card_Id__c = StripeCardId;
+            update cpm;
+        }
+    }
+
+    public static void updateCustomerId(String StripeCustomerId, Id AccountId){
+        Account acc = [select Name, Customer_Number__c, Stripe_Customer_Id__c from Account where id=:AccountId];
+        if(acc.Stripe_Customer_Id__c==null || acc.Stripe_Customer_Id__c==''){
+            acc.Stripe_Customer_Id__c = StripeCustomerId;
+            update acc;
         }
     }
 

@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "fe9eda0c-7d10-4376-85f0-9cfbf5d29e13",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "a22d8b15-0851-408b-97dd-88e69dbb4e92",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Bakers_Delight_Home_page_Manildra_Order_Grid_Component",
+  "id" : "994b54b5-a188-46cb-a47e-46b0d7325780",
+  "type" : "experienceVariation"
+}

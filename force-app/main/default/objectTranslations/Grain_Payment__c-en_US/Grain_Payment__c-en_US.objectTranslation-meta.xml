@@ -8,20 +8,5 @@
         <plural>true</plural>
         <value>Grain Payments</value>
     </caseValues>
-    <layouts>
-        <layout>Grain Payment Layout</layout>
-        <sections>
-            <label></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>Grain Payment Information</section>
-        </sections>
-        <sections>
-            <label></label>
-            <section>System Information</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

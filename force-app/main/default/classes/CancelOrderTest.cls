@@ -1,5 +1,6 @@
 @IsTest(SeeAllData=true)
 public class CancelOrderTest {
+
     static testMethod void testCase1() {
         
         List<Account> accountList = new List<Account>();
@@ -75,6 +76,12 @@ public class CancelOrderTest {
         }
         
         CancelOrder.cancelOrder(orderSumaryIds);
+        Test.stopTest();
+    }
+
+    static testMethod void testNegative() {
+        Test.startTest();
+        CancelOrder.cancelOrder(null);
         Test.stopTest();
     }
 }

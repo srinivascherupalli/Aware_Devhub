@@ -303,7 +303,7 @@
         <fields>PRODUCT.NAME</fields>
         <fields>PRODUCT.CUSTOMER_PRODUCT_ID</fields>
         <fields>PRODUCT.DEFAULT_PRICE</fields>
-        <fields>PRODUCT.ACTIVE</fields>
+        <fields>Item_Contract_Price__c</fields>
         <relatedList>PricebookEntry.Account__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>

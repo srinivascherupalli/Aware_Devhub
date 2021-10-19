@@ -798,14 +798,9 @@
     <tabs>Grain_Price__c</tabs>
     <tabs>Grower_s_Card__c</tabs>
     <tabs>Partnerships_Member__c</tabs>
-    <tabs>Public_Holiday__c</tabs>
-    <tabs>Call_Requests__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Grower_s_Portal_UtilityBar</utilityBar>
     <workspaceConfig>
-        <mappings>
-            <tab>Call_Requests__c</tab>
-        </mappings>
         <mappings>
             <tab>Delivery__c</tab>
         </mappings>
@@ -823,9 +818,6 @@
         </mappings>
         <mappings>
             <tab>Partnerships_Member__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Public_Holiday__c</tab>
         </mappings>
         <mappings>
             <tab>Site__c</tab>

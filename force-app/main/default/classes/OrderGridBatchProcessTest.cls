@@ -10,7 +10,7 @@ public class OrderGridBatchProcessTest {
         insert Pricebook2Var;
 
         List<product2> productList = TestDataFactory.getProducts(7);
-        productList[0].Name = 'Shipping Charge for this delivery method';
+        productList[0].Name = 'Shipping';
         insert productList ;
         System.debug('productList>>>'+productList);
 
@@ -30,12 +30,8 @@ public class OrderGridBatchProcessTest {
             productWithEntryMap.put(PricebookEntryVar.Product2Id, PricebookEntryVar.Id);
         }
         for(Order ord: orderList){
-            OrderItem OrderItemVar = TestDataFactory.getOrderItem(ord.Id, productList[i].Id, productWithEntryMap.get(productList[i].Id));
-            orderItemList.add(OrderItemVar);
-            if(i==3){
-                OrderItem OrderItemVarClone = TestDataFactory.getOrderItem(ord.Id, productList[i].Id, productWithEntryMap.get(productList[i].Id));
-                orderItemList.add(OrderItemVarClone);
-            }
+            OrderItem OrderItemVar = TestDataFactory.getOrderItem(ord.Id, productList[1].Id, productWithEntryMap.get(productList[1].Id));
+            orderItemList.add(OrderItemVar);            
             i++;
         }
         insert orderItemList;
@@ -52,6 +48,7 @@ public class OrderGridBatchProcessTest {
             batchVar.execute(null);
         Test.StopTest();
         List<Order_Grid__c> grildList = [Select Id from Order_Grid__c];
-        System.assert(grildList.size() == 5 );
+        System.debug('grildList>>>'+grildList.size());
+        System.assert(grildList.size() == 1 );
     }
 }

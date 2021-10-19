@@ -16,7 +16,13 @@ public class DiscountControllerTest {
         cart.name = 'CartX';                
         cart.AccountId = accObj1.id;//get from userid->Contact->Account
         cart.OwnerId = accObj1.OwnerId;//get from community userid lwc
-        cart.WebStoreId = id.valueOf('0ZEO0000000CaRMOA0');//cadecode for now. 
+       // cart.TotalAmount = 20;
+
+       WebStore store = TestDataFactory.getWebStore();
+       insert store; 
+       
+
+        cart.WebStoreId = store.id;//cadecode for now. 
         insert cart;
 
         CartDeliveryGroup deliveryGroup = new CartDeliveryGroup();
@@ -51,12 +57,12 @@ public class DiscountControllerTest {
         
         List<CartItem> cartItemList = [Select id from CartItem];
         system.assertEquals(1, cartItemList.size());
-        Account accObj = [Select id from Account where name = 'Test1'];
-        DiscountController.addDiscountItem(accObj.id);
+        List<WebCart> cart = [Select id from WebCart where name = 'CartX' Limit 1];
+        List<CartDeliveryGroup> cDeliveryGroup = [Select id from CartDeliveryGroup where name = 'WYDG' Limit 1];
+        DiscountController.addDiscountItem(cart[0].id, cDeliveryGroup[0].id);
         List<CartItem> cartItemList2 = [Select id from CartItem];
         system.assertEquals(2, cartItemList2.size());
         
-
         
         Test.stopTest();
     }

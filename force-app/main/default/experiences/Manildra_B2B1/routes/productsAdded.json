@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "58daa21f-c653-411d-bb3e-4e894717de50",
+  "appPageId" : "a9cea83e-c1be-46e3-ad50-110f74c886f7",
+  "configurationTags" : [ ],
+  "id" : "84e5f85d-e9d5-4d3e-bf4b-4b1787315df9",
+  "label" : "Products Added",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-products-added",
+  "type" : "route",
+  "urlPrefix" : "products-added"
+}

@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "050f48d6-17ad-42dd-a5fc-12d02735d5d9",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "341de49a-76c0-40a7-9d3a-fe3d245fa2ce",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Order_Grid_Rich_Content_Editor_Component",
+  "id" : "3bff2bf9-ef74-4df7-a2c3-cff0be1c2c39",
+  "type" : "experienceVariation"
+}
